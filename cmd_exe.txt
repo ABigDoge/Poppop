@@ -1,0 +1,53 @@
+struct CMD
+{
+	char name[10] cmd_name;
+	int (*fun)(int, char*);
+};
+
+CMD cmdlist[] = 
+{
+	{"login",		login_fun},		//发送消息
+	{"send",		send_fun},		//发送消息
+	{"sendfile",	sendfile_fun},	//发送文件
+	{"getfile",		getfile_fun},	//获取文件
+	{"list",		list_fun},		//获取表单
+	{"show",		show_fun},		//详细信息
+	{"help",		help_fun},		//获取帮助
+	{"exit"，		exit_fun},		//退出页面
+	{"quit",		quit_fun},		//下线指令
+	{"clear",		clear_fun},		//清空页面
+	{"rm",			rm_fun}			//撤回消息
+};
+
+//解析并处理命令
+int ExecCmd(char *cmd)
+{
+	char* argv[10] = { NULL };
+	int argc = 0;
+	int i = 0;
+
+	if (strlen(cmd) == 0)
+		return 0;
+
+	char msg[1024];
+	strcpy(msg, cmd);
+
+	/*以字符' '对命令进行切割 */
+	while ((argv[argc] = strtok((argc == 0 ? cmd : NULL), " ")) != NULL)
+	{
+		//printf("argv[%d] = %s\n", argc, argv[argc]);
+		argc++;
+	}
+
+	/* 查找命令 */
+	for (i = 0; i < sizeof(cmdlist) / sizeof(cmdlist[0]); i++)
+	{
+		if (strcmp(cmdlist[i].name, argv[0]) == 0)
+		{
+			/* 执行命令*/
+			cmdlist[i].fun(argc, argv);
+			return 0;
+		}
+	}
+	return -1;
+}
