@@ -1,4 +1,4 @@
-public class FriendDTO{
+class FriendDTO{
 public:
 	int UserOneID;
 	int UserTwoID;

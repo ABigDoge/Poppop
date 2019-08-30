@@ -1,5 +1,5 @@
-public class UserDTO{   //用户
-	public:
+class UserDTO{   //用户
+public:
 	 int ID;
 	 string Name;    //用户姓名
 	 int PassWord;   //密码

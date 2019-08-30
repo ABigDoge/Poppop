@@ -14,7 +14,6 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/wlj/code/Poppop/Poppop/DTO/CMakeFiles/DTO.dir/DependInfo.cmake"
   "/home/wlj/code/Poppop/Poppop/Service/CMakeFiles/Service.dir/DependInfo.cmake"
   "/home/wlj/code/Poppop/Poppop/Controller/CMakeFiles/Controller.dir/DependInfo.cmake"
   )

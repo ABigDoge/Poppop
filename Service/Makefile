@@ -125,6 +125,114 @@ Service/fast:
 	cd /home/wlj/code/Poppop/Poppop && $(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/build
 .PHONY : Service/fast
 
+FriendService.o: FriendService.cpp.o
+
+.PHONY : FriendService.o
+
+# target to build an object file
+FriendService.cpp.o:
+	cd /home/wlj/code/Poppop/Poppop && $(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/FriendService.cpp.o
+.PHONY : FriendService.cpp.o
+
+FriendService.i: FriendService.cpp.i
+
+.PHONY : FriendService.i
+
+# target to preprocess a source file
+FriendService.cpp.i:
+	cd /home/wlj/code/Poppop/Poppop && $(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/FriendService.cpp.i
+.PHONY : FriendService.cpp.i
+
+FriendService.s: FriendService.cpp.s
+
+.PHONY : FriendService.s
+
+# target to generate assembly for a file
+FriendService.cpp.s:
+	cd /home/wlj/code/Poppop/Poppop && $(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/FriendService.cpp.s
+.PHONY : FriendService.cpp.s
+
+GroupChatService.o: GroupChatService.cpp.o
+
+.PHONY : GroupChatService.o
+
+# target to build an object file
+GroupChatService.cpp.o:
+	cd /home/wlj/code/Poppop/Poppop && $(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/GroupChatService.cpp.o
+.PHONY : GroupChatService.cpp.o
+
+GroupChatService.i: GroupChatService.cpp.i
+
+.PHONY : GroupChatService.i
+
+# target to preprocess a source file
+GroupChatService.cpp.i:
+	cd /home/wlj/code/Poppop/Poppop && $(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/GroupChatService.cpp.i
+.PHONY : GroupChatService.cpp.i
+
+GroupChatService.s: GroupChatService.cpp.s
+
+.PHONY : GroupChatService.s
+
+# target to generate assembly for a file
+GroupChatService.cpp.s:
+	cd /home/wlj/code/Poppop/Poppop && $(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/GroupChatService.cpp.s
+.PHONY : GroupChatService.cpp.s
+
+MessageService.o: MessageService.cpp.o
+
+.PHONY : MessageService.o
+
+# target to build an object file
+MessageService.cpp.o:
+	cd /home/wlj/code/Poppop/Poppop && $(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/MessageService.cpp.o
+.PHONY : MessageService.cpp.o
+
+MessageService.i: MessageService.cpp.i
+
+.PHONY : MessageService.i
+
+# target to preprocess a source file
+MessageService.cpp.i:
+	cd /home/wlj/code/Poppop/Poppop && $(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/MessageService.cpp.i
+.PHONY : MessageService.cpp.i
+
+MessageService.s: MessageService.cpp.s
+
+.PHONY : MessageService.s
+
+# target to generate assembly for a file
+MessageService.cpp.s:
+	cd /home/wlj/code/Poppop/Poppop && $(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/MessageService.cpp.s
+.PHONY : MessageService.cpp.s
+
+UserService.o: UserService.cpp.o
+
+.PHONY : UserService.o
+
+# target to build an object file
+UserService.cpp.o:
+	cd /home/wlj/code/Poppop/Poppop && $(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/UserService.cpp.o
+.PHONY : UserService.cpp.o
+
+UserService.i: UserService.cpp.i
+
+.PHONY : UserService.i
+
+# target to preprocess a source file
+UserService.cpp.i:
+	cd /home/wlj/code/Poppop/Poppop && $(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/UserService.cpp.i
+.PHONY : UserService.cpp.i
+
+UserService.s: UserService.cpp.s
+
+.PHONY : UserService.s
+
+# target to generate assembly for a file
+UserService.cpp.s:
+	cd /home/wlj/code/Poppop/Poppop && $(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/UserService.cpp.s
+.PHONY : UserService.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -134,6 +242,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Service"
+	@echo "... FriendService.o"
+	@echo "... FriendService.i"
+	@echo "... FriendService.s"
+	@echo "... GroupChatService.o"
+	@echo "... GroupChatService.i"
+	@echo "... GroupChatService.s"
+	@echo "... MessageService.o"
+	@echo "... MessageService.i"
+	@echo "... MessageService.s"
+	@echo "... UserService.o"
+	@echo "... UserService.i"
+	@echo "... UserService.s"
 .PHONY : help
 
 

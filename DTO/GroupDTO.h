@@ -1,4 +1,4 @@
-public class GroupDTO{  //分组
+class GroupDTO{  //分组
 public:
 	int ID;         //分组id
 	String Name;    //分组名称

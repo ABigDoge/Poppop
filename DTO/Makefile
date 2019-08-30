@@ -110,21 +110,6 @@ depend:
 	cd /home/wlj/code/Poppop/Poppop && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-# Convenience name for target.
-DTO/CMakeFiles/DTO.dir/rule:
-	cd /home/wlj/code/Poppop/Poppop && $(MAKE) -f CMakeFiles/Makefile2 DTO/CMakeFiles/DTO.dir/rule
-.PHONY : DTO/CMakeFiles/DTO.dir/rule
-
-# Convenience name for target.
-DTO: DTO/CMakeFiles/DTO.dir/rule
-
-.PHONY : DTO
-
-# fast build rule for target.
-DTO/fast:
-	cd /home/wlj/code/Poppop/Poppop && $(MAKE) -f DTO/CMakeFiles/DTO.dir/build.make DTO/CMakeFiles/DTO.dir/build
-.PHONY : DTO/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -133,7 +118,6 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... DTO"
 .PHONY : help
 
 

@@ -1,2 +1,2 @@
-public class GroupSearchDTO:SearchDTO{
+class GroupSearchDTO:SearchDTO{
 };  //查找群组

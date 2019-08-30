@@ -124,19 +124,6 @@ hello/fast:
 .PHONY : hello/fast
 
 #=============================================================================
-# Target rules for targets named DTO
-
-# Build rule for target.
-DTO: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 DTO
-.PHONY : DTO
-
-# fast build rule for target.
-DTO/fast:
-	$(MAKE) -f DTO/CMakeFiles/DTO.dir/build.make DTO/CMakeFiles/DTO.dir/build
-.PHONY : DTO/fast
-
-#=============================================================================
 # Target rules for targets named Controller
 
 # Build rule for target.
@@ -198,7 +185,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... hello"
-	@echo "... DTO"
 	@echo "... Controller"
 	@echo "... Service"
 	@echo "... main.o"

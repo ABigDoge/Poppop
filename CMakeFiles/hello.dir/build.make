@@ -90,7 +90,6 @@ hello_EXTERNAL_OBJECTS =
 
 hello: CMakeFiles/hello.dir/main.cpp.o
 hello: CMakeFiles/hello.dir/build.make
-hello: DTO/libDTO.a
 hello: Service/libService.a
 hello: Controller/libController.a
 hello: CMakeFiles/hello.dir/link.txt

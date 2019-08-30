@@ -1,4 +1,4 @@
-public class GroupChatDTO{  //群聊
+class GroupChatDTO{  //群聊
 public:
 	int ID;            //群聊id
 	String Name;        //群聊名称

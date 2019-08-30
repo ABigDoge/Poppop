@@ -57,7 +57,131 @@ include Service/CMakeFiles/Service.dir/progress.make
 # Include the compile flags for this target's objects.
 include Service/CMakeFiles/Service.dir/flags.make
 
-Service/CMakeFiles/Service.dir/requires:
+Service/CMakeFiles/Service.dir/FriendService.cpp.o: Service/CMakeFiles/Service.dir/flags.make
+Service/CMakeFiles/Service.dir/FriendService.cpp.o: Service/FriendService.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wlj/code/Poppop/Poppop/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object Service/CMakeFiles/Service.dir/FriendService.cpp.o"
+	cd /home/wlj/code/Poppop/Poppop/Service && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Service.dir/FriendService.cpp.o -c /home/wlj/code/Poppop/Poppop/Service/FriendService.cpp
+
+Service/CMakeFiles/Service.dir/FriendService.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Service.dir/FriendService.cpp.i"
+	cd /home/wlj/code/Poppop/Poppop/Service && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wlj/code/Poppop/Poppop/Service/FriendService.cpp > CMakeFiles/Service.dir/FriendService.cpp.i
+
+Service/CMakeFiles/Service.dir/FriendService.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Service.dir/FriendService.cpp.s"
+	cd /home/wlj/code/Poppop/Poppop/Service && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wlj/code/Poppop/Poppop/Service/FriendService.cpp -o CMakeFiles/Service.dir/FriendService.cpp.s
+
+Service/CMakeFiles/Service.dir/FriendService.cpp.o.requires:
+
+.PHONY : Service/CMakeFiles/Service.dir/FriendService.cpp.o.requires
+
+Service/CMakeFiles/Service.dir/FriendService.cpp.o.provides: Service/CMakeFiles/Service.dir/FriendService.cpp.o.requires
+	$(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/FriendService.cpp.o.provides.build
+.PHONY : Service/CMakeFiles/Service.dir/FriendService.cpp.o.provides
+
+Service/CMakeFiles/Service.dir/FriendService.cpp.o.provides.build: Service/CMakeFiles/Service.dir/FriendService.cpp.o
+
+
+Service/CMakeFiles/Service.dir/GroupChatService.cpp.o: Service/CMakeFiles/Service.dir/flags.make
+Service/CMakeFiles/Service.dir/GroupChatService.cpp.o: Service/GroupChatService.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wlj/code/Poppop/Poppop/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object Service/CMakeFiles/Service.dir/GroupChatService.cpp.o"
+	cd /home/wlj/code/Poppop/Poppop/Service && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Service.dir/GroupChatService.cpp.o -c /home/wlj/code/Poppop/Poppop/Service/GroupChatService.cpp
+
+Service/CMakeFiles/Service.dir/GroupChatService.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Service.dir/GroupChatService.cpp.i"
+	cd /home/wlj/code/Poppop/Poppop/Service && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wlj/code/Poppop/Poppop/Service/GroupChatService.cpp > CMakeFiles/Service.dir/GroupChatService.cpp.i
+
+Service/CMakeFiles/Service.dir/GroupChatService.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Service.dir/GroupChatService.cpp.s"
+	cd /home/wlj/code/Poppop/Poppop/Service && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wlj/code/Poppop/Poppop/Service/GroupChatService.cpp -o CMakeFiles/Service.dir/GroupChatService.cpp.s
+
+Service/CMakeFiles/Service.dir/GroupChatService.cpp.o.requires:
+
+.PHONY : Service/CMakeFiles/Service.dir/GroupChatService.cpp.o.requires
+
+Service/CMakeFiles/Service.dir/GroupChatService.cpp.o.provides: Service/CMakeFiles/Service.dir/GroupChatService.cpp.o.requires
+	$(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/GroupChatService.cpp.o.provides.build
+.PHONY : Service/CMakeFiles/Service.dir/GroupChatService.cpp.o.provides
+
+Service/CMakeFiles/Service.dir/GroupChatService.cpp.o.provides.build: Service/CMakeFiles/Service.dir/GroupChatService.cpp.o
+
+
+Service/CMakeFiles/Service.dir/MessageService.cpp.o: Service/CMakeFiles/Service.dir/flags.make
+Service/CMakeFiles/Service.dir/MessageService.cpp.o: Service/MessageService.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wlj/code/Poppop/Poppop/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object Service/CMakeFiles/Service.dir/MessageService.cpp.o"
+	cd /home/wlj/code/Poppop/Poppop/Service && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Service.dir/MessageService.cpp.o -c /home/wlj/code/Poppop/Poppop/Service/MessageService.cpp
+
+Service/CMakeFiles/Service.dir/MessageService.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Service.dir/MessageService.cpp.i"
+	cd /home/wlj/code/Poppop/Poppop/Service && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wlj/code/Poppop/Poppop/Service/MessageService.cpp > CMakeFiles/Service.dir/MessageService.cpp.i
+
+Service/CMakeFiles/Service.dir/MessageService.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Service.dir/MessageService.cpp.s"
+	cd /home/wlj/code/Poppop/Poppop/Service && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wlj/code/Poppop/Poppop/Service/MessageService.cpp -o CMakeFiles/Service.dir/MessageService.cpp.s
+
+Service/CMakeFiles/Service.dir/MessageService.cpp.o.requires:
+
+.PHONY : Service/CMakeFiles/Service.dir/MessageService.cpp.o.requires
+
+Service/CMakeFiles/Service.dir/MessageService.cpp.o.provides: Service/CMakeFiles/Service.dir/MessageService.cpp.o.requires
+	$(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/MessageService.cpp.o.provides.build
+.PHONY : Service/CMakeFiles/Service.dir/MessageService.cpp.o.provides
+
+Service/CMakeFiles/Service.dir/MessageService.cpp.o.provides.build: Service/CMakeFiles/Service.dir/MessageService.cpp.o
+
+
+Service/CMakeFiles/Service.dir/UserService.cpp.o: Service/CMakeFiles/Service.dir/flags.make
+Service/CMakeFiles/Service.dir/UserService.cpp.o: Service/UserService.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wlj/code/Poppop/Poppop/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object Service/CMakeFiles/Service.dir/UserService.cpp.o"
+	cd /home/wlj/code/Poppop/Poppop/Service && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Service.dir/UserService.cpp.o -c /home/wlj/code/Poppop/Poppop/Service/UserService.cpp
+
+Service/CMakeFiles/Service.dir/UserService.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Service.dir/UserService.cpp.i"
+	cd /home/wlj/code/Poppop/Poppop/Service && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wlj/code/Poppop/Poppop/Service/UserService.cpp > CMakeFiles/Service.dir/UserService.cpp.i
+
+Service/CMakeFiles/Service.dir/UserService.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Service.dir/UserService.cpp.s"
+	cd /home/wlj/code/Poppop/Poppop/Service && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wlj/code/Poppop/Poppop/Service/UserService.cpp -o CMakeFiles/Service.dir/UserService.cpp.s
+
+Service/CMakeFiles/Service.dir/UserService.cpp.o.requires:
+
+.PHONY : Service/CMakeFiles/Service.dir/UserService.cpp.o.requires
+
+Service/CMakeFiles/Service.dir/UserService.cpp.o.provides: Service/CMakeFiles/Service.dir/UserService.cpp.o.requires
+	$(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/UserService.cpp.o.provides.build
+.PHONY : Service/CMakeFiles/Service.dir/UserService.cpp.o.provides
+
+Service/CMakeFiles/Service.dir/UserService.cpp.o.provides.build: Service/CMakeFiles/Service.dir/UserService.cpp.o
+
+
+# Object files for target Service
+Service_OBJECTS = \
+"CMakeFiles/Service.dir/FriendService.cpp.o" \
+"CMakeFiles/Service.dir/GroupChatService.cpp.o" \
+"CMakeFiles/Service.dir/MessageService.cpp.o" \
+"CMakeFiles/Service.dir/UserService.cpp.o"
+
+# External object files for target Service
+Service_EXTERNAL_OBJECTS =
+
+Service/libService.a: Service/CMakeFiles/Service.dir/FriendService.cpp.o
+Service/libService.a: Service/CMakeFiles/Service.dir/GroupChatService.cpp.o
+Service/libService.a: Service/CMakeFiles/Service.dir/MessageService.cpp.o
+Service/libService.a: Service/CMakeFiles/Service.dir/UserService.cpp.o
+Service/libService.a: Service/CMakeFiles/Service.dir/build.make
+Service/libService.a: Service/CMakeFiles/Service.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wlj/code/Poppop/Poppop/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libService.a"
+	cd /home/wlj/code/Poppop/Poppop/Service && $(CMAKE_COMMAND) -P CMakeFiles/Service.dir/cmake_clean_target.cmake
+	cd /home/wlj/code/Poppop/Poppop/Service && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Service.dir/link.txt --verbose=$(VERBOSE)
+
+# Rule to build all files generated by this target.
+Service/CMakeFiles/Service.dir/build: Service/libService.a
+
+.PHONY : Service/CMakeFiles/Service.dir/build
+
+Service/CMakeFiles/Service.dir/requires: Service/CMakeFiles/Service.dir/FriendService.cpp.o.requires
+Service/CMakeFiles/Service.dir/requires: Service/CMakeFiles/Service.dir/GroupChatService.cpp.o.requires
+Service/CMakeFiles/Service.dir/requires: Service/CMakeFiles/Service.dir/MessageService.cpp.o.requires
+Service/CMakeFiles/Service.dir/requires: Service/CMakeFiles/Service.dir/UserService.cpp.o.requires
 
 .PHONY : Service/CMakeFiles/Service.dir/requires
 

@@ -3,7 +3,7 @@
 #include"UserDTO.h"
 #include<vector>
 using namespace std;
-public class UserService{
+class UserService{
 	public:
 		bool Add(UserDTO userDTO);
 		bool Edit(UserDTO userDTO);

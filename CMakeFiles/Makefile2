@@ -63,12 +63,11 @@ CMAKE_BINARY_DIR = /home/wlj/code/Poppop/Poppop
 # Target rules for target CMakeFiles/hello.dir
 
 # All Build rule for target.
-CMakeFiles/hello.dir/all: DTO/CMakeFiles/DTO.dir/all
 CMakeFiles/hello.dir/all: Controller/CMakeFiles/Controller.dir/all
 CMakeFiles/hello.dir/all: Service/CMakeFiles/Service.dir/all
 	$(MAKE) -f CMakeFiles/hello.dir/build.make CMakeFiles/hello.dir/depend
 	$(MAKE) -f CMakeFiles/hello.dir/build.make CMakeFiles/hello.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wlj/code/Poppop/Poppop/CMakeFiles --progress-num=3,4 "Built target hello"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wlj/code/Poppop/Poppop/CMakeFiles --progress-num=8,9 "Built target hello"
 .PHONY : CMakeFiles/hello.dir/all
 
 # Include target in all.
@@ -78,7 +77,7 @@ all: CMakeFiles/hello.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/hello.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wlj/code/Poppop/Poppop/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wlj/code/Poppop/Poppop/CMakeFiles 9
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/hello.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wlj/code/Poppop/Poppop/CMakeFiles 0
 .PHONY : CMakeFiles/hello.dir/rule
@@ -102,12 +101,12 @@ clean: CMakeFiles/hello.dir/clean
 # Directory level rules for directory DTO
 
 # Convenience name for "all" pass in the directory.
-DTO/all: DTO/CMakeFiles/DTO.dir/all
+DTO/all:
 
 .PHONY : DTO/all
 
 # Convenience name for "clean" pass in the directory.
-DTO/clean: DTO/CMakeFiles/DTO.dir/clean
+DTO/clean:
 
 .PHONY : DTO/clean
 
@@ -115,43 +114,6 @@ DTO/clean: DTO/CMakeFiles/DTO.dir/clean
 DTO/preinstall:
 
 .PHONY : DTO/preinstall
-
-#=============================================================================
-# Target rules for target DTO/CMakeFiles/DTO.dir
-
-# All Build rule for target.
-DTO/CMakeFiles/DTO.dir/all:
-	$(MAKE) -f DTO/CMakeFiles/DTO.dir/build.make DTO/CMakeFiles/DTO.dir/depend
-	$(MAKE) -f DTO/CMakeFiles/DTO.dir/build.make DTO/CMakeFiles/DTO.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wlj/code/Poppop/Poppop/CMakeFiles --progress-num= "Built target DTO"
-.PHONY : DTO/CMakeFiles/DTO.dir/all
-
-# Include target in all.
-all: DTO/CMakeFiles/DTO.dir/all
-
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-DTO/CMakeFiles/DTO.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wlj/code/Poppop/Poppop/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 DTO/CMakeFiles/DTO.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wlj/code/Poppop/Poppop/CMakeFiles 0
-.PHONY : DTO/CMakeFiles/DTO.dir/rule
-
-# Convenience name for target.
-DTO: DTO/CMakeFiles/DTO.dir/rule
-
-.PHONY : DTO
-
-# clean rule for target.
-DTO/CMakeFiles/DTO.dir/clean:
-	$(MAKE) -f DTO/CMakeFiles/DTO.dir/build.make DTO/CMakeFiles/DTO.dir/clean
-.PHONY : DTO/CMakeFiles/DTO.dir/clean
-
-# clean rule for target.
-clean: DTO/CMakeFiles/DTO.dir/clean
-
-.PHONY : clean
 
 #=============================================================================
 # Directory level rules for directory Controller
@@ -233,7 +195,7 @@ Service/preinstall:
 Service/CMakeFiles/Service.dir/all:
 	$(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/depend
 	$(MAKE) -f Service/CMakeFiles/Service.dir/build.make Service/CMakeFiles/Service.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wlj/code/Poppop/Poppop/CMakeFiles --progress-num= "Built target Service"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wlj/code/Poppop/Poppop/CMakeFiles --progress-num=3,4,5,6,7 "Built target Service"
 .PHONY : Service/CMakeFiles/Service.dir/all
 
 # Include target in all.
@@ -243,7 +205,7 @@ all: Service/CMakeFiles/Service.dir/all
 
 # Build rule for subdir invocation for target.
 Service/CMakeFiles/Service.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wlj/code/Poppop/Poppop/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wlj/code/Poppop/Poppop/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 Service/CMakeFiles/Service.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wlj/code/Poppop/Poppop/CMakeFiles 0
 .PHONY : Service/CMakeFiles/Service.dir/rule
