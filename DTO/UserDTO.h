@@ -9,8 +9,9 @@ public:
 	 int PassWord;   //密码
 	 string Sex;     //性别
 	 string Image;   //头像
-	 string DepartmentName;  //所在部门
+	 string Department_Name;  //所在部门
 	 string Motto;   //个性签名
-	 unsigned int IPAddr;		//ip地址
-	 int OnlineState;	//在线状态
+	 unsigned int IP_Addr;		//ip地址
+	 int Online_State;	//在线状态
+	 int Msg_to_recv;     //待接收信息数量
 };

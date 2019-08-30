@@ -14,7 +14,7 @@ class GroupService{
 		bool Edit(GroupDTO groupDTO);
 		//删除分组
 		bool Del(GroupDTO groupDTO);
-		//得到某个用户的好友分组列表，即他给好友设了哪些分组
+		//得到某个用户的好友分组列表，即他给好友设了哪些分组，返回结果数
 		int GetGroupList(vector<GroupDTO>& groupList, UserDTO obj);
 };	
 #endif
