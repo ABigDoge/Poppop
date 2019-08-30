@@ -1,3 +1,6 @@
+#ifndef MessageDTO_H
+#define MessageDTO_H
+
 class MessageDTO{    //聊天记录
 public:
 	int SenderID;   //发送者
@@ -6,3 +9,5 @@ public:
 	DateTime Time;  //发送时间
 	int GroupID;    //所属群组
 };
+
+#endif

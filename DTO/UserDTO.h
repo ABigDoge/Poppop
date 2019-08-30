@@ -1,3 +1,6 @@
+#ifndef UserDTO_H
+#define UserDTO_H
+
 class UserDTO{   //用户
 public:
 	 int ID;
