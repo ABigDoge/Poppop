@@ -1,5 +1,6 @@
 public class FriendDTO{
-	public int UserOneID;
-	public int UserTwoID;
-	public int GroupOneID;
+public:
+	int UserOneID;
+	int UserTwoID;
+	int GroupOneID;
 };
