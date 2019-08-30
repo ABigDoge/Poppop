@@ -1,9 +1,10 @@
 #ifndef UserDTO_H
 #define UserDTO_H
 
-class UserDTO{   //用户
+//存储用户个人信息
+class UserDTO{   
 public:
-	 int ID;
+	 int ID;		//用户id
 	 string Name;    //用户姓名
 	 int PassWord;   //密码
 	 string Sex;     //性别

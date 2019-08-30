@@ -26,6 +26,8 @@
 #ifndef SQLPP_TAB_SAMPLE_H
 #define SQLPP_TAB_SAMPLE_H
 
+//不用管只是测试
+
 #include <sqlpp11/table.h>
 #include <sqlpp11/char_sequence.h>
 #include <sqlpp11/column_types.h>
