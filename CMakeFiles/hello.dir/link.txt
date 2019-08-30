@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/hello.dir/main.cpp.o  -o hello DTO/libDTO.a Service/libService.a Controller/libController.a 

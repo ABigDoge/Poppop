@@ -1,12 +1,13 @@
 #ifndef FriendService_h
 #define FriendService_h
-#include<DTO/FriendDTO.h>
-#include<vector>
+#include"FriendDTO.h"
+#include"FriendDTO.h"
 using namespace std;
-public class FriendService{
-	public bool Add(FriendDTO friendDTO);
-	public bool Del(FriendDTO friendDTO);
-    public bool Edit(FriendDTO frindDTO);
-	public int GetFriendList(vector<FriendDTO>& friendList, int id);
+class FriendService{
+	public:
+		bool Add(FriendDTO friendDTO);
+		bool Del(FriendDTO friendDTO);
+    	bool Edit(FriendDTO frindDTO);
+		int GetFriendList(vector<FriendDTO>& friendList, int id);
 };	
 #endif

@@ -1,0 +1,2 @@
+AUX_SOURCE_DIRECTORY(. DIR_Service_SRCS)
+ADD_LIBRARY(Service ${DIR_Service_SRCS})

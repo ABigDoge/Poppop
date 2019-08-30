@@ -1,6 +1,6 @@
 #ifndef MessageService_h
 #define MessageService_h
-#include<DTO/MessageDTO.h>
+#include"MessageDTO.h"
 #include<vector>
 using namespace std;
 public class MessageService{

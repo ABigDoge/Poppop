@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 2.6)
+PROJECT(hello)
+add_subdirectory(DTO)
+add_subdirectory(Controller)
+add_subdirectory(Service)
+aux_source_directory(. DIR_SRCS)
+add_executable(hello ${DIR_SRCS})
+target_link_libraries(hello DTO Service Controller)
