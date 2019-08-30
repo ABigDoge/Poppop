@@ -1,2 +1,0 @@
-/usr/bin/ar qc libService.a  CMakeFiles/Service.dir/FriendService.cpp.o CMakeFiles/Service.dir/GroupChatService.cpp.o CMakeFiles/Service.dir/MessageService.cpp.o CMakeFiles/Service.dir/UserService.cpp.o
-/usr/bin/ranlib libService.a

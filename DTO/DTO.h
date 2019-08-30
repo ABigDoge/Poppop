@@ -1,7 +1,7 @@
 #include"FriendDTO.h"
 #include"GroupChatDTO.h"
 #include"GroupDTO.h"
-#include"Message.h"
+#include"MessageDTO.h"
 #include"UserDTO.h"
 #include"SearchDTO.h"
 #include"UserSearchDTO.h"
