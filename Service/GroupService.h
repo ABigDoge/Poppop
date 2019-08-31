@@ -1,6 +1,6 @@
 #ifndef GroupService_h
 #define GroupService_h
-#include"GroupDTO.h"
+#include"DTO.h"
 #include<vector>
 using namespace std;
 
@@ -12,9 +12,11 @@ class GroupService{
 		bool Add(GroupDTO groupDTO);
 		//编辑分组，比如改名
 		bool Edit(GroupDTO groupDTO);
-		//删除分组
+		//受限删除分组
 		bool Del(GroupDTO groupDTO);
 		//得到某个用户的好友分组列表，即他给好友设了哪些分组，返回结果数
-		int GetGroupList(vector<GroupDTO>& groupList, UserDTO obj);
+		int GetGroupList(vector<GroupDTO>& groupList, int userid);
+		//得到某个用户的某个好友分组列表的所有成员,返回结果数,GroupSearchDTO中Owner_ID为用户ID,ID为分组ID
+		int GetGroupMemberList(vector<UserDTO>&memberList,GroupSearchDTO obj);
 };	
 #endif
