@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkWindow" id="dialog_winodw">
+    <property name="can_focus">False</property>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkFixed" id="fix">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkImage" id="dialog_back">
+            <property name="width_request">800</property>
+            <property name="height_request">600</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="pixbuf">../user/image/dialog_back.jpeg</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkTextView" id="send_text">
+            <property name="width_request">485</property>
+            <property name="height_request">185</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+          </object>
+          <packing>
+            <property name="x">49</property>
+            <property name="y">357</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="send_button">
+            <property name="label" translatable="yes">发送</property>
+            <property name="width_request">100</property>
+            <property name="height_request">38</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">435</property>
+            <property name="y">551</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="emoji_button">
+            <property name="label" translatable="yes">表情</property>
+            <property name="width_request">100</property>
+            <property name="height_request">37</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">314</property>
+            <property name="y">553</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="clear_button">
+            <property name="label" translatable="yes">清空信息框缓存</property>
+            <property name="width_request">119</property>
+            <property name="height_request">35</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">172</property>
+            <property name="y">553</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTextView" id="text_view">
+            <property name="width_request">488</property>
+            <property name="height_request">285</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+          </object>
+          <packing>
+            <property name="x">48</property>
+            <property name="y">47</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

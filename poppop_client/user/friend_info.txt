@@ -1,0 +1,2 @@
+./user/image/user.jpeg:tom(654321)
+./user/image/user.jpeg:maid(654321)
