@@ -1,6 +1,6 @@
 #ifndef UserDTO_H
 #define UserDTO_H
-
+#include<string>
 //存储用户个人信息
 class UserDTO{   
 public:
@@ -15,3 +15,4 @@ public:
 	 int Online_State;	//在线状态
 	 int Msg_to_recv;     //待接收信息数量
 };
+#endif

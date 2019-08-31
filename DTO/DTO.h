@@ -10,5 +10,6 @@
 #include"SearchDTO.h"
 #include"UserSearchDTO.h"
 #include"GroupSearchDTO.h"
+#include"GroupChatSearchDTO.h"
 
 #endif
