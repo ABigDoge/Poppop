@@ -16,7 +16,7 @@ class GroupService{
 		//编辑分组，比如改名
 		static bool Edit(GroupDTO groupDTO, mysql::connection db);
 		//受限删除分组
-		static　bool Del(GroupDTO groupDTO, mysql::connection db);
+		static bool Del(GroupDTO groupDTO, mysql::connection db);
 		//得到某个用户的好友分组列表，即他给好友设了哪些分组，返回结果数
 		static int GetGroupList(vector<GroupDTO>& groupList, int userid, mysql::connection db);
 		//得到某个用户的某个好友分组列表的所有成员,返回结果数,GroupSearchDTO中Owner_ID为用户ID,ID为分组ID
