@@ -8,6 +8,10 @@ public:
 	string Name;        //群聊名称
 	string Member_ID_List;//成员id，用逗号隔开
 	string Image_Path;       //群聊头像
+public:
+	GroupChatDTO()
+	{
+	}
 };
 
 #endif

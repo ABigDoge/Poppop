@@ -45,7 +45,7 @@ GroupChatDTO GroupChatService::SelectedByID(int id, mysql::connection db)
 {
     const auto tab=GroupChat{};
     auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id));
-    GroupChatDTO groupchatDTO = new GroupChatDTO();
+    GroupChatDTO groupchatDTO;
     if(!result.empty){
         const auto& row = result.front();
         groupchatDTO.ID = row.ID;
