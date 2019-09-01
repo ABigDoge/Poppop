@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.6)
 PROJECT(hello)
 add_subdirectory(DTO)
 #add_subdirectory(Controller)
-#add_subdirectory(Service)
+add_subdirectory(Service)
 aux_source_directory(. DIR_SRCS)
 add_executable(hello ${DIR_SRCS})
 link_directories(/usr/lib/x86_64-linux-gnu)
@@ -13,4 +13,4 @@ set_property(TARGET connector PROPERTY IMPORTED_LOCATION /usr/local/lib/libsqlpp
 
 #target_link_libraries(hello Service Controller connector libmysqlclient.so )
 
-target_link_libraries(hello connector libmysqlclient.so )
+target_link_libraries(hello connector Service libmysqlclient.so )

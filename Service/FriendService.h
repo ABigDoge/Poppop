@@ -1,8 +1,11 @@
 #ifndef FriendService_h
 #define FriendService_h
 #include"FriendDTO.h"
+#include <sqlpp11/mysql/mysql.h>
+#include <sqlpp11/sqlpp11.h>
 #include<vector>
 using namespace std;
+namespace mysql=sqlpp::mysql;
 //提供关于好友管理的服务
 class FriendService{
 	public:

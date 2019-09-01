@@ -28,7 +28,7 @@ int MessageService::GetMessageList(vector<MessageDTO>& messageList, int id,mysql
     const auto tab=_Message{};
     for (const auto& row:db(select(all_of(tab)).from(tab).where(tab.GroupID==id)))
     {
-        MessageDTO messageDTO=new MessageDTO();
+        MessageDTO messageDTO;
         messageDTO.Context=row.Context;
         messageDTO.Group_ID=row.GroupID;
         messageDTO.Sender_ID=row.SenderID;

@@ -10,38 +10,30 @@
 namespace mysql=sqlpp::mysql;
 bool FriendService::Add(FriendDTO friendDTO,mysql::connection db){//添加好友
     const auto tab=Friend{};
-    auto result=db(select(all_of(tab)).from(tab).where(tab.UserOneID==friendDTO.That_ID&&tab.UserTwoID==friendDTO.This_ID));
-    if(!result.empty)
+    auto result=db(select(all_of(tab)).from(tab).where(tab.ThisID==friendDTO.That_ID&&tab.ThatID==friendDTO.This_ID));
+    if(!result.empty())
         return false;
-    try{
-        db(insert_into(tab).set(
-            tab.GroupOneID=friendDTO.This_ID,
-            tab.GroupTwoID=friendDTO.That_ID,
-            tab.GroupOneID=friendDTO.Group_ID,
-            tab.IsDelete=0
-        ));
-        return true;
-    }
-    catch(exception& e){
-        return false;
-    }
+    db(insert_into(tab).set(
+        tab.ThisID=friendDTO.This_ID,
+        tab.ThatID=friendDTO.That_ID,
+        tab.GroupID=friendDTO.Group_ID,
+        tab.IsDelete=0
+    ));
+    return true;
+
+
 }
 bool FriendService::Del(FriendDTO friendDTO,mysql::connection db){	//删除好友
     const auto tab=Friend{};
-    try{
-        db(update(tab).set(tab.IsDelete=1).where((tab.UserOneID==friendDTO.This_ID&&tab.UserTwoID==friendDTO.That_ID)||(tab.UserOneID==friendDTO.That_ID&&tab.UserTwoID==friendDTO.This_ID));
-        return true;
-    }
-    catch(exception& e){
-        return false;
-    }
+    db(update(tab).set(tab.IsDelete=1).where((tab.ThisID==friendDTO.This_ID&&tab.ThatID==friendDTO.That_ID)||(tab.ThisID==friendDTO.That_ID&&tab.ThatID==friendDTO.This_ID)));
+    return true;
 }
 bool FriendService::Edit(FriendDTO friendDTO,mysql::connection db){//编辑好友信息（分组）
     const auto tab=Friend{};
-    auto result=db(select(all_of(tab)).from(tab).where(tab.UserOneID==friendDTO.This_ID&&tab.UserTwoID==friendDTO.That_ID));
-    if(!result.empty){
-        const auto& row = result.front();
-        db(update(tab).set(tab.GroupOneID=friendDTO.Group_ID));
+    auto result=db(select(all_of(tab)).from(tab).where(tab.ThisID==friendDTO.This_ID&&tab.ThatID==friendDTO.That_ID));
+
+    if(!result.empty()){
+        db(update(tab).set(tab.GroupID=friendDTO.Group_ID).where(tab.ThisID==friendDTO.This_ID&&tab.ThatID==friendDTO.That_ID));
         return true;
     }
     else{

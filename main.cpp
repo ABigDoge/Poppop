@@ -56,7 +56,7 @@ int main()
 
   try{
     mysql::connection db(config);
-    UserDTO userDTO=new UserDTO();
+    UserDTO userDTO;
     userDTO.Name="wlj";
     userDTO.PassWord="123";
     UserService::Add(userDTO,db);

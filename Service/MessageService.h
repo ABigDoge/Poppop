@@ -1,9 +1,11 @@
 #ifndef MessageService_h
 #define MessageService_h
 #include"MessageDTO.h"
+#include <sqlpp11/mysql/mysql.h>
+#include <sqlpp11/sqlpp11.h>
 #include<vector>
 using namespace std;
-
+namespace mysql=sqlpp::mysql;
 //关于聊天消息的服务
 class MessageService{
 	public:

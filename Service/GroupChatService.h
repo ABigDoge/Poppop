@@ -25,7 +25,5 @@ class GroupChatService{
 		static int GetGroupMember(vector<UserDTO>& userlist, int id, mysql::connection db);
 		//判断成员是否在群组中,True表示在
 		static bool UserInGroupChat(int userId, int id, mysql::connection db);
-	public:
-		GroupChatService(){}
 };
 #endif

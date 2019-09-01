@@ -18,15 +18,13 @@ create table _Group(
 );
 
 create table Friend(
-    UserOneID int,
-    UserTwoID int,
-    GroupOneID int,
-    GroupTwoID int,
-    foreign key(UserOneID) references User(ID),
-    foreign key(UserTwoID) references User(ID),
-    foreign key(GroupOneID) references _Group(ID),
-    foreign key(GroupTwoID) references _Group(ID),
-    primary key(UserOneID,UserTwoID),
+    This_ID int,
+    That_ID int,
+    GroupID int,
+    foreign key(This_ID) references User(ID),
+    foreign key(That_ID) references User(ID),
+    foreign key(GroupID) references _Group(ID),
+    primary key(This_ID,That_ID),
     IsDelete int(1)
 );
 create table GroupChat(
