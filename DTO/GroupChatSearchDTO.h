@@ -2,7 +2,8 @@
 #define GroupChatSearchDTO_H
 #include"DTO.h"
 #include<string>
-class GroupChatSearchDTO:SearchDTO{
+using namespace std;
+class GroupChatSearchDTO:public SearchDTO{
     int Member_ID;
     string Member_Name;
 };  //查找群组

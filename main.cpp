@@ -38,24 +38,16 @@ SQLPP_ALIAS_PROVIDER(right)
 namespace mysql = sqlpp::mysql;
 int main()
 {
-  try
-  {
-    mysql::global_library_init();
-    auto config = std::make_shared<mysql::connection_config>();
-    config->user = "root";
-    config->database = "sqlpp_mysql";
-    config->debug = true;
-    mysql::connection db(config);
-  }
-  catch (const sqlpp::exception& e)
-  {
-    std::cerr << "For testing, you'll need to create a database sqlpp_mysql for user root (no password)" << std::endl;
-    std::cerr << e.what() << std::endl;
-    return 1;
-  }
-
+  auto config = std::make_shared<mysql::connection_config>();
+  config->user = "root";
+  config->password="mypassword";
+  config->database = "PoppopDatabase";
+  config->debug = true;
+  mysql::global_library_init();
   try{
     mysql::connection db(config);
+
+    
     UserDTO userDTO;
     userDTO.Name="wlj";
     userDTO.PassWord="123";

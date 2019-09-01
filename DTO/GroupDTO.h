@@ -1,6 +1,7 @@
 #ifndef GroupDTO_H
 #define GroupDTO_H
 #include<string>
+using namespace std;
 //好友列表分组信息
 class GroupDTO{  
 public:

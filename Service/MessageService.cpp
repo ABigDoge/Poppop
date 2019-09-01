@@ -21,7 +21,7 @@ bool MessageService::Add(MessageDTO messageDTO, mysql::connection db){
 		//删除消息（撤回？）
 bool MessageService::Del(MessageDTO messageDTO,mysql::connection db){
     const auto tab=_Message{};
-    db(update(tab).set(tab.IsDelete=1).where(tab.IsDelete=1));
+    db(update(tab).set(tab.IsDelete=1).where(tab.IsDelete==1));
 }
 		//获取该群组里的消息列表，其中id是group的id，返回结果数
 int MessageService::GetMessageList(vector<MessageDTO>& messageList, int id,mysql::connection db){

@@ -8,12 +8,11 @@
 #include <vector>
 #include"MyTable.h"
 namespace mysql=sqlpp::mysql;
-bool UserService::Add(UserDTO userDTO,mysql::connection db){
+bool UserService::Add(UserDTO userDTO,mysql::connection &db){
     const auto tab=User{};
     db(insert_into(tab).set(
         tab.UserName=userDTO.Name,
         tab.PassWord=userDTO.PassWord,
-        tab.DepartmentName=userDTO.Department_Name,
         tab.Sex=userDTO.Sex,
         tab.Motto=userDTO.Motto,
         tab.ImagePath=userDTO.Image,
@@ -23,14 +22,11 @@ bool UserService::Add(UserDTO userDTO,mysql::connection db){
 
 bool UserService::Edit(UserDTO userDTO,mysql::connection db){
     const auto tab=User{};
-    db(update(tab).set(
-        tab.UserName=userDTO.Name,
-        tab.ImagePath=userDTO.Department_Name,
-        tab.Sex=userDTO.Sex,
-        tab.Motto=userDTO.Motto,
-        tab.ImagePath=userDTO.Image,
-        tab.DepartmentName=userDTO.Department_Name
-    ).where(tab.ID==userDTO.ID));
+    db(update(tab).set(tab.UserName=userDTO.Name,
+    tab.PassWord=userDTO.PassWord,tab.Sex=userDTO.Sex,
+    tab.Motto=userDTO.Motto,
+    tab.DepartmentName=userDTO.Department_Name,
+    tab.ImagePath=userDTO.Image).where(tab.ID==userDTO.ID));
 }
 
 bool UserService::Del(int id,mysql::connection db){
@@ -42,7 +38,7 @@ UserDTO UserService::SelectedByID(int id,mysql::connection db){
     const auto tab=User{};
     auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id));
     UserDTO userDTO;
-    if(!result.empty){
+    if(!result.empty()){
         const auto& row = result.front();
         userDTO.ID=row.ID;
         userDTO.Name=row.UserName;
@@ -57,7 +53,7 @@ UserDTO UserService::SelectedByID(int id,mysql::connection db){
 
 int UserService::GetUserList(vector<UserDTO>& userList, UserSearchDTO dto,mysql::connection db){
     const auto tab=User{};
-    if(dto.ID!=null){
+    if(dto.ID!=0){
         for (const auto& row:db(select(all_of(tab)).from(tab).where(tab.ID==dto.ID)))
         {
             UserDTO userDTO;
