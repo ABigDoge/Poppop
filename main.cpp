@@ -24,6 +24,8 @@
  */
 
 #include "UserService.h"
+//#include"SplitStr.h"
+#include "DBContextFactory.h"
 #include "string"
 #include <sqlpp11/mysql/mysql.h>
 #include <sqlpp11/sqlpp11.h>
@@ -38,20 +40,13 @@ SQLPP_ALIAS_PROVIDER(right)
 namespace mysql = sqlpp::mysql;
 int main()
 {
-  auto config = std::make_shared<mysql::connection_config>();
-  config->user = "root";
-  config->password="mypassword";
-  config->database = "PoppopDatabase";
-  config->debug = true;
-  mysql::global_library_init();
   try{
-    mysql::connection db(config);
-
-    
+    //std::cout<<HHH()<<std::endl;
+    mysql::global_library_init();
     UserDTO userDTO;
-    userDTO.Name="wlj";
-    userDTO.PassWord="123";
-    UserService::Add(userDTO,db);
+    userDTO.Name="nmdwsm";
+    userDTO.PassWord="hhh";
+    UserService::Add(userDTO); 
   }
   catch (const sqlpp::exception& e)
   {
