@@ -22,12 +22,7 @@ bool UserService::Add(UserDTO userDTO){
         tab.IsDelete=0));
     return true;
 }
-<<<<<<< HEAD
-
 bool UserService::Edit(UserDTO userDTO,mysql::connection &db){
-=======
-bool UserService::Edit(UserDTO userDTO,mysql::connection db){
->>>>>>> c58c42f8f305d2b461d3527941fc6d700cb2ddfd
     const auto tab=User{};
     db(update(tab).set(tab.UserName=userDTO.Name,
     tab.PassWord=userDTO.PassWord,tab.Sex=userDTO.Sex,
