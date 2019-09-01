@@ -22,35 +22,23 @@ bool UserService::Add(UserDTO userDTO){
         tab.IsDelete=0));
     return true;
 }
-<<<<<<< HEAD
 bool UserService::Edit(UserDTO userDTO){
-=======
-bool UserService::Edit(UserDTO userDTO,mysql::connection &db){
->>>>>>> c369fc53cc1d489656204a08ecc8c617754789da
     const auto tab=User{};
     mysql::connection &db=DBContextFactory::Instance();
     db(update(tab).set(tab.UserName=userDTO.Name,
     tab.PassWord=userDTO.PassWord,tab.Sex=userDTO.Sex,
     tab.Motto=userDTO.Motto,
     tab.DepartmentName=userDTO.Department_Name,
-    tab.ImagePath=userDTO.Image).where(tab.ID==userDTO.ID));
+    tab.ImagePath=userDTO.Image,tab.IPAddr=userDTO.IP_Addr).where(tab.ID==userDTO.ID));
 }
 
-<<<<<<< HEAD
 bool UserService::Del(int id){
-=======
-bool UserService::Del(int id,mysql::connection &db){
->>>>>>> c369fc53cc1d489656204a08ecc8c617754789da
     const auto tab=User{};
     mysql::connection &db=DBContextFactory::Instance();
     db(update(tab).set(tab.IsDelete=1).where(tab.ID==id));
 }
 
-<<<<<<< HEAD
 UserDTO UserService::SelectedByID(int id){
-=======
-UserDTO UserService::SelectedByID(int id,mysql::connection &db){
->>>>>>> c369fc53cc1d489656204a08ecc8c617754789da
     const auto tab=User{};
     mysql::connection &db=DBContextFactory::Instance();
     auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id));
@@ -64,6 +52,7 @@ UserDTO UserService::SelectedByID(int id,mysql::connection &db){
         userDTO.Image=row.ImagePath;
         userDTO.Department_Name=row.DepartmentName;
         userDTO.Motto=row.Motto;
+        userDTO.Online_State=row.IsOnline;
     }
     return userDTO;
 }
