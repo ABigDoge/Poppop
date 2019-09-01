@@ -14,5 +14,6 @@ public:
 	 unsigned int IP_Addr;		//ip地址
 	 int Online_State;	//在线状态
 	 int Msg_to_recv;     //待接收信息数量
+	UserDTO(){}
 };
 #endif

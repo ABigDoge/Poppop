@@ -1,6 +1,7 @@
 create database Poppop;
 create table User(
     ID int auto_increment primary key,
+    PassWord varchar(30) not null,
     UserName nvarchar(20) not null,
     Sex nvarchar(1) default null,
     ImagePath varchar(100),

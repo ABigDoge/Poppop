@@ -23,7 +23,9 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "TabSample.h"
+#include "DBContextFactory.h"
+#include "Poppop.h"
+#include "string"
 #include <sqlpp11/mysql/mysql.h>
 #include <sqlpp11/sqlpp11.h>
 
@@ -37,13 +39,6 @@ SQLPP_ALIAS_PROVIDER(right)
 namespace mysql = sqlpp::mysql;
 int main()
 {
-  mysql::global_library_init();
-
-  auto config = std::make_shared<mysql::connection_config>();
-  config->user = "root";
-  config->database = "poppop";
-  config->password="lsyCXX0416579";
-  config->debug = true;
   try
   {
     mysql::connection db(config);
@@ -57,160 +52,25 @@ int main()
   try
   {
     mysql::connection db(config);
-    db.execute(R"(DROP TABLE IF EXISTS tab_sample)");
-    db.execute(R"(CREATE TABLE tab_sample (
-			alpha bigint(20) AUTO_INCREMENT,
-			beta varchar(255) DEFAULT NULL,
-			gamma bool DEFAULT NULL,
-			PRIMARY KEY (alpha)
-			))");
-    db.execute(R"(DROP TABLE IF EXISTS tab_foo)");
-    db.execute(R"(CREATE TABLE tab_foo (
-		omega bigint(20) DEFAULT NULL
-			))");
+    const auto tab = User{};
+    db(insert_into(tab).set(tab.UserName="wlj"));
+    db(insert_into(tab).set(tab.UserName="lsy"));
+    db(insert_into(tab).set(tab.UserName="hhh"));
+    db(update(tab).set(tab.DepartmentName="BITCS").where(tab.UserName.in(sqlpp::value_list(std::vector<std::string>{"wlj","123"}))));
+    db(remove_from(tab).where(tab.UserName=="hhh"));
 
-    assert(not db(select(sqlpp::value(false).as(sqlpp::alias::a))).front().a);
-
-    const auto tab = TabSample{};
-    // clear the table
-    db(remove_from(tab).unconditionally());
-
-    // Several ways of ensuring that tab is empty
-    assert(not db(select(exists(select(tab.alpha).from(tab).unconditionally())))
-                   .front()
-                   .exists);  // this is probably the fastest
-    assert(not db(select(count(tab.alpha)).from(tab).unconditionally()).front().count);
-    assert(db(select(tab.alpha).from(tab).unconditionally()).empty());
-
-    // explicit all_of(tab)
-    std::cerr << __FILE__ << ": " << __LINE__ << std::endl;
-    select(all_of(tab)).from(tab);
-    std::cerr << __FILE__ << ": " << __LINE__ << std::endl;
-    db(select(all_of(tab)).from(tab).unconditionally());
-    std::cerr << __FILE__ << ": " << __LINE__ << std::endl;
     for (const auto& row : db(select(all_of(tab)).from(tab).unconditionally()))
     {
-      std::cerr << __FILE__ << ": " << __LINE__ << std::endl;
-      std::cerr << "row.alpha: " << row.alpha << ", row.beta: " << row.beta << ", row.gamma: " << row.gamma
-                << std::endl;
-    };
-    // selecting two multicolumns
-    for (const auto& row :
-         db(select(tab.alpha, multi_column(tab.alpha, tab.beta, tab.gamma).as(left), multi_column(all_of(tab)).as(tab))
-                .from(tab)
-                .unconditionally()))
-    {
-      std::cerr << "row.left.alpha: " << row.left.alpha << ", row.left.beta: " << row.left.beta
-                << ", row.left.gamma: " << row.left.gamma << std::endl;
-      std::cerr << "row.tabSample.alpha: " << row.tabSample.alpha << ", row.tabSample.beta: " << row.tabSample.beta
-                << ", row.tabSample.gamma: " << row.tabSample.gamma << std::endl;
-    };
-
-    // insert
-    db(insert_into(tab).default_values());
-    const auto x = select(all_of(tab)).from(tab).unconditionally();
-    const auto y = db.prepare(x);
-    for (const auto& row : db(db.prepare(select(all_of(tab)).from(tab).unconditionally())))
-    {
-      std::cerr << "alpha: " << row.alpha.is_null() << std::endl;
-      std::cerr << "beta: " << row.beta.is_null() << std::endl;
-      std::cerr << "gamma: " << row.gamma.is_null() << std::endl;
-    }
-    db(insert_into(tab).set(tab.beta = "kaesekuchen", tab.gamma = true));
-    db(insert_into(tab).default_values());
-    db(insert_into(tab).set(tab.beta = "", tab.gamma = true));
-
-    // update
-    db(update(tab).set(tab.gamma = false).where(tab.alpha.in(sqlpp::value_list(std::vector<int>{1, 2, 3, 4}))));
-    db(update(tab).set(tab.gamma = true).where(tab.alpha.in(1)));
-
-    // remove
-    db(remove_from(tab).where(tab.alpha == tab.alpha + 3));
-
-    std::cerr << "+++++++++++++++++++++++++++" << std::endl;
-    for (const auto& row : db(select(all_of(tab)).from(tab).unconditionally()))
-    {
-      std::cerr << __LINE__ << " row.beta: " << row.beta << std::endl;
-    }
-    std::cerr << "+++++++++++++++++++++++++++" << std::endl;
-    decltype(db(select(all_of(tab)).from(tab).unconditionally())) result;
-    result = db(select(all_of(tab)).from(tab).unconditionally());
-    std::cerr << "Accessing a field directly from the result (using the current row): " << result.begin()->alpha
-              << std::endl;
-    std::cerr << "Can do that again, no problem: " << result.begin()->alpha << std::endl;
-
-    auto tx = start_transaction(db);
-    if (const auto& row =
-            *db(select(all_of(tab), select(max(tab.alpha)).from(tab)).from(tab).unconditionally()).begin())
-    {
-      int a = row.alpha;
-      int m = row.max;
-      std::cerr << __LINE__ << " row.alpha: " << a << ", row.max: " << m << std::endl;
-    }
-    tx.commit();
-
-    TabFoo foo;
-    for (const auto& row : db(select(tab.alpha).from(tab.join(foo).on(tab.alpha == foo.omega)).unconditionally()))
-    {
-      std::cerr << row.alpha << std::endl;
+      std::cerr << __LINE__ << " row.Name: " << row.UserName << "DeptName"<<row.DepartmentName<<std::endl;
     }
 
-    for (const auto& row :
-         db(select(tab.alpha).from(tab.left_outer_join(foo).on(tab.alpha == foo.omega)).unconditionally()))
-    {
-      std::cerr << row.alpha << std::endl;
-    }
 
-    auto ps = db.prepare(select(all_of(tab))
-                             .from(tab)
-                             .where(tab.alpha != parameter(tab.alpha) and tab.beta != parameter(tab.beta) and
-                                    tab.gamma != parameter(tab.gamma)));
-    ps.params.alpha = 7;
-    ps.params.beta = "wurzelbrunft";
-    ps.params.gamma = true;
-    for (const auto& row : db(ps))
-    {
-      std::cerr << "bound result: alpha: " << row.alpha << std::endl;
-      std::cerr << "bound result: beta: " << row.beta << std::endl;
-      std::cerr << "bound result: gamma: " << row.gamma << std::endl;
-    }
 
-    std::cerr << "--------" << std::endl;
-    ps.params.gamma = "false";
-    for (const auto& row : db(ps))
-    {
-      std::cerr << "bound result: alpha: " << row.alpha << std::endl;
-      std::cerr << "bound result: beta: " << row.beta << std::endl;
-      std::cerr << "bound result: gamma: " << row.gamma << std::endl;
-    }
-
-    std::cerr << "--------" << std::endl;
-    ps.params.beta = "kaesekuchen";
-    for (const auto& row : db(ps))
-    {
-      std::cerr << "bound result: alpha: " << row.alpha << std::endl;
-      std::cerr << "bound result: beta: " << row.beta << std::endl;
-      std::cerr << "bound result: gamma: " << row.gamma << std::endl;
-    }
-
-    auto pi = db.prepare(insert_into(tab).set(tab.beta = parameter(tab.beta), tab.gamma = true));
-    pi.params.beta = "prepared cake";
-    std::cerr << "Inserted: " << db(pi) << std::endl;
-
-    auto pu = db.prepare(update(tab).set(tab.gamma = parameter(tab.gamma)).where(tab.beta == "prepared cake"));
-    pu.params.gamma = false;
-    std::cerr << "Updated: " << db(pu) << std::endl;
-
-    auto pr = db.prepare(remove_from(tab).where(tab.beta != parameter(tab.beta)));
-    pr.params.beta = "prepared cake";
-    std::cerr << "Deleted lines: " << db(pr) << std::endl;
-
-    for (const auto& row : db(select(case_when(tab.gamma).then(tab.alpha).else_(foo.omega).as(tab.alpha))
-                                  .from(tab.cross_join(foo))
-                                  .unconditionally()))
-    {
-      std::cerr << row.alpha << std::endl;
-    }
+  // }
+  try{
+    mysql::global_library_init();
+    const auto tab = User{};
+    db(insert_into(tab).set(tab.UserName="nmdwsm"));
   }
   catch (const std::exception& e)
   {
