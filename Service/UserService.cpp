@@ -20,7 +20,7 @@ bool UserService::Add(UserDTO userDTO,mysql::connection &db){
         tab.IsDelete=0));
 }
 
-bool UserService::Edit(UserDTO userDTO,mysql::connection db){
+bool UserService::Edit(UserDTO userDTO,mysql::connection &db){
     const auto tab=User{};
     db(update(tab).set(tab.UserName=userDTO.Name,
     tab.PassWord=userDTO.PassWord,tab.Sex=userDTO.Sex,
@@ -29,12 +29,12 @@ bool UserService::Edit(UserDTO userDTO,mysql::connection db){
     tab.ImagePath=userDTO.Image).where(tab.ID==userDTO.ID));
 }
 
-bool UserService::Del(int id,mysql::connection db){
+bool UserService::Del(int id,mysql::connection &db){
     const auto tab=User{};
     db(update(tab).set(tab.IsDelete=1).where(tab.ID==id));
 }
 
-UserDTO UserService::SelectedByID(int id,mysql::connection db){
+UserDTO UserService::SelectedByID(int id,mysql::connection &db){
     const auto tab=User{};
     auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id));
     UserDTO userDTO;
@@ -51,7 +51,7 @@ UserDTO UserService::SelectedByID(int id,mysql::connection db){
     return userDTO;
 }
 
-int UserService::GetUserList(vector<UserDTO>& userList, UserSearchDTO dto,mysql::connection db){
+int UserService::GetUserList(vector<UserDTO>& userList, UserSearchDTO dto,mysql::connection &db){
     const auto tab=User{};
     if(dto.ID!=0){
         for (const auto& row:db(select(all_of(tab)).from(tab).where(tab.ID==dto.ID)))
@@ -70,6 +70,14 @@ int UserService::GetUserList(vector<UserDTO>& userList, UserSearchDTO dto,mysql:
     return userList.size();
 }
 
+// bool UserService::PutUserOnline(int id, int client_fd,int* count)
+// {
+//     const auto tab=User{};
+//     db(update(tab).set(tab.Online_State=1, tab.IP_Addr=client_fd).where(tab.ID==id));
+// }
 
-
-
+// bool UserService::PutUserOffline(int id)
+// {
+//     const auto tab=User{};
+//     db(update(tab).set(tab.Online_State=0).where(tab.ID==id));
+// }
