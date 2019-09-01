@@ -7,7 +7,10 @@ create table User(
     ImagePath varchar(100),
     DepartmentName nvarchar(20),
     Motto nvarchar(100),
-    IsDelete int(1)
+    IsDelete int(1),
+    IPAddr INT UNSIGNED,
+    IsOnline INT,
+
 );
 create table _Group(
     ID int auto_increment primary key,

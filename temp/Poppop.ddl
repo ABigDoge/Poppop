@@ -69,8 +69,10 @@ CREATE TABLE `User` (
   `DepartmentName` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
   `Motto` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `IsDelete` int(1) DEFAULT NULL,
+  `IPAddr` int(10) unsigned DEFAULT NULL,
+  `IsOnline` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,4 +123,4 @@ CREATE TABLE `_Message` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-01 14:47:49
+-- Dump completed on 2019-09-01 20:12:23

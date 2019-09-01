@@ -22,8 +22,9 @@ bool UserService::Add(UserDTO userDTO){
         tab.IsDelete=0));
     return true;
 }
-bool UserService::Edit(UserDTO userDTO,mysql::connection db){
+bool UserService::Edit(UserDTO userDTO){
     const auto tab=User{};
+    mysql::connection &db=DBContextFactory::Instance();
     db(update(tab).set(tab.UserName=userDTO.Name,
     tab.PassWord=userDTO.PassWord,tab.Sex=userDTO.Sex,
     tab.Motto=userDTO.Motto,
@@ -31,13 +32,15 @@ bool UserService::Edit(UserDTO userDTO,mysql::connection db){
     tab.ImagePath=userDTO.Image).where(tab.ID==userDTO.ID));
 }
 
-bool UserService::Del(int id,mysql::connection db){
+bool UserService::Del(int id){
     const auto tab=User{};
+    mysql::connection &db=DBContextFactory::Instance();
     db(update(tab).set(tab.IsDelete=1).where(tab.ID==id));
 }
 
-UserDTO UserService::SelectedByID(int id,mysql::connection db){
+UserDTO UserService::SelectedByID(int id){
     const auto tab=User{};
+    mysql::connection &db=DBContextFactory::Instance();
     auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id));
     UserDTO userDTO;
     if(!result.empty()){
@@ -53,8 +56,9 @@ UserDTO UserService::SelectedByID(int id,mysql::connection db){
     return userDTO;
 }
 
-int UserService::GetUserList(vector<UserDTO>& userList, UserSearchDTO dto,mysql::connection db){
+int UserService::GetUserList(vector<UserDTO>& userList, UserSearchDTO dto){
     const auto tab=User{};
+    mysql::connection &db=DBContextFactory::Instance();
     if(dto.ID!=0){
         for (const auto& row:db(select(all_of(tab)).from(tab).where(tab.ID==dto.ID)))
         {
@@ -70,6 +74,19 @@ int UserService::GetUserList(vector<UserDTO>& userList, UserSearchDTO dto,mysql:
         }
     }
     return userList.size();
+}
+
+bool UserService::PutUserOnline(int id, int client_fd,int* count){
+    const auto tab=User{};
+    mysql::connection &db=DBContextFactory::Instance();
+    db(update(tab).set(tab.IsOnline=1,tab.IPAddr=client_fd).where(tab.ID==id));
+}
+		
+//下线
+bool UserService::PutUserOffline(int ID){
+    const auto tab=User{};
+    mysql::connection &db=DBContextFactory::Instance();
+    db(update(tab).set(tab.IsOnline=0).where(tab.ID==ID));
 }
 
 

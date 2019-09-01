@@ -6,7 +6,6 @@
 #include <sqlpp11/data_types.h>
 #include <sqlpp11/char_sequence.h>
 
-
   namespace Friend_
   {
     struct ThisID
@@ -328,6 +327,38 @@
       };
       using _traits = sqlpp::make_traits<sqlpp::integer, sqlpp::tag::can_be_null>;
     };
+    struct IPAddr
+    {
+      struct _alias_t
+      {
+        static constexpr const char _literal[] =  "IPAddr";
+        using _name_t = sqlpp::make_char_sequence<sizeof(_literal), _literal>;
+        template<typename T>
+        struct _member_t
+          {
+            T IPAddr;
+            T& operator()() { return IPAddr; }
+            const T& operator()() const { return IPAddr; }
+          };
+      };
+      using _traits = sqlpp::make_traits<sqlpp::integer_unsigned, sqlpp::tag::can_be_null>;
+    };
+    struct IsOnline
+    {
+      struct _alias_t
+      {
+        static constexpr const char _literal[] =  "IsOnline";
+        using _name_t = sqlpp::make_char_sequence<sizeof(_literal), _literal>;
+        template<typename T>
+        struct _member_t
+          {
+            T IsOnline;
+            T& operator()() { return IsOnline; }
+            const T& operator()() const { return IsOnline; }
+          };
+      };
+      using _traits = sqlpp::make_traits<sqlpp::integer, sqlpp::tag::can_be_null>;
+    };
   } // namespace User_
 
   struct User: sqlpp::table_t<User,
@@ -338,7 +369,9 @@
                User_::ImagePath,
                User_::DepartmentName,
                User_::Motto,
-               User_::IsDelete>
+               User_::IsDelete,
+               User_::IPAddr,
+               User_::IsOnline>
   {
     struct _alias_t
     {
