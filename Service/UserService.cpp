@@ -6,10 +6,12 @@
 #include <cassert>
 #include <iostream>
 #include <vector>
+#include"DBContextFactory.h"
 #include"MyTable.h"
 namespace mysql=sqlpp::mysql;
-bool UserService::Add(UserDTO userDTO,mysql::connection &db){
+bool UserService::Add(UserDTO userDTO){
     const auto tab=User{};
+    mysql::connection &db=DBContextFactory::Instance();
     db(insert_into(tab).set(
         tab.UserName=userDTO.Name,
         tab.PassWord=userDTO.PassWord,
@@ -18,9 +20,14 @@ bool UserService::Add(UserDTO userDTO,mysql::connection &db){
         tab.ImagePath=userDTO.Image,
         tab.DepartmentName=userDTO.Department_Name,
         tab.IsDelete=0));
+    return true;
 }
+<<<<<<< HEAD
 
 bool UserService::Edit(UserDTO userDTO,mysql::connection &db){
+=======
+bool UserService::Edit(UserDTO userDTO,mysql::connection db){
+>>>>>>> c58c42f8f305d2b461d3527941fc6d700cb2ddfd
     const auto tab=User{};
     db(update(tab).set(tab.UserName=userDTO.Name,
     tab.PassWord=userDTO.PassWord,tab.Sex=userDTO.Sex,

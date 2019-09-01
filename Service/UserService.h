@@ -11,7 +11,7 @@ namespace mysql = sqlpp::mysql;
 class UserService{
 	public:
 		//添加新用户
-		static bool Add(UserDTO userDTO,mysql::connection &db);
+		static bool Add(UserDTO userDTO);
 		//修改用户信息
 		static bool Edit(UserDTO userDTO,mysql::connection &db);
 		//删除用户，数据库中并不删除，只是做一个标记不再显示
