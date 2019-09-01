@@ -1,6 +1,7 @@
 #ifndef UserDTO_H
 #define UserDTO_H
 #include<string>
+using namespace std;
 //存储用户个人信息
 class UserDTO{   
 public:

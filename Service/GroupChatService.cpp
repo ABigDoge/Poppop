@@ -2,6 +2,7 @@
 #include "GroupChatService.h"
 #include "UserService.h"
 #include "DTO.h"
+#include "UserDTO.h"
 #include <sqlpp11/mysql/mysql.h>
 #include <sqlpp11/sqlpp11.h>
 #include <cassert>
@@ -46,7 +47,7 @@ GroupChatDTO GroupChatService::SelectedByID(int id, mysql::connection db)
     const auto tab=GroupChat{};
     auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id));
     GroupChatDTO groupchatDTO;
-    if(!result.empty){
+    if(!result.empty()){
         const auto& row = result.front();
         groupchatDTO.ID = row.ID;
         groupchatDTO.Name = row.GroupChatName;
@@ -59,13 +60,25 @@ GroupChatDTO GroupChatService::SelectedByID(int id, mysql::connection db)
 int GroupChatService::GetGroupMember(vector<UserDTO>& userlist, int id, mysql::connection db)
 {
     const auto tab=GroupChat{};
+    const auto tab2=User{};
     auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id));
-    if(!result.empty){
+    if(!result.empty()){
         const auto& row = result.front();
         vector<string> memberidlist = split(row.MemberIDList, ",");
         for(int i = 0; i < memberidlist.size(); i++)
         {
-            userlist.push_back(UserService::SelectedByID(atoi(memberidlist[i].c_str()), db));
+            int tmpid = atoi(memberidlist[i].c_str());
+            auto resultuser=db(select(all_of(tab2)).from(tab2).where(tab2.ID==tmpid));
+            const auto& row2 = resultuser.front();
+            UserDTO userDTO;
+            userDTO.ID=row2.ID;
+            userDTO.Name=row2.UserName;
+            userDTO.PassWord=row2.PassWord;
+            userDTO.Sex=row2.Sex;
+            userDTO.Image=row2.ImagePath;
+            userDTO.Department_Name=row2.DepartmentName;
+            userDTO.Motto=row2.Motto;
+            userlist.push_back(userDTO);
         }
     }
     
@@ -77,7 +90,7 @@ bool UserInGroupChat(int userId, int id, mysql::connection db)
     const auto tab=GroupChat{};
     auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id));
     string userIdStr = to_string(userId);
-    if(!result.empty){
+    if(!result.empty()){
         const auto& row = result.front();
         vector<string> memberidlist = split(row.MemberIDList, ",");
         for(int i = 0; i < memberidlist.size(); i++)

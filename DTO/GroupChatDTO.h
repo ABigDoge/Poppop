@@ -1,6 +1,7 @@
 #ifndef GroupChatDTO_H
 #define GroupChatDTO_H
 #include<string>
+using namespace std;
 //储存群聊信息
 class GroupChatDTO{  
 public:
