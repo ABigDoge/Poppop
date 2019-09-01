@@ -8,10 +8,10 @@ using namespace std;
 class MessageService{
 	public:
 		//增添消息
-		bool Add(MessageDTO messageDTO);
+		bool Add(MessageDTO messageDTO,mysql::connection db);
 		//删除消息（撤回？）
-		bool Del(MessageDTO messageDTO);
+		bool Del(MessageDTO messageDTO,mysql::connection db);
 		//获取该群组里的消息列表，其中id是group的id，返回结果数
-		int GetMessageList(vector<MessageDTO>& messageList, int id);
+		int GetMessageList(vector<MessageDTO>& messageList, int id,mysql::connection db);
 };	
 #endif
