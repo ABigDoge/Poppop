@@ -7,9 +7,12 @@
 #include <iostream>
 #include <vector>
 #include"MyTable.h"
+#include "DBContextFactory.h"
 namespace mysql=sqlpp::mysql;
 //增添消息
-bool MessageService::Add(MessageDTO messageDTO, mysql::connection db){
+bool MessageService::Add(MessageDTO messageDTO)
+{
+    mysql::connection &db=DBContextFactory::Instance();
     const auto tab=_Message{};
     db(insert_into(tab).set(
         tab.SenderID=messageDTO.Sender_ID,
@@ -19,12 +22,16 @@ bool MessageService::Add(MessageDTO messageDTO, mysql::connection db){
     ));
 }
 		//删除消息（撤回？）
-bool MessageService::Del(MessageDTO messageDTO,mysql::connection db){
+bool MessageService::Del(MessageDTO messageDTO)
+{
+    mysql::connection &db=DBContextFactory::Instance();
     const auto tab=_Message{};
     db(update(tab).set(tab.IsDelete=1).where(tab.IsDelete==1));
 }
 		//获取该群组里的消息列表，其中id是group的id，返回结果数
-int MessageService::GetMessageList(vector<MessageDTO>& messageList, int id,mysql::connection db){
+int MessageService::GetMessageList(vector<MessageDTO>& messageList, int id)
+{
+    mysql::connection &db=DBContextFactory::Instance();
     const auto tab=_Message{};
     for (const auto& row:db(select(all_of(tab)).from(tab).where(tab.GroupID==id)))
     {

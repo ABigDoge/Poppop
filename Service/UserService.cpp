@@ -6,7 +6,7 @@
 #include <cassert>
 #include <iostream>
 #include <vector>
-#include"DBContextFactory.h"
+#include "DBContextFactory.h"
 #include"MyTable.h"
 namespace mysql=sqlpp::mysql;
 bool UserService::Add(UserDTO userDTO){
@@ -22,7 +22,11 @@ bool UserService::Add(UserDTO userDTO){
         tab.IsDelete=0));
     return true;
 }
+<<<<<<< HEAD
 bool UserService::Edit(UserDTO userDTO){
+=======
+bool UserService::Edit(UserDTO userDTO,mysql::connection &db){
+>>>>>>> c369fc53cc1d489656204a08ecc8c617754789da
     const auto tab=User{};
     mysql::connection &db=DBContextFactory::Instance();
     db(update(tab).set(tab.UserName=userDTO.Name,
@@ -32,13 +36,21 @@ bool UserService::Edit(UserDTO userDTO){
     tab.ImagePath=userDTO.Image).where(tab.ID==userDTO.ID));
 }
 
+<<<<<<< HEAD
 bool UserService::Del(int id){
+=======
+bool UserService::Del(int id,mysql::connection &db){
+>>>>>>> c369fc53cc1d489656204a08ecc8c617754789da
     const auto tab=User{};
     mysql::connection &db=DBContextFactory::Instance();
     db(update(tab).set(tab.IsDelete=1).where(tab.ID==id));
 }
 
+<<<<<<< HEAD
 UserDTO UserService::SelectedByID(int id){
+=======
+UserDTO UserService::SelectedByID(int id,mysql::connection &db){
+>>>>>>> c369fc53cc1d489656204a08ecc8c617754789da
     const auto tab=User{};
     mysql::connection &db=DBContextFactory::Instance();
     auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id));
@@ -88,7 +100,3 @@ bool UserService::PutUserOffline(int ID){
     mysql::connection &db=DBContextFactory::Instance();
     db(update(tab).set(tab.IsOnline=0).where(tab.ID==ID));
 }
-
-
-
-
