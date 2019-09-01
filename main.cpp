@@ -41,8 +41,8 @@ int main()
 
   auto config = std::make_shared<mysql::connection_config>();
   config->user = "root";
-  config->database = "Poppop";
-  config->password="mypassword";
+  config->database = "poppop";
+  config->password="lsyCXX0416579";
   config->debug = true;
   try
   {

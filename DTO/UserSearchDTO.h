@@ -1,6 +1,6 @@
-#ifndef USERSEARCH_H
-#define USERSEARCH_H
-#include"DTO.h"
+#ifndef USERSEARCHDTO_H
+#define USERSEARCHDTO_H
+#include"SearchDTO.h"
 #include<string>
 class UserSearchDTO:SearchDTO{      //查找用户
 public:
