@@ -13,6 +13,7 @@
 #include <sys/socket.h>
 #include <sys/wait.h>
 #include <arpa/inet.h>
+#include "DTO.h"
 
 using namespace std;
 
@@ -20,7 +21,7 @@ using namespace std;
 #define MAX_LISTEN 5 // 最大监听数
 #define MAX_BUF 1024 // 缓冲区大小
 
-int User[10][2] = { 0 };
+int User[10][2] = { 0 };//临时数据库
 int usercount = 0;
 
 struct pthread_data
@@ -31,55 +32,6 @@ struct pthread_data
 
 void ErrorHandling(char* message); // 错误处理函数
 void* ServerForClient(void *arg);
-
-class GroupChatDTO{  //群聊
-public:
-	int ID;             //群聊id
-	string Name;        //群聊名称
-	string MemberIDList;//成员id
-	string Image;       //群聊头像
-};
-
-class LoginDTO
-{
-public:
-    int Type;
-    int ID;
-    string PassWord;
-};
-
-class UserDTO
-{
-public:
-	 int ID;
-	 string Name;    //用户姓名
-	 string PassWord;   //密码
-	 string Sex;     //性别
-	 string Image;   //头像
-	 string DepartmentName;  //所在部门
-	 string Motto;   //个性签名
-	 unsigned int IPAddr;		//ip地址
-	 int OnlineState;	//在线状态
-};
-
-class MessageDTO
-{    
-public:
-	int SenderID;   //消息发送者
-    int RecverID;   //消息发送者
-	string Context; //消息内容
-	int Type;       //消息类型
-	string Time;    //发送时间
-	int GroupID;    //发送的消息所属群组
-};
-
-class FriendDTO//change please
-{
-public:
-	int UserOneID;
-	int UserTwoID;
-	int GroupOneID;
-};
 
  /**************************************************/
  /*名称：int Create(int client_fd)
@@ -98,10 +50,10 @@ public:
  int Create(int client_fd)
  {
  	socklen_t len;
-     string str = "";
-     GroupChatDTO ret;
-     char buf[MAX_BUF + 1];
-     char* argv[10] = { NULL };
+    string str = "";
+    GroupChatDTO ret;
+    char buf[MAX_BUF + 1];
+    char* argv[10] = { NULL };
  	int argc = 0;
  	len = recv(client_fd, buf, MAX_BUF, 0);
  	//群聊id list<>
@@ -121,8 +73,8 @@ public:
              ret.Name = argv[argc];
          }
          //ret.ID++
-         ret.MemberIDList = str;
-         ret.Image = "";
+         ret.Member_ID_List = str;
+         ret.Image_Path = "";
  		argc++;
  	}
      cout << str;
@@ -162,10 +114,10 @@ UserDTO SelectedByID(int ID)
     User.PassWord = "123";
     User.Sex = "";
     User.Image = "";
-    User.DepartmentName = "";
+    User.Department_Name = "";
     User.Motto = "";
-    User.IPAddr = 0;
-    User.OnlineState = 0;
+    User.IP_Addr = 0;
+    User.Online_State = 0;
 	return User;
 }
 
@@ -182,10 +134,10 @@ UserDTO SelectedByID(int ID)
  int Login(int client_fd)
  {
  	LoginDTO ret;
-     char buf[MAX_BUF + 1];
-     char* argv[10] = { NULL };
+    char buf[MAX_BUF + 1];
+    char* argv[10] = { NULL };
  	int argc = 0;
-     socklen_t len;
+    socklen_t len;
  	len = recv(client_fd, buf, MAX_BUF, 0);
 
      while ((argv[argc] = strtok((argc == 0 ? buf : NULL), " ")) != NULL)
@@ -200,7 +152,7 @@ UserDTO SelectedByID(int ID)
          UserDTO User;
          User.ID = 0;
          User.PassWord = "123";
-         User.OnlineState = 1;
+         User.Online_State = 1;
          Add(User);
          PutUserOnline(ret.ID, client_fd);
  	}
@@ -208,7 +160,7 @@ UserDTO SelectedByID(int ID)
  	{
          UserDTO get_from_DB;
  		get_from_DB = SelectedByID(ret.ID);
-         if(get_from_DB.OnlineState == 1)
+         if(get_from_DB.Online_State == 1)
          {
              printf("Already online\n");
          }
@@ -285,13 +237,13 @@ int Apply(int client_fd)
 		argc++;
 	}
     ret.Type = -1;//额外消息类型
-	ret.SenderID = atoi(argv[0]);
-	ret.RecverID = atoi(argv[1]);
-    ret.GroupID = atoi(argv[2]);
+	ret.Sender_ID = atoi(argv[0]);
+	ret.Recver_ID = atoi(argv[1]);
+    ret.Group_ID = atoi(argv[2]);
 	ret.Context = argv[3];
     ret.Time = "";
     vector<FriendDTO> get_from_DB;
-    GetFriendList(get_from_DB, ret.SenderID);
+    GetFriendList(get_from_DB, ret.Sender_ID);
     // for(int i = 0; i < get_from_DB.size(); i++)
     // {
     //     if(get_from_DB[i].UserTwoID == ret.RecverID)
@@ -299,32 +251,32 @@ int Apply(int client_fd)
     // }
     UserDTO UserThis;
     UserDTO UserThat;
-    UserThis = SelectedByID(ret.SenderID);
-    UserThat = SelectedByID(ret.RecverID);
+    UserThis = SelectedByID(ret.Sender_ID);
+    UserThat = SelectedByID(ret.Recver_ID);
     string rbuf = "";
     string str1 = "apply";
     string str2 = argv[0];
     rbuf = str1 + " " + str2 + " " + ret.Context;
     for(int i = 0; i < 10; i++)
-        if(User[i][0] == ret.RecverID)
-            UserThat.IPAddr = User[i][1];
-    printf("To User : %d %d\n", ret.RecverID, UserThat.IPAddr);
+        if(User[i][0] == ret.Recver_ID)
+            UserThat.IP_Addr = User[i][1];
+    printf("To User : %d %d\n", ret.Recver_ID, UserThat.IP_Addr);
     char *str = const_cast<char*>(rbuf.c_str());
-    if(UserThat.OnlineState == 1)
+    if(UserThat.Online_State == 1)
     {
         printf("online\n");
-        send(UserThat.IPAddr, str, sizeof(str) * sizeof(char), 0);
+        send(UserThat.IP_Addr, str, sizeof(str) * sizeof(char), 0);
     }   
     else
     {
         MessageDTO msg;
         msg.Context = rbuf;
         msg.Time = "";
-        msg.SenderID = UserThis.ID;
-        msg.RecverID = UserThat.ID;
+        msg.Sender_ID = UserThis.ID;
+        msg.Recver_ID = UserThat.ID;
         PutMsgInDB(msg);
         printf("offline\n");
-        send(UserThat.IPAddr, str, sizeof(str) * sizeof(char), 0);
+        send(UserThat.IP_Addr, str, sizeof(str) * sizeof(char), 0);
     }   
 }
 
@@ -350,9 +302,9 @@ int Reply(int client_fd)
 	{
 		argc++;
 	}
-	ret.SenderID = atoi(argv[0]);
-	ret.RecverID = atoi(argv[1]);
-    ret.GroupID = atoi(argv[2]);
+	ret.Sender_ID = atoi(argv[0]);
+	ret.Recver_ID = atoi(argv[1]);
+    ret.Group_ID = atoi(argv[2]);
     if(argv[3] == 0)
         ret.Context = "对不起，你是个好人,但我连朋友也不想和你做！";
     else
@@ -360,29 +312,29 @@ int Reply(int client_fd)
     ret.Time = "";
     UserDTO UserThis;
     UserDTO UserThat;
-    UserThis = SelectedByID(ret.SenderID);
-    UserThat = SelectedByID(ret.RecverID);
+    UserThis = SelectedByID(ret.Sender_ID);
+    UserThat = SelectedByID(ret.Recver_ID);
     for(int i = 0; i < 10; i++)
-        if(User[i][0] == ret.RecverID)
-            UserThat.IPAddr = User[i][1];
-    printf("To User : %d %d\n", ret.RecverID, UserThat.IPAddr);
+        if(User[i][0] == ret.Recver_ID)
+            UserThat.IP_Addr = User[i][1];
+    printf("To User : %d %d\n", ret.Recver_ID, UserThat.IP_Addr);
     string rbuf = "";
     string str1 = "reply";
     string str2 = argv[0];
     rbuf = str1 + str2 + ret.Context;
-    if(UserThat.OnlineState == 1)
+    if(UserThat.Online_State == 1)
     {
-        send(UserThat.IPAddr, rbuf.c_str(), 2 * sizeof(rbuf.c_str()), 0);
+        send(UserThat.IP_Addr, rbuf.c_str(), 2 * sizeof(rbuf.c_str()), 0);
     }
 
     else
     {
-        send(UserThat.IPAddr, str1.c_str(), 2 * sizeof(str1.c_str()), 0);
+        send(UserThat.IP_Addr, str1.c_str(), 2 * sizeof(str1.c_str()), 0);
         MessageDTO msg;
         msg.Context = rbuf;
         msg.Time = "";
-        msg.SenderID = UserThis.ID;
-        msg.RecverID = UserThat.ID;
+        msg.Sender_ID = UserThis.ID;
+        msg.Recver_ID = UserThat.ID;
         PutMsgInDB(msg);   
     }   
 }
@@ -473,22 +425,23 @@ int main(int argc, char *argv[])
     sever_addr.sin_port = htons(SERVER_PORT);
     sever_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-    // 采用TCP协议
+    // 创建套接字，采用TCP协议
     if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
-        ErrorHandling("socket error");
+        ErrorHandling((char*)"socket error");
     
     // 绑定
     if(bind(sockfd, (struct sockaddr*)&sever_addr, sizeof(struct sockaddr)) == -1)
-        ErrorHandling("bind error");
+        ErrorHandling((char*)"bind error");
 
     // 监听
     if(listen(sockfd, MAX_LISTEN) == -1)
-        ErrorHandling("listen error");
+        ErrorHandling((char*)"listen error");
     
     // 服务器开启服务
     puts("service open");
     while(1)
     {
+        // 接受连接请求
         if((new_fd = accept(sockfd, (struct sockaddr*)&client_addr, &len)) == -1)
         {
             perror("accept error!");
@@ -510,6 +463,7 @@ int main(int argc, char *argv[])
     return 0;
 }
 
+// 错误处理函数
 void ErrorHandling(char *message)
 {
     perror(message);
