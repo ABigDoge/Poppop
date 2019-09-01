@@ -24,7 +24,7 @@
  */
 
 #include "DBContextFactory.h"
-#include "Poppop.h"
+#include "UserService.h"
 #include "string"
 #include <sqlpp11/mysql/mysql.h>
 #include <sqlpp11/sqlpp11.h>
@@ -41,6 +41,11 @@ int main()
 {
   try
   {
+    mysql::global_library_init();
+    auto config = std::make_shared<mysql::connection_config>();
+    config->user = "root";
+    config->database = "sqlpp_mysql";
+    config->debug = true;
     mysql::connection db(config);
   }
   catch (const sqlpp::exception& e)
@@ -49,32 +54,18 @@ int main()
     std::cerr << e.what() << std::endl;
     return 1;
   }
-  try
-  {
-    mysql::connection db(config);
-    const auto tab = User{};
-    db(insert_into(tab).set(tab.UserName="wlj"));
-    db(insert_into(tab).set(tab.UserName="lsy"));
-    db(insert_into(tab).set(tab.UserName="hhh"));
-    db(update(tab).set(tab.DepartmentName="BITCS").where(tab.UserName.in(sqlpp::value_list(std::vector<std::string>{"wlj","123"}))));
-    db(remove_from(tab).where(tab.UserName=="hhh"));
 
-    for (const auto& row : db(select(all_of(tab)).from(tab).unconditionally()))
-    {
-      std::cerr << __LINE__ << " row.Name: " << row.UserName << "DeptName"<<row.DepartmentName<<std::endl;
-    }
-
-
-
-  // }
   try{
-    mysql::global_library_init();
-    const auto tab = User{};
-    db(insert_into(tab).set(tab.UserName="nmdwsm"));
+    mysql::connection db(config);
+    UserDTO userDTO=new UserDTO();
+    userDTO.Name="wlj";
+    userDTO.PassWord="123";
+    UserService::Add(userDTO);
   }
-  catch (const std::exception& e)
+  catch (const sqlpp::exception& e)
   {
-    std::cerr << "Exception: " << e.what() << std::endl;
+    std::cerr << e.what() << std::endl;
     return 1;
   }
+  
 }
