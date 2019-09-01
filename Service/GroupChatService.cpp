@@ -12,11 +12,13 @@
 #include <string>
 #include"MyTable.h"
 #include"SplitStr.h"
+#include "DBContextFactory.h"
 using namespace std;
 namespace mysql=sqlpp::mysql;
 
-bool GroupChatService::Add(GroupChatDTO groupChatDTO, mysql::connection db)
+bool GroupChatService::Add(GroupChatDTO groupChatDTO)
 {
+    mysql::connection &db=DBContextFactory::Instance();
 	const auto tab=GroupChat{};
     db(insert_into(tab).set(
         tab.GroupChatName = groupChatDTO.Name,
@@ -26,8 +28,9 @@ bool GroupChatService::Add(GroupChatDTO groupChatDTO, mysql::connection db)
      ));
 }
 
-bool GroupChatService::Edit(GroupChatDTO groupChatDTO, mysql::connection db)
+bool GroupChatService::Edit(GroupChatDTO groupChatDTO)
 {
+    mysql::connection &db=DBContextFactory::Instance();
     const auto tab=GroupChat{};
     db(update(tab).set(
         tab.GroupChatName = groupChatDTO.Name,
@@ -36,14 +39,16 @@ bool GroupChatService::Edit(GroupChatDTO groupChatDTO, mysql::connection db)
     ).where(tab.ID==groupChatDTO.ID ));
 }
 
-bool Del(int ID, mysql::connection db)
+bool Del(int ID)
 {
+    mysql::connection &db=DBContextFactory::Instance();
     const auto tab=GroupChat{};
     db(update(tab).set(tab.IsDelete=1).where(tab.ID==ID));
 }
 
-GroupChatDTO GroupChatService::SelectedByID(int id, mysql::connection db)
+GroupChatDTO GroupChatService::SelectedByID(int id)
 {
+    mysql::connection &db=DBContextFactory::Instance();
     const auto tab=GroupChat{};
     auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id));
     GroupChatDTO groupchatDTO;
@@ -57,8 +62,9 @@ GroupChatDTO GroupChatService::SelectedByID(int id, mysql::connection db)
     return groupchatDTO;
 }
 
-int GroupChatService::GetGroupMember(vector<UserDTO>& userlist, int id, mysql::connection db)
+int GroupChatService::GetGroupMember(vector<UserDTO>& userlist, int id)
 {
+    mysql::connection &db=DBContextFactory::Instance();
     const auto tab=GroupChat{};
     const auto tab2=User{};
     auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id));
@@ -85,8 +91,9 @@ int GroupChatService::GetGroupMember(vector<UserDTO>& userlist, int id, mysql::c
     return userlist.size();
 }
 
-bool UserInGroupChat(int userId, int id, mysql::connection db)
+bool UserInGroupChat(int userId, int id)
 {
+    mysql::connection &db=DBContextFactory::Instance();
     const auto tab=GroupChat{};
     auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id));
     string userIdStr = to_string(userId);

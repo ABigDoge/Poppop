@@ -11,11 +11,13 @@
 #include <string>
 #include"MyTable.h"
 #include"SplitStr.h"
+#include "DBContextFactory.h"
 using namespace std;
 namespace mysql=sqlpp::mysql;
 
-bool GroupService::Add(GroupDTO groupDTO, mysql::connection db)
+bool GroupService::Add(GroupDTO groupDTO)
 {
+    mysql::connection &db=DBContextFactory::Instance();
     const auto tab=_Group{};
     db(insert_into(tab).set(
         tab.GroupName = groupDTO.Name,
@@ -24,8 +26,9 @@ bool GroupService::Add(GroupDTO groupDTO, mysql::connection db)
      ));
 }
 
-bool GroupService::Edit(GroupDTO groupDTO, mysql::connection db)
+bool GroupService::Edit(GroupDTO groupDTO)
 {
+    mysql::connection &db=DBContextFactory::Instance();
     const auto tab=_Group{};
     db(update(tab).set(
         tab.GroupName = groupDTO.Name,
@@ -34,19 +37,19 @@ bool GroupService::Edit(GroupDTO groupDTO, mysql::connection db)
      ).where(tab.ID==groupDTO.ID));
 }
 
-bool GroupService::Del(GroupDTO groupDTO, mysql::connection db)
+bool GroupService::Del(GroupDTO groupDTO)
 {
+    mysql::connection &db=DBContextFactory::Instance();
     const auto tab=_Group{};
     db(update(tab).set(tab.IsDelete=1).where(tab.ID==groupDTO.ID));
 }
 
-int GroupService::GetGroupList(vector<GroupDTO>& groupList, int userid, mysql::connection db)
+int GroupService::GetGroupList(vector<GroupDTO>& groupList, int userid)
 {
 
 }
 
-int GroupService::GetGroupMemberList(vector<UserDTO>&memberList,GroupSearchDTO obj,
-									 mysql::connection db)
+int GroupService::GetGroupMemberList(vector<UserDTO>&memberList,GroupSearchDTO obj)
 {
     
 }
