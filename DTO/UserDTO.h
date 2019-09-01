@@ -6,7 +6,7 @@ class UserDTO{
 public:
 	 int ID;		//用户id
 	 string Name;    //用户姓名
-	 int PassWord;   //密码
+	 string PassWord;   //密码
 	 string Sex;     //性别
 	 string Image;   //头像
 	 string Department_Name;  //所在部门

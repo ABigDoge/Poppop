@@ -13,7 +13,7 @@ bool UserService::Add(UserDTO userDTO,mysql::connection db){
     db(insert_into(tab).set(
         tab.UserName=userDTO.Name,
         tab.PassWord=userDTO.PassWord,
-        tab.ImagePath=userDTO.Department_Name,
+        tab.DepartmentName=userDTO.Department_Name,
         tab.Sex=userDTO.Sex,
         tab.Motto=userDTO.Motto,
         tab.ImagePath=userDTO.Image,
@@ -29,7 +29,7 @@ bool UserService::Edit(UserDTO userDTO,mysql::connection db){
         tab.Sex=userDTO.Sex,
         tab.Motto=userDTO.Motto,
         tab.ImagePath=userDTO.Image,
-        tab.DepartmentName=userDTO.Department_Name,
+        tab.DepartmentName=userDTO.Department_Name
     ).where(tab.ID==userDTO.ID));
 }
 
