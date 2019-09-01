@@ -41,8 +41,8 @@ namespace mysql = sqlpp::mysql;
 int main()
 {
   try{
-    //std::cout<<HHH()<<std::endl;
     mysql::global_library_init();
+    //以下为测试，懒得写了，自己看接口
     UserDTO userDTO;
     userDTO.Name="nmdwsm";
     userDTO.PassWord="hhh";

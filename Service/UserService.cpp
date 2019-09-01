@@ -29,7 +29,7 @@ bool UserService::Edit(UserDTO userDTO){
     tab.PassWord=userDTO.PassWord,tab.Sex=userDTO.Sex,
     tab.Motto=userDTO.Motto,
     tab.DepartmentName=userDTO.Department_Name,
-    tab.ImagePath=userDTO.Image).where(tab.ID==userDTO.ID));
+    tab.ImagePath=userDTO.Image,tab.IPAddr=userDTO.IP_Addr).where(tab.ID==userDTO.ID));
 }
 
 bool UserService::Del(int id){
@@ -52,6 +52,7 @@ UserDTO UserService::SelectedByID(int id){
         userDTO.Image=row.ImagePath;
         userDTO.Department_Name=row.DepartmentName;
         userDTO.Motto=row.Motto;
+        userDTO.Online_State=row.IsOnline;
     }
     return userDTO;
 }
