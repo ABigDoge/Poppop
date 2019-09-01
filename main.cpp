@@ -23,7 +23,6 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "DBContextFactory.h"
 #include "UserService.h"
 #include "string"
 #include <sqlpp11/mysql/mysql.h>
@@ -60,7 +59,7 @@ int main()
     UserDTO userDTO=new UserDTO();
     userDTO.Name="wlj";
     userDTO.PassWord="123";
-    UserService::Add(userDTO);
+    UserService::Add(userDTO,db);
   }
   catch (const sqlpp::exception& e)
   {

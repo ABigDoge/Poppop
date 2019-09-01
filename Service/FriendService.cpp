@@ -15,9 +15,10 @@ bool FriendService::Add(FriendDTO friendDTO,mysql::connection db){//添加好友
         return false;
     try{
         db(insert_into(tab).set(
-            tab.GroupOneID=friendDTO.This_ID;
-            tab.GroupTwoID=friendDTO.That_ID;
-            tab.GroupOneID=friendDTO.Group_ID;
+            tab.GroupOneID=friendDTO.This_ID,
+            tab.GroupTwoID=friendDTO.That_ID,
+            tab.GroupOneID=friendDTO.Group_ID,
+            tab.IsDelete=0
         ));
         return true;
     }
