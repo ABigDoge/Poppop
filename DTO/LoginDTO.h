@@ -6,7 +6,6 @@ using namespace std;
 class LoginDTO
 {
 public:
-    int Type;
     int ID;
     string PassWord;
 };

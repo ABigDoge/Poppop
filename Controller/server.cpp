@@ -14,6 +14,7 @@
 #include <sys/wait.h>
 #include <arpa/inet.h>
 #include "DTO.h"
+#include "Service.h"
 
 using namespace std;
 
@@ -97,15 +98,6 @@ void* ServerForClient(void *arg);
      return 1;
  }
 
- /**************************************************/
- /*名称：int Login(int client_fd)
- /*描述：用户登录
- /*作成日期： 2019-8-30
- /*参数：
- 参数1：用户线程号、int、输入
- /*返回值：执行状态、int、1成功 0失败
- /*作者：kk
- /***************************************************/
 UserDTO SelectedByID(int ID)
 {
 	UserDTO User;
@@ -131,78 +123,7 @@ UserDTO SelectedByID(int ID)
      return 1;
  }
 
- int Login(int client_fd)
- {
- 	LoginDTO ret;
-    char buf[MAX_BUF + 1];
-    char* argv[10] = { NULL };
- 	int argc = 0;
-    socklen_t len;
- 	len = recv(client_fd, buf, MAX_BUF, 0);
 
-     while ((argv[argc] = strtok((argc == 0 ? buf : NULL), " ")) != NULL)
- 	{
- 		argc++;
- 	}
- 	ret.Type = atoi(argv[0]);
- 	ret.ID = atoi(argv[1]);
- 	ret.PassWord = argv[2];
- 	if(ret.Type == 0)
- 	{
-         UserDTO User;
-         User.ID = 0;
-         User.PassWord = "123";
-         User.Online_State = 1;
-         Add(User);
-         PutUserOnline(ret.ID, client_fd);
- 	}
- 	else if(ret.Type == 1)
- 	{
-         UserDTO get_from_DB;
- 		get_from_DB = SelectedByID(ret.ID);
-         if(get_from_DB.Online_State == 1)
-         {
-             printf("Already online\n");
-         }
- 		if(ret.PassWord.compare(get_from_DB.PassWord) == 0)
- 		{
- 			send(client_fd, "1", 2 * sizeof(char), 0);
- 			PutUserOnline(ret.ID, client_fd);
-             vector<MessageDTO> vec;
-             AskForMsgUnseen(client_fd, vec);
- 		}
- 		else
- 		{
- 			send(client_fd, "0", 2 * sizeof(char), 0);
- 		}
- 	}
- 	else
- 	{
- 		return 0;
- 	}
- 	return 1;
- }
-
- /**************************************************/
- /*名称：int Quit(int client_fd)
- /*描述：用户登录
- /*作成日期： 2019-8-30
- /*参数：
-     参数1：用户线程号、int、输入
- /*返回值：执行状态、int、-1退出
- /*作者：kk
- /***************************************************/
- int PutUserOffline(int ID)
- {
-
- }
-
- int Quit(int client_fd)
- {
- 	while(PutUserOffline(client_fd) == 0)
-         ;
- 	return -1;
- }
 
 /**************************************************/
 /*名称：int Apply(int client_fd)
@@ -217,12 +138,6 @@ int GetFriendList(vector<FriendDTO>& friendList, int id)
 {
     return 1;
 }
-
-int PutMsgInDB(MessageDTO msg)
-{
-    return 1;
-}
-
 int Apply(int client_fd)
 {
 	MessageDTO ret;
@@ -274,7 +189,7 @@ int Apply(int client_fd)
         msg.Time = "";
         msg.Sender_ID = UserThis.ID;
         msg.Recver_ID = UserThat.ID;
-        PutMsgInDB(msg);
+        
         printf("offline\n");
         send(UserThat.IP_Addr, str, sizeof(str) * sizeof(char), 0);
     }   
@@ -359,16 +274,16 @@ public:
 
 CMD cmdlist[] =
 {
-	// {"login", Login}, //用户登录
-	// {"send", Send}, //发送消息
-    // {"create", Create}, //创建群聊
+	{"login", Login}, //用户登录
+	{"send", Send}, //发送消息
+    {"create", Create}, //创建群聊
 	// {"sendfile", Sendfile}, //发送文件
 	// {"getfile", Getfile}, //获取文件
 	// {"list"， List}, //获取好友列表（已排序）
 	// {"show", Show}, //聊天记录
 	// {"help", Help}, //获取帮助
 	// {"exit", Exit}, //退出页面
-	// {"quit", Quit}, //下线指令
+	{"quit", Quit}, //下线指令
     // {"find", Find}, //列表中查找好友
     // {"search", Search}, //网络中查找好友
     {"apply", Apply}, //申请好友
@@ -412,82 +327,5 @@ int ExecCmd(int client_fd, char *cmd)
 	return 0;
 }
 
-// 主函数
-int main(int argc, char *argv[])
-{
-    int sockfd, new_fd;
-    socklen_t len = sizeof(struct sockaddr);
-    struct sockaddr_in sever_addr, client_addr;
-    struct pthread_data pdata;
 
-    bzero(&sever_addr, sizeof(sever_addr) );
-    sever_addr.sin_family = AF_INET;
-    sever_addr.sin_port = htons(SERVER_PORT);
-    sever_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-    // 创建套接字，采用TCP协议
-    if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
-        ErrorHandling((char*)"socket error");
-    
-    // 绑定
-    if(bind(sockfd, (struct sockaddr*)&sever_addr, sizeof(struct sockaddr)) == -1)
-        ErrorHandling((char*)"bind error");
-
-    // 监听
-    if(listen(sockfd, MAX_LISTEN) == -1)
-        ErrorHandling((char*)"listen error");
-    
-    // 服务器开启服务
-    puts("service open");
-    while(1)
-    {
-        // 接受连接请求
-        if((new_fd = accept(sockfd, (struct sockaddr*)&client_addr, &len)) == -1)
-        {
-            perror("accept error!");
-            continue;
-        }
-        else
-            puts("new client connected...");
-
-        // 创建新线程
-        pthread_t* pt = (pthread_t*)malloc(sizeof(pthread_t));
-        pdata.client_addr = client_addr;
-        pdata.my_fd = new_fd;
-        pthread_create(pt, NULL, ServerForClient, (void *)&pdata);
-    }
-
-    // 关闭服务器
-    close(new_fd);
-    close(sockfd);
-    return 0;
-}
-
-// 错误处理函数
-void ErrorHandling(char *message)
-{
-    perror(message);
-    exit(EXIT_FAILURE);
-}
-
-void* ServerForClient(void *arg)
-{
-    struct pthread_data* pdata = (struct pthread_data*)arg;
-    int client_fd = pdata->my_fd;
-    socklen_t len;
-    char buf[MAX_BUF + 1];
-    while(1)
-    {
-        bzero(buf, MAX_BUF + 1);
-        len = recv(client_fd, buf, MAX_BUF, 0);
-        if(len > 0)
-        {
-			if(ExecCmd(client_fd, buf) == -1)
-                break;
-            else if(ExecCmd(client_fd, buf) == 0)
-                printf("ERROR\n");
-            else
-                printf("OK1\n");
-		}
-    }
-}

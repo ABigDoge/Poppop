@@ -6,7 +6,7 @@ using namespace std;
 class MessageDTO{    
 public:
 	int Sender_ID;   //消息发送者
-	int Recver_ID;   //消息发送者
+	int Recver_ID;   //消息接收者
 	string Context;     //消息内容
 	int Type;       //消息类型
 	string Time;  //发送时间
