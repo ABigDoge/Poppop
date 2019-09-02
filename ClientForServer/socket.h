@@ -11,7 +11,6 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-extern const int MAX_LISTEN; // 最大监听数
 extern const int SERVER_PORT; // 端口
 extern const char SERVER_IPV4[]; // ip地址
 extern const int MAX_BUF; // 缓冲区大小
@@ -45,7 +44,7 @@ extern int CreateGroup(int* usr_id);
 extern int ApplyForFriend(int my_id, int fri_id);
 
 // 同意好友与否
-extern int ReplyFriend();
+// extern int ReplyFriend();
 
 // 关闭连接
 extern void Close();
