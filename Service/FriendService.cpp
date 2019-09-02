@@ -11,6 +11,7 @@
 #include <vector>
 #include "MyTable.h"
 namespace mysql=sqlpp::mysql;
+using namespace std;
 bool FriendService::Add(FriendDTO friendDTO){//添加好友
     const auto tab=Friend{};
     mysql::connection &db=DBContextFactory::Instance();
