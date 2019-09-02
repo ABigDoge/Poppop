@@ -10,7 +10,7 @@ create table User(
     IsDelete int(1),
     IPAddr INT UNSIGNED,
     IsOnline INT);
-    
+
 create table _Group(
     ID int auto_increment primary key,
     GroupName nvarchar(20) not null,
@@ -36,11 +36,21 @@ create table GroupChat(
     ImagePath varchar(100),
     IsDelete int(1)
 );
-create table _Message(
+create table PrivateMessage(
     Sender_ID int,
     Context nvarchar(200),
     MessageType int(1),
-    MessageTime TimeStamp,
+    MessageTime varchar(20),
+    Recver_ID int,
+    foreign key(Sender_ID) references User(ID),
+    IsDelete int(1) 
+);
+
+create table PublicMessage(
+    Sender_ID int,
+    Context nvarchar(200),
+    MessageType int(1),
+    MessageTime varchar(20),
     GroupID int,
     foreign key(Sender_ID) references User(ID),
     foreign key(GroupID) references GroupChat(ID),
