@@ -44,3 +44,13 @@ bool FriendService::Edit(FriendDTO friendDTO){//编辑好友信息（分组）
         return false;
     }
 }
+
+bool FriendService::IsFriend(int id1, int id2)
+{
+    const auto tab=Friend{};
+    mysql::connection &db=DBContextFactory::Instance();
+    auto result=db(select(all_of(tab)).from(tab).where(tab.ThisID==id1&&tab.ThatID==id2));
+    if(!result.empty())
+        return true;
+    return false;
+}
