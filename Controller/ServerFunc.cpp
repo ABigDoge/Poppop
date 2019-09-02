@@ -1,29 +1,5 @@
-#include"ServerFunc.h"
-#include <cstdio>
-#include <cstring>
-#include <string>
-#include <cstdlib>
-#include <cerrno>
-#include <vector>
-#include <map>
-#include <string>
-#include <iostream>
-#include <unistd.h>
-#include <pthread.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/wait.h>
-#include <arpa/inet.h>
-#include "DTO.h"
-#include "Service.h"
-#define MAX_BUF 1024     // 缓冲区大小
-
+#include "ServerFunc.h"
 using namespace std;
-struct pthread_data
-{
-    struct sockaddr_in client_addr;
-    int my_fd;
-};
 /**************************************************/
 /*名称：int Login(int client_fd)
  /*描述：用户登录
@@ -276,7 +252,7 @@ bool Create(int client_fd)
 class CMD
 {
 public:
-    char name[10];
+    char name[20];
     bool (*fun)(int);
 };
 
