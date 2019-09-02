@@ -1,2 +1,3 @@
-./user/image/user.jpeg:tom(654321)
-./user/image/user.jpeg:maid(654321)
+group1:./user/image/user.jpeg:gy(21)
+group4:./user/image/user.jpeg:27273
+group2:./user/image/user.jpeg:lxt(21)
