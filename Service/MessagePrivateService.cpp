@@ -37,7 +37,7 @@ int MessagePrivateService::GetMessagePrivateList(vector<MessagePrivateDTO>& mess
     mysql::connection &db=DBContextFactory::Instance();
     const auto tab=PrivateMessage{};
     for (const auto& row:db(select(all_of(tab)).from(tab).where(tab.SenderID==sender_id
-                            and tab.RecverID==recv_id)))
+                            and tab.RecverID==recv_id and tab.IsDelete==0)))
     {
         MessagePrivateDTO messagePrivateDTO;
         messagePrivateDTO.Context = row.Context;

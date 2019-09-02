@@ -44,7 +44,7 @@ bool UserService::Del(int id){
 UserDTO UserService::SelectedByID(int id){
     const auto tab=User{};
     mysql::connection &db=DBContextFactory::Instance();
-    auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id));
+    auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id and tab.IsDelete==0));
     UserDTO userDTO;
     if(!result.empty()){
         const auto& row = result.front();
@@ -64,7 +64,7 @@ int UserService::GetUserList(vector<UserDTO>& userList, UserSearchDTO dto){
     const auto tab=User{};
     mysql::connection &db=DBContextFactory::Instance();
     if(dto.ID!=0){
-        for (const auto& row:db(select(all_of(tab)).from(tab).where(tab.ID==dto.ID)))
+        for (const auto& row:db(select(all_of(tab)).from(tab).where(tab.ID==dto.ID and tab.IsDelete==0)))
         {
             UserDTO userDTO;
             userDTO.ID=row.ID;

@@ -1,6 +1,7 @@
 #ifndef FriendService_h
 #define FriendService_h
 #include"FriendDTO.h"
+#include"UserDTO.h"
 #include <sqlpp11/mysql/mysql.h>
 #include <sqlpp11/sqlpp11.h>
 #include<vector>
@@ -13,5 +14,6 @@ class FriendService{
 		static bool Del(FriendDTO friendDTO);		//删除好友
     	static bool Edit(FriendDTO friendDTO);		//编辑好友信息（分组）
 		static bool IsFriend(int id1, int id2);		//判断两个人是否是好友
+		static bool GetFriendList(vector<UserDTO> &friendlist, int id);   //得到某人所有好友
 };	
 #endif

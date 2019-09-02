@@ -38,7 +38,7 @@ bool GroupService::Edit(GroupDTO groupDTO)
         tab.GroupName = groupDTO.Name,
         tab.OwnerID = groupDTO.Owner_ID,
         tab.IsDelete = 0
-     ).where(tab.ID==groupDTO.ID));
+     ).where(tab.ID==groupDTO.ID and tab.IsDelete==0));
 }
 
 bool GroupService::Del(GroupDTO groupDTO)
@@ -52,7 +52,7 @@ int GroupService::GetGroupList(vector<GroupDTO>& groupList, int userid)
 {
     mysql::connection &db=DBContextFactory::Instance();
     const auto tab=_Group{};
-    for (const auto& row:db(select(all_of(tab)).from(tab).where(tab.OwnerID==userid)))
+    for (const auto& row:db(select(all_of(tab)).from(tab).where(tab.OwnerID==userid and tab.IsDelete==0)))
     {
         GroupDTO groupDTO;
         groupDTO.ID = row.ID;
@@ -69,7 +69,7 @@ int GroupService::GetGroupMemberList(vector<UserDTO>&memberList,GroupSearchDTO o
     const auto tab=Friend{};
     if(obj.ID!=0)
     {
-        for (const auto& row:db(select(tab.ThatID).from(tab).where(tab.GroupID==obj.ID)))
+        for (const auto& row:db(select(tab.ThatID).from(tab).where(tab.GroupID==obj.ID and tab.IsDelete==0)))
         {
             memberList.push_back(UserService::SelectedByID(row.ThatID));
         }

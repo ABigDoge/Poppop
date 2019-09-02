@@ -40,7 +40,7 @@ bool GroupChatService::Edit(GroupChatDTO groupChatDTO)
         tab.GroupChatName = groupChatDTO.Name,
         tab.ImagePath = groupChatDTO.Image_Path,
         tab.MemberIDList = groupChatDTO.Member_ID_List
-    ).where(tab.ID==groupChatDTO.ID ));
+    ).where(tab.ID==groupChatDTO.ID and tab.IsDelete==0));
 }
 
 bool Del(int ID)
@@ -54,7 +54,7 @@ GroupChatDTO GroupChatService::SelectedByID(int id)
 {
     mysql::connection &db=DBContextFactory::Instance();
     const auto tab=GroupChat{};
-    auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id));
+    auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id and tab.IsDelete==0));
     GroupChatDTO groupchatDTO;
     if(!result.empty()){
         const auto& row = result.front();
@@ -71,14 +71,14 @@ int GroupChatService::GetGroupMember(vector<UserDTO>& userlist, int id)
     mysql::connection &db=DBContextFactory::Instance();
     const auto tab=GroupChat{};
     const auto tab2=User{};
-    auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id));
+    auto result=db(select(all_of(tab)).from(tab).where(tab.ID==id and tab.IsDelete==0));
     if(!result.empty()){
         const auto& row = result.front();
         vector<string> memberidlist = split(row.MemberIDList, ",");
         for(int i = 0; i < memberidlist.size(); i++)
         {
             int tmpid = atoi(memberidlist[i].c_str());
-            auto resultuser=db(select(all_of(tab2)).from(tab2).where(tab2.ID==tmpid));
+            auto resultuser=db(select(all_of(tab2)).from(tab2).where(tab2.ID==tmpid and tab2.IsDelete==0));
             const auto& row2 = resultuser.front();
             UserDTO userDTO;
             userDTO.ID=row2.ID;
@@ -95,7 +95,7 @@ int GroupChatService::GetGroupMember(vector<UserDTO>& userlist, int id)
     return userlist.size();
 }
 
-bool UserInGroupChat(int userId, int id)
+bool GroupChatService::UserInGroupChat(int userId, int id)
 {
     mysql::connection &db=DBContextFactory::Instance();
     const auto tab=GroupChat{};

@@ -37,7 +37,7 @@ int MessagePublicService::GetMessagePublicList(vector<MessagePublicDTO>& message
     mysql::connection &db=DBContextFactory::Instance();
     const auto tab=PublicMessage{};
     for (const auto& row:db(select(all_of(tab)).from(tab).where(tab.SenderID==sender_id
-                            and tab.GroupID==group_id)))
+                            and tab.GroupID==group_id and tab.IsDelete==0)))
     {
         MessagePublicDTO messagePublicDTO;
         messagePublicDTO.Context = row.Context;
