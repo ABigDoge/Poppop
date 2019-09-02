@@ -1,7 +1,5 @@
 #include "socket.h"
 
-extern const int MAX_BUF;
-
 int SendMessege(const char* msg){
     char buf[MAX_BUF + 1];
 

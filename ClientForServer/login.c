@@ -1,10 +1,8 @@
 #include "socket.h"
 
-#define ID_MAX 10
-
 int Login(int id, const char* password){
     char buf[MAX_BUF + 1];
-    char s_id[ID_MAX + 1];
+    char s_id[MAX_BUF + 1];
     
   	// 发命令
 	bzero(buf, MAX_BUF + 1);
