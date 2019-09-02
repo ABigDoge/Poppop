@@ -1,12 +1,12 @@
 #include "socket.h"
 
-int Login(int id, const char* password){
+int SignIn(int id, const char* password){
     char buf[MAX_BUF + 1];
     char s_id[MAX_BUF + 1];
     
   	// 发命令
 	bzero(buf, MAX_BUF + 1);
-	strcpy(buf, "login");
+	strcpy(buf, "sign in");
 	if (send(fd, buf, strlen(buf), 0) <= 0)
 		return 0;
 

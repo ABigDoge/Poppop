@@ -1,25 +1,6 @@
-#include <cstdio>
-#include <cstring>
-#include <string>
-#include <cstdlib>
-#include <cerrno>
-#include <vector>
-#include <map>
-#include <string>
-#include <iostream>
-#include <unistd.h>
-#include <pthread.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/wait.h>
-#include <arpa/inet.h>
-#include "DTO.h"
-#include "Service.h"
 #include "ServerFunc.h"
-using namespace std;
 #define SERVER_PORT 8088 // 端口
-#define MAX_LISTEN 5     // 最大监听数
-
+#define MAX_LISTEN 5 // 最大监听数
 int usercount = 0;
 
 // 主函数
