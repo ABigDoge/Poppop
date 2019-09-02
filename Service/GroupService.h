@@ -12,7 +12,7 @@ namespace mysql = sqlpp::mysql;
 class GroupService{
 	public:
 		//添加好友分组
-		static bool Add(GroupDTO groupDTO);
+		static bool Add(GroupDTO &groupDTO);
 		//编辑分组，比如改名
 		static bool Edit(GroupDTO groupDTO);
 		//受限删除分组

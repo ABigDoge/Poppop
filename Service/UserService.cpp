@@ -9,7 +9,7 @@
 #include "DBContextFactory.h"
 #include"MyTable.h"
 namespace mysql=sqlpp::mysql;
-bool UserService::Add(UserDTO userDTO){
+bool UserService::Add(UserDTO &userDTO){
     const auto tab=User{};
     mysql::connection &db=DBContextFactory::Instance();
     db(insert_into(tab).set(
@@ -20,6 +20,9 @@ bool UserService::Add(UserDTO userDTO){
         tab.ImagePath=userDTO.Image,
         tab.DepartmentName=userDTO.Department_Name,
         tab.IsDelete=0));
+    auto result = db(select(max(tab.ID)).from(tab).unconditionally());
+    const auto& row = result.front();
+    userDTO.ID = row.max;
     return true;
 }
 bool UserService::Edit(UserDTO userDTO){
