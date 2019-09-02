@@ -7,18 +7,9 @@
 #include <netinet/in.h> 
 #include <arpa/inet.h> 
 #include <unistd.h>
-#include <pthread.h>
 
 #define SERVER_PORT 8088 // 端口
 #define MAX_BUF 1024 // 缓冲区大小
-
-void ErrorHandling(char* message); // 错误处理函数
-void* Monitor(void* arg); // 监听函数
-
-struct pthread_data{
-    struct sockaddr_in client_addr;
-    int my_fd;
-};
 
 // 主函数
 int main(int argc, char *argv[]) 
@@ -44,17 +35,6 @@ int main(int argc, char *argv[])
         ErrorHandling("Connect error");
     puts("server connected");
 
-    pdata.client_addr = client_addr;
-    pdata.my_fd = sockfd;
-
-    pthread_t* pt1 = (pthread_t*)malloc(sizeof(pthread_t));
-    pthread_create(pt1, NULL, Monitor, (void *)&pdata);
-
-    pthread_t* pt2 = (pthread_t*)malloc(sizeof(pthread_t));
-    pthread_create(pt2, NULL, Transmit, (void *)&pdata);
-
-    pthread_join(*pt1, NULL);
-    pthread_join(*pt2, NULL);
     close(sockfd); 
     return 0; 
 }
