@@ -13,8 +13,6 @@
 #include <sys/socket.h>
 #include <sys/wait.h>
 #include <arpa/inet.h>
-#include "DTO.h"
-#include "Service.h"
 #include "ServerFunc.h"
 using namespace std;
 #define SERVER_PORT 8088 // 端口
