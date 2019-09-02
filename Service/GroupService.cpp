@@ -50,10 +50,29 @@ bool GroupService::Del(GroupDTO groupDTO)
 
 int GroupService::GetGroupList(vector<GroupDTO>& groupList, int userid)
 {
-
+    mysql::connection &db=DBContextFactory::Instance();
+    const auto tab=_Group{};
+    for (const auto& row:db(select(all_of(tab)).from(tab).where(tab.OwnerID==userid)))
+    {
+        GroupDTO groupDTO;
+        groupDTO.ID = row.ID;
+        groupDTO.Name = row.GroupName;
+        groupDTO.Owner_ID = row.OwnerID;
+        groupList.push_back(groupDTO);
+    }
+    return groupList.size();
 }
 
 int GroupService::GetGroupMemberList(vector<UserDTO>&memberList,GroupSearchDTO obj)
 {
-    
+    mysql::connection &db=DBContextFactory::Instance();
+    const auto tab=Friend{};
+    if(obj.ID!=0)
+    {
+        for (const auto& row:db(select(tab.ThatID).from(tab).where(tab.GroupID==obj.ID)))
+        {
+            memberList.push_back(UserService::SelectedByID(row.ThatID));
+        }
+    }
+    return memberList.size();
 }

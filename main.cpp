@@ -23,7 +23,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "UserService.h"
+#include "Service.h"
 #include "DTO.h"
 //#include"SplitStr.h"
 #include "DBContextFactory.h"
@@ -51,9 +51,16 @@ int main()
     userDTO.Name="wlj";
     userDTO.PassWord="hhh";
     UserService::Add(userDTO); 
-    int newid;
-    newid = userDTO.ID;
-    cout << "newid:  " << userDTO.ID << endl;
+    int newid1, newid2;
+    newid1 = userDTO.ID;
+    cout << "newid1:  " << userDTO.ID << endl;
+
+    UserDTO userDTO2;
+    userDTO2.Name="hsx";
+    userDTO2.PassWord="www";
+    UserService::Add(userDTO2); 
+    newid2 = userDTO2.ID;
+    cout << "newid2:  " << userDTO2.ID << endl;
 
     //UserService::Edit 测试成功
     userDTO.Name = "lsy";
@@ -62,7 +69,7 @@ int main()
     //UserService::GetUserList 测试成功
     vector<UserDTO> user_vec;
     UserSearchDTO user_searchDTO;
-    user_searchDTO.ID = newid;
+    user_searchDTO.ID = newid1;
     int usernum;
     usernum = UserService::GetUserList(user_vec, user_searchDTO);
     for(int i = 0; i < usernum; i++)
@@ -72,12 +79,30 @@ int main()
     }
     
     //UserService::SelectedByID 测试成功
-    userDTO = UserService::SelectedByID(newid);
+    userDTO = UserService::SelectedByID(newid1);
     for(int i = 0; i < usernum; i++)
     {
       cout << "ID: " << userDTO.ID << "  name: "<< userDTO.Name 
         << "   password: " << userDTO.PassWord << endl;
     }
+
+    //GroupService::Add 成功
+    GroupDTO groupDTO;
+    groupDTO.Name = "默认分组";
+    groupDTO.Owner_ID = newid1;
+    GroupService::Add(groupDTO);
+    cout << "new groupid: " << groupDTO.ID << endl;
+    int groupid = groupDTO.ID;
+
+    //FriendService::Add 成功
+    FriendDTO friendDTO;
+    friendDTO.This_ID = newid1;
+    friendDTO.That_ID = newid2;
+    friendDTO.Group_ID = groupid;
+    FriendService::Add(friendDTO);
+    cout << friendDTO.That_ID << " is a friend of " << friendDTO.This_ID << " in group " 
+        << friendDTO.Group_ID << endl;
+
   }
   catch (const sqlpp::exception& e)
   {
