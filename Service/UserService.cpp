@@ -80,7 +80,7 @@ int UserService::GetUserList(vector<UserDTO>& userList, UserSearchDTO dto){
     return userList.size();
 }
 
-bool UserService::PutUserOnline(int id, int client_fd,int* count){
+bool UserService::PutUserOnline(int id, int client_fd){
     const auto tab=User{};
     mysql::connection &db=DBContextFactory::Instance();
     db(update(tab).set(tab.IsOnline=1,tab.IPAddr=client_fd).where(tab.ID==id));

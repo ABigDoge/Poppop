@@ -94,7 +94,7 @@ void change(int line, char *text,char *file_path)
 
 	}
 
-	//g_print(buff2);*/
+	//g_print(buff2);
 
 
 
@@ -111,6 +111,8 @@ void change(int line, char *text,char *file_path)
 		fputc(buff2[I], fp2);
 
     fclose(fp2);
+
+
 
 }
 
@@ -184,4 +186,77 @@ void delete_line(char *text, char* file_path)
 		fputc(buff2[I], fp2);
 
 	fclose(fp2);
+}
+
+void change_friend_label(char *friendname, char *label)
+{
+    FILE *in=fopen("./user/friend_info.txt","r");
+    FILE *out=fopen("./user/tmp.txt","w");
+    char buffer[1024];
+
+    while(fscanf(in, "%s", buffer) != EOF)
+    {
+
+       if(strstr(buffer, friendname) == NULL)
+       {
+         strcat(buffer, "\n");
+         fprintf(out, "%s", buffer);
+         g_print("%s\n", buffer);
+       }
+       else
+       {
+         char str[1024];
+         memset(str, '\0', sizeof(str));
+         strcpy(str, label);
+         char *pointer = strchr(buffer, ':');
+         strcat(str, pointer);
+         strcat(str, "\n");
+         fprintf(out, "%s", str);
+         g_print("%s\n", str);
+       }
+
+       memset(buffer, '\0', sizeof(buffer));
+    }
+
+    fclose(in);
+    fclose(out);
+    unlink("./user/friend_info.txt"); /*删除test.txt*/
+    rename("./user/tmp.txt","./user/friend_info.txt"); /*改名*/
+}
+
+
+void add_friendlist_label(char *label)
+{
+    FILE *in=fopen("./user/user_info.txt","r");
+    FILE *out=fopen("./user/tmp.txt","w");
+    char buffer[1024];
+    char tmp[1024];
+    memset(tmp, '\0', sizeof(tmp));
+    char *point;
+
+    for(int i=0; i<6; i++)
+    {
+       fscanf(in, "%s", buffer);
+       switch(i)
+       {
+         case 4:
+         point = strchr(buffer, '/');
+         strncpy(tmp, buffer, point - buffer);
+         strcat(tmp, label);
+         strcat(tmp, ",/");
+         strcat(tmp, "\n");
+         fprintf(out, "%s", tmp);
+         break;
+
+         default :
+         strcat(buffer, "\n");
+         fprintf(out, "%s", buffer);
+         break;
+       }
+    }
+
+    fclose(in);
+    fclose(out);
+    unlink("./user/user_info.txt"); /*删除test.txt*/
+    rename("./user/tmp.txt","./user/user_info.txt"); /*改名*/
 }

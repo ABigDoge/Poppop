@@ -1,8 +1,21 @@
+<<<<<<< HEAD
 #include <cstdio>
 #include <cstring>
 #include <string>
 #include <cstdlib>
 #include <cerrno>
+=======
+#include "Service.h"
+#include "DTO.h"
+//#include"SplitStr.h"
+#include "DBContextFactory.h"
+#include "string"
+#include <sqlpp11/mysql/mysql.h>
+#include <sqlpp11/sqlpp11.h>
+
+#include <cassert>
+#include <iostream>
+>>>>>>> 68bbc0f23fa63be97151771eb03278d696dc8c46
 #include <vector>
 #include <map>
 #include <string>
@@ -36,7 +49,7 @@ class CMD
 {
 public:
     char name[10];
-    int (*fun)(int);
+    bool (*fun)(int);
 };
 
 CMD cmdlist[] =
@@ -56,8 +69,8 @@ CMD cmdlist[] =
         // {"search", Search}, //网络中查找好友
         {"apply", Apply}, //申请好友
         {"reply", Reply}, //验证好友
-                          // {"clear", Clear}, //清空页面
-                          // {"remove", Remove}, //撤回消息
+        // {"clear", Clear}, //清空页面
+        // {"remove", Remove}, //撤回消息
         {"hello", Hello}};
 
 //解析并处理命令

@@ -21,8 +21,8 @@ class UserService{
 		//获取用户列表，比如提供一个词，找到名字里带这个词的所有用户，返回结果数
 		static int GetUserList(vector<UserDTO>& userList, UserSearchDTO dto);
 		//client_fd是该用户现在上线用的IP地址，count是他待接受的消息数
-		bool PutUserOnline(int id, int client_fd,int* count);
+		static bool PutUserOnline(int id, int client_fd);
 		//下线
-		bool PutUserOffline(int ID);
+		static bool PutUserOffline(int ID);
 };
 #endif

@@ -5,7 +5,8 @@
 #include"FriendService.h"
 #include"GroupChatService.h"
 #include"GroupService.h"
-#include"MessageService.h"
+#include"MessagePrivateService.h"
+#include"MessagePublicService.h"
 #include"UserService.h"
 
 #endif

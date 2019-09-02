@@ -1,4 +1,6 @@
 main_back:./user/image/main_back.jpeg
 user_image:./user/image/3.jpeg
 user_id:jkouu(1014252129)
-user_sign:hello
+user_sign:I_will_be_fine
+label:group1,group2,group3,group4,/
+-1
