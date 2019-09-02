@@ -280,7 +280,7 @@ public:
     bool (*fun)(int);
 };
 
-CMD cmdlist[] =
+CMD cmdlist[50] =
     {
         {"login", Login},   //用户登录
         //{"send", Send},     //发送消息

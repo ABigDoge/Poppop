@@ -1,4 +1,4 @@
-#ifdef ServerFunc_h
+#ifndef ServerFunc_h
 #define ServerFunc_h
 bool CreateUser(int client_fd);
 bool Create(int client_fd);

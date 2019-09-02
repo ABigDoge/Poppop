@@ -67,7 +67,7 @@ bool FriendService::GetFriendList(vector<UserDTO> &friendlist, int id)
     {
         for (const auto& row:db(select(all_of(tab)).from(tab).where(tab.ThisID==id and tab.IsDelete==0)))
         {
-            friendlist.push_back(UserService::SelectedByID(tab.ThatID));
+            friendlist.push_back(UserService::SelectedByID(row.ThatID));
         }
         return true;
     }
