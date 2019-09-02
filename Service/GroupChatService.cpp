@@ -28,7 +28,7 @@ bool GroupChatService::Add(GroupChatDTO &groupChatDTO)
      ));
     auto result = db(select(max(tab.ID)).from(tab).unconditionally());
     const auto& row = result.front();
-    groupChat.ID = row.max;
+    groupChatDTO.ID = row.max;
     return true;
 }
 

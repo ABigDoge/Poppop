@@ -71,6 +71,13 @@ int main()
         << "   password: " << user_vec[i].PassWord << endl;
     }
     
+    //UserService::SelectedByID 测试成功
+    userDTO = UserService::SelectedByID(newid);
+    for(int i = 0; i < usernum; i++)
+    {
+      cout << "ID: " << userDTO.ID << "  name: "<< userDTO.Name 
+        << "   password: " << userDTO.PassWord << endl;
+    }
   }
   catch (const sqlpp::exception& e)
   {
