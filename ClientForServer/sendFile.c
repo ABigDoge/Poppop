@@ -26,9 +26,7 @@ int SendFile(const char* s){
     // 发送文件
     bzero(buf, MAX_BUF + 1);
     while((len = fread(buf, 1, MAX_BUF, fp)) > 0){
-        printf("%d\n",len);
         if(send(fd, buf, len, 0)<0){
-            puts("send flie error");
             fclose(fp);
             return 0;
         }
