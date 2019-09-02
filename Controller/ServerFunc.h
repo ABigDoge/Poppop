@@ -8,4 +8,4 @@ bool Quit(int client_fd);
 bool Login(int client_fd);
 void ErrorHandling(char *message); // 错误处理函数
 void *ServerForClient(void *arg);
-#endif;
+#endif

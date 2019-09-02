@@ -16,8 +16,14 @@
 #include <arpa/inet.h>
 #include "DTO.h"
 #include "Service.h"
+#define MAX_BUF 1024     // 缓冲区大小
 
 using namespace std;
+struct pthread_data
+{
+    struct sockaddr_in client_addr;
+    int my_fd;
+};
 /**************************************************/
 /*名称：int Login(int client_fd)
  /*描述：用户登录
@@ -185,10 +191,10 @@ bool Reply(int client_fd)
         friendDTO.That_ID = userThis.ID;
         FriendService::Add(friendDTO);
     }
-    printf("To User : %d %d\n", ret.Recver_ID, userThat.IP_Addr);
+    //printf("To User : %d %d\n", ret.Recver_ID, userThat.IP_Addr);
     string rbuf = "";
     string str1 = "reply";
-    string str2 = userThis.ID;
+    string str2 = argv[0];
     rbuf = str1 + str2 + argv[2];
     if (userThat.Online_State == 1)
     {
@@ -267,35 +273,6 @@ bool Create(int client_fd)
     return GroupChatService::Add(ret);
  }
 
- // 错误处理函数
-void ErrorHandling(char *message)
-{
-    perror(message);
-    exit(EXIT_FAILURE);
-}
-
-void *ServerForClient(void *arg)
-{
-    struct pthread_data *pdata = (struct pthread_data *)arg;
-    int client_fd = pdata->my_fd;
-    socklen_t len;
-    char buf[MAX_BUF + 1];
-    while (1)
-    {
-        bzero(buf, MAX_BUF + 1);
-        len = recv(client_fd, buf, MAX_BUF, 0);
-        if (len > 0)
-        {
-            if (ExecCmd(client_fd, buf) == -1)
-                break;
-            else if (ExecCmd(client_fd, buf) == 0)
-                printf("ERROR\n");
-            else
-                printf("OK1\n");
-        }
-    }
-}
-
 class CMD
 {
 public:
@@ -323,7 +300,7 @@ CMD cmdlist[] =
         // {"clear", Clear}, //清空页面
         // {"remove", Remove}, //撤回消息
         //{"hello", Hello}};
-
+    };
 //解析并处理命令
 
 int ExecCmd(int client_fd, char *cmd)
@@ -357,4 +334,32 @@ int ExecCmd(int client_fd, char *cmd)
     }
     printf("cmd not find\n");
     return 0;
+}
+ // 错误处理函数
+void ErrorHandling(char *message)
+{
+    perror(message);
+    exit(EXIT_FAILURE);
+}
+
+void *ServerForClient(void *arg)
+{
+    struct pthread_data *pdata = (struct pthread_data *)arg;
+    int client_fd = pdata->my_fd;
+    socklen_t len;
+    char buf[MAX_BUF + 1];
+    while (1)
+    {
+        bzero(buf, MAX_BUF + 1);
+        len = recv(client_fd, buf, MAX_BUF, 0);
+        if (len > 0)
+        {
+            if (ExecCmd(client_fd, buf) == -1)
+                break;
+            else if (ExecCmd(client_fd, buf) == 0)
+                printf("ERROR\n");
+            else
+                printf("OK1\n");
+        }
+    }
 }
