@@ -1,8 +1,10 @@
 #include "Connect.h"
 
-void ErrorHandling(char* message); // 错误处理函数
+void ErrorHandling(char* message){
+    perror(message);
+    exit(EXIT_FAILURE);
+}
 
-// 连接服务器
 int Connect(){ 
     int sockfd;
     struct sockaddr_in client_addr;
@@ -27,9 +29,4 @@ int Connect(){
     return sockfd;
     // close(sockfd);
     // 关闭连接
-}
-
-void ErrorHandling(char *message){
-    perror(message);
-    exit(EXIT_FAILURE);
 }
