@@ -23,7 +23,7 @@ extern void Connect();
 extern int Register(const char* usrname, const char* password);
 
 // 登陆,参数为用户id与密码，返回值为0登陆失败，1为登陆成功
-extern int Login(int id, const char* password);
+extern int SignIn(int id, const char* password);
 
 // 发送信息函数，返回值0为失败，1为成功
 extern int SendMessege(const char* msg);
