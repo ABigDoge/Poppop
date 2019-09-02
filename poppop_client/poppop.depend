@@ -2888,3 +2888,141 @@
 	<gtk/gtk.h>
 	<string.h>
 
+1567215952 source:/home/gy915/Desktop/poppop_client/main.c
+	<stdlib.h>
+	<gtk/gtk.h>
+	"login.c"
+
+1567070724 /home/gy915/Desktop/poppop_client/login.c
+	<gtk/gtk.h>
+	"signup.c"
+	"main_menu.c"
+
+1567215404 /home/gy915/Desktop/poppop_client/signup.c
+	<gtk/gtk.h>
+	<string.h>
+	<sys/stat.h>
+	<stdlib.h>
+
+1567330094 /home/gy915/Desktop/poppop_client/main_menu.c
+	<gtk/gtk.h>
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	<gdk/gdk.h>
+	"user_image_change.c"
+	"file_updata.c"
+	"dialog.c"
+
+1567230788 /home/gy915/Desktop/poppop_client/user_image_change.c
+	<gtk/gtk.h>
+	<string.h>
+	<sys/stat.h>
+	<stdlib.h>
+
+1567235794 /home/gy915/Desktop/poppop_client/file_updata.c
+	<gtk/gtk.h>
+	<string.h>
+	<sys/stat.h>
+	<stdlib.h>
+	<fcntl.h>
+	<unistd.h>
+	<sys/types.h>
+	<stdio.h>
+
+1567242456 /home/gy915/Desktop/poppop_client/dialog.c
+	<gtk/gtk.h>
+	<string.h>
+
+1567269952 source:/home/lxt/桌面/Project/poppop_client_lastby_gy/main.c
+	<stdlib.h>
+	<gtk/gtk.h>
+	"login.c"
+
+1567124724 /home/lxt/桌面/Project/poppop_client_lastby_gy/login.c
+	<gtk/gtk.h>
+	"signup.c"
+	"main_menu.c"
+
+1567269404 /home/lxt/桌面/Project/poppop_client_lastby_gy/signup.c
+	<gtk/gtk.h>
+	<string.h>
+	<sys/stat.h>
+	<stdlib.h>
+
+1567384096 /home/lxt/桌面/Project/poppop_client_lastby_gy/main_menu.c
+	<gtk/gtk.h>
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	<gdk/gdk.h>
+	"user_image_change.c"
+	"file_updata.c"
+	"dialog.c"
+
+1567284788 /home/lxt/桌面/Project/poppop_client_lastby_gy/user_image_change.c
+	<gtk/gtk.h>
+	<string.h>
+	<sys/stat.h>
+	<stdlib.h>
+
+1567289794 /home/lxt/桌面/Project/poppop_client_lastby_gy/file_updata.c
+	<gtk/gtk.h>
+	<string.h>
+	<sys/stat.h>
+	<stdlib.h>
+	<fcntl.h>
+	<unistd.h>
+	<sys/types.h>
+	<stdio.h>
+
+1567296456 /home/lxt/桌面/Project/poppop_client_lastby_gy/dialog.c
+	<gtk/gtk.h>
+	<string.h>
+
+1567269952 source:/home/lxt/Desktop/poppop_client_lastby_gy/main.c
+	<stdlib.h>
+	<gtk/gtk.h>
+	"login.c"
+
+1567124724 /home/lxt/Desktop/poppop_client_lastby_gy/login.c
+	<gtk/gtk.h>
+	"signup.c"
+	"main_menu.c"
+
+1567269404 /home/lxt/Desktop/poppop_client_lastby_gy/signup.c
+	<gtk/gtk.h>
+	<string.h>
+	<sys/stat.h>
+	<stdlib.h>
+
+1567411207 /home/lxt/Desktop/poppop_client_lastby_gy/main_menu.c
+	<gtk/gtk.h>
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	<gdk/gdk.h>
+	"user_image_change.c"
+	"file_updata.c"
+	"dialog.c"
+
+1567284788 /home/lxt/Desktop/poppop_client_lastby_gy/user_image_change.c
+	<gtk/gtk.h>
+	<string.h>
+	<sys/stat.h>
+	<stdlib.h>
+
+1567409315 /home/lxt/Desktop/poppop_client_lastby_gy/file_updata.c
+	<gtk/gtk.h>
+	<string.h>
+	<sys/stat.h>
+	<stdlib.h>
+	<fcntl.h>
+	<unistd.h>
+	<sys/types.h>
+	<stdio.h>
+
+1567296456 /home/lxt/Desktop/poppop_client_lastby_gy/dialog.c
+	<gtk/gtk.h>
+	<string.h>
+

@@ -27,70 +27,6 @@
           </object>
         </child>
         <child>
-          <object class="GtkLayout" id="user_info">
-            <property name="width_request">300</property>
-            <property name="height_request">200</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkButton" id="user_image_button">
-                <property name="width_request">100</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="image">user_image</property>
-              </object>
-              <packing>
-                <property name="x">8</property>
-                <property name="y">54</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="user_id">
-                <property name="width_request">172</property>
-                <property name="height_request">39</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <attributes>
-                  <attribute name="foreground" value="#ffffffffffff"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="x">125</property>
-                <property name="y">55</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="user_sign">
-                <property name="width_request">175</property>
-                <property name="height_request">35</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="has_frame">False</property>
-              </object>
-              <packing>
-                <property name="x">123</property>
-                <property name="y">94</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="friend_add">
-                <property name="label" translatable="yes">添加好友
-</property>
-                <property name="width_request">100</property>
-                <property name="height_request">33</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-              </object>
-              <packing>
-                <property name="y">167</property>
-              </packing>
-            </child>
-          </object>
-        </child>
-        <child>
           <object class="GtkScrolledWindow" id="scrollwindow">
             <property name="width_request">300</property>
             <property name="height_request">600</property>
@@ -113,6 +49,95 @@
           <packing>
             <property name="y">200</property>
           </packing>
+        </child>
+        <child>
+          <object class="GtkFixed" id="up_fix">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkButton" id="user_image_button">
+                <property name="name">user_image_button</property>
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="image">user_image</property>
+              </object>
+              <packing>
+                <property name="x">16</property>
+                <property name="y">37</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="user_id">
+                <property name="width_request">150</property>
+                <property name="height_request">40</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <attributes>
+                  <attribute name="foreground" value="#ffffffffffff"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">143</property>
+                <property name="y">38</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="user_sign">
+                <property name="name">user_sign</property>
+                <property name="width_request">150</property>
+                <property name="height_request">40</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+              </object>
+              <packing>
+                <property name="x">133</property>
+                <property name="y">72</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="friend_add">
+                <property name="label" translatable="yes">添加好友</property>
+                <property name="width_request">100</property>
+                <property name="height_request">35</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="y">165</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="friendlist_select">
+                <property name="width_request">100</property>
+                <property name="height_request">35</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="button_sensitivity">on</property>
+              </object>
+              <packing>
+                <property name="x">100</property>
+                <property name="y">166</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="add_friendlabel_button">
+                <property name="label" translatable="yes">新建分组</property>
+                <property name="width_request">100</property>
+                <property name="height_request">35</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="x">199</property>
+                <property name="y">164</property>
+              </packing>
+            </child>
+          </object>
         </child>
       </object>
     </child>
