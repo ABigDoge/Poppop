@@ -10,7 +10,7 @@ class DBContextFactory{
 public:
     static mysql::connection& Instance(){
       auto config=std::make_shared<mysql::connection_config>();
-      config->password="mypassword";
+      config->password="lsyCXX0416579";
       config->user="root";
       config->debug=true;
       config->database="PoppopDatabase";

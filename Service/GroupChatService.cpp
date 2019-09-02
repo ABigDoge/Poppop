@@ -16,7 +16,7 @@
 using namespace std;
 namespace mysql=sqlpp::mysql;
 
-bool GroupChatService::Add(GroupChatDTO groupChatDTO)
+bool GroupChatService::Add(GroupChatDTO &groupChatDTO)
 {
     mysql::connection &db=DBContextFactory::Instance();
 	const auto tab=GroupChat{};
@@ -26,6 +26,10 @@ bool GroupChatService::Add(GroupChatDTO groupChatDTO)
         tab.MemberIDList = groupChatDTO.Member_ID_List,
         tab.IsDelete = 0
      ));
+    auto result = db(select(max(tab.ID)).from(tab).unconditionally());
+    const auto& row = result.front();
+    groupChat.ID = row.max;
+    return true;
 }
 
 bool GroupChatService::Edit(GroupChatDTO groupChatDTO)

@@ -11,7 +11,7 @@ namespace mysql = sqlpp::mysql;
 class GroupChatService{
 	public:
 		//建立群组,True表示操作成功
-		static bool Add(GroupChatDTO groupChatDTO);
+		static bool Add(GroupChatDTO &groupChatDTO);
 		//编辑群组信息
 		static bool Edit(GroupChatDTO groupChatDTO);
 		//解散群组，数据库中并不删除，只是做一个标记不再显示

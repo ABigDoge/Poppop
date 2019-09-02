@@ -1,6 +1,7 @@
 #include <iostream>
 #include "FriendService.h"
 #include "FriendDTO.h"
+#include "DBContextFactory.h"
 #include <sqlpp11/mysql/mysql.h>
 #include <sqlpp11/sqlpp11.h>
 #include <cassert>

@@ -1,4 +1,4 @@
-create database Poppop;
+create database PoppopDatabase;
 create table User(
     ID int auto_increment primary key,
     PassWord varchar(30) not null,
@@ -9,9 +9,8 @@ create table User(
     Motto nvarchar(100),
     IsDelete int(1),
     IPAddr INT UNSIGNED,
-    IsOnline INT,
-
-);
+    IsOnline INT);
+    
 create table _Group(
     ID int auto_increment primary key,
     GroupName nvarchar(20) not null,

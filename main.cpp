@@ -24,6 +24,7 @@
  */
 
 #include "UserService.h"
+#include "DTO.h"
 //#include"SplitStr.h"
 #include "DBContextFactory.h"
 #include "string"
@@ -34,6 +35,8 @@
 #include <iostream>
 #include <vector>
 
+using namespace std;
+
 SQLPP_ALIAS_PROVIDER(left)
 SQLPP_ALIAS_PROVIDER(right)
 
@@ -42,11 +45,32 @@ int main()
 {
   try{
     mysql::global_library_init();
-    //以下为测试，懒得写了，自己看接口
+    //以下为部分功能测试
+    //UserService::Add 测试成功
     UserDTO userDTO;
-    userDTO.Name="nmdwsm";
+    userDTO.Name="wlj";
     userDTO.PassWord="hhh";
     UserService::Add(userDTO); 
+    int newid;
+    newid = userDTO.ID;
+    cout << "newid:  " << userDTO.ID << endl;
+
+    //UserService::Edit 测试成功
+    userDTO.Name = "lsy";
+    UserService::Edit(userDTO);
+
+    //UserService::GetUserList 测试成功
+    vector<UserDTO> user_vec;
+    UserSearchDTO user_searchDTO;
+    user_searchDTO.ID = newid;
+    int usernum;
+    usernum = UserService::GetUserList(user_vec, user_searchDTO);
+    for(int i = 0; i < usernum; i++)
+    {
+      cout << "ID: " << user_vec[i].ID << "  name: "<< user_vec[i].Name 
+        << "   password: " << user_vec[i].PassWord << endl;
+    }
+    
   }
   catch (const sqlpp::exception& e)
   {

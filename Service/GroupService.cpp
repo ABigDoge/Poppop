@@ -15,7 +15,7 @@
 using namespace std;
 namespace mysql=sqlpp::mysql;
 
-bool GroupService::Add(GroupDTO groupDTO)
+bool GroupService::Add(GroupDTO &groupDTO)
 {
     mysql::connection &db=DBContextFactory::Instance();
     const auto tab=_Group{};
@@ -24,6 +24,10 @@ bool GroupService::Add(GroupDTO groupDTO)
         tab.OwnerID = groupDTO.Owner_ID,
         tab.IsDelete = 0
      ));
+    auto result = db(select(max(tab.ID)).from(tab).unconditionally());
+    const auto& row = result.front();
+    groupDTO.ID = row.max;
+    return true;
 }
 
 bool GroupService::Edit(GroupDTO groupDTO)
