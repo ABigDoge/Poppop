@@ -18,10 +18,13 @@ extern const int MAX_BUF; // 缓冲区大小
 extern int fd; // socked通道
 
 extern void Connect(); // 建立连接
-// extern int Login(); // 登陆
+extern int Login(); // 登陆
+// extern int CreateGroup(); // 建群
+// extern int Apply(); // 申请好友
 extern int SendMessege(const char* msg); // 发送信息函数，返回成功与否
-extern void SendFile(const char* catalog); // 发送文件
-// extern void RecvMessge(char* msg); // 接收消息
+extern int SendFile(const char* catalog); // 发送文件
+// extern int RecvMessege(char* msg); // 接收消息
+extern int RecvFile(const char* catalog); // 接收文件
 extern void Close(); // 关闭连接
 
 #endif
