@@ -17,8 +17,8 @@ extern const char SERVER_IPV4[]; // ip地址
 extern const int MAX_BUF; // 缓冲区大小
 extern int fd; // socked通道
 
-extern void Connect(); // 建立连接
-extern int Login(); // 登陆
+extern void connect(); // 建立连接
+extern int login(); // 登陆
 // extern int CreateGroup(); // 建群
 // extern int Apply(); // 申请好友
 extern int SendMessege(const char* msg); // 发送信息函数，返回成功与否
