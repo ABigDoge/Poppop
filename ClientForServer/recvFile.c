@@ -7,13 +7,14 @@ int RecvFile(const char* catalog){
     // 获取文件名
     bzero(buf, MAX_BUF + 1);
     int len = recv(fd, buf, MAX_BUF, 0);
-    strcpy(file_name, buf);
-    bzero(buf, MAX_BUF + 1);
+    strcpy(file_name, catalog);
+    strcat(file_name, buf);
 
     // 打开文件
     FILE* fp = fopen(file_name, "wb+");
 
     // 接收文件
+    bzero(buf, MAX_BUF + 1);
     while((len = recv(fd, buf, MAX_BUF, 0)) > 0){
         if(fwrite(buf, 1, len, fp) < 0){
             // 失败
