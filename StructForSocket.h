@@ -13,6 +13,7 @@ struct User{
     char ImagePath[50];
     char Department_Name[20];
     char Motto[200];
+    char PassWord[30]; 
     unsigned int IP_Addr;
     int Oneline_State;
 };
