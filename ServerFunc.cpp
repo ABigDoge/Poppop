@@ -215,8 +215,8 @@ bool SendGM(int client_fd)
 	MessagePublicService::Add(rec);
 
 	vector<UserDTO> userList;
-	GroupChatService::GetGroupMember(userlist, rec.Group_ID);
-	int cout=userList.size();
+	GroupChatService::GetGroupMember(userList, rec.Group_ID);
+	int count=userList.size();
 	for (int i = 0; i < count; i++)
 	{
 		if(userList[i].IP_Addr!= rec.Sender_ID)
