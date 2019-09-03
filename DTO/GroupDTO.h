@@ -9,5 +9,4 @@ public:
 	string Name;    //该分组名称
 	int Owner_ID;    //该分组的拥有者用户id
 };
-
 #endif

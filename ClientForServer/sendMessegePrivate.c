@@ -6,7 +6,7 @@ int SendMessegePrivate(const struct MessagePrivate data){
 		return 0;
 
     // 发数据
-    if (send(fd, (char*)&data, MAX_BUF, 0) <= 0)
+    if (send(fd, (char*)&data,sizeof(data), 0) <= 0)
 		return 0;
 
 }
