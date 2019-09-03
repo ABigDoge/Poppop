@@ -34,12 +34,7 @@ bool CreateGroupChat(int client_fd);
 bool Register(int client_fd);
 bool Quit(int client_fd);
 bool Apply(int client_fd);
-<<<<<<< HEAD
-bool Reply(int client_fd);
 bool List(int client_fd);
-=======
-//bool Reply(int client_fd);
->>>>>>> f9918a84f7d8b0bb4bee95ddffe050c7c88dc859
 class CMD
 {
 public:

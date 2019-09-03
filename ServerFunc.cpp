@@ -24,16 +24,27 @@ bool Login(int client_fd)
     if (get_from_DB.Online_State == 1)
     {
         printf("Already online\n");
+        Notice notice;
+        notice.flag = 1;        //成功
+        notice.Context = "Already online!\n";
+        send(client_fd,(char*)&notice,sizeof(notice),0);
         //返回成功
     }
     string str=rec.PassWord;
     if (str.compare(get_from_DB.PassWord) == 0)
     {
         UserService::PutUserOnline(rec.ID, client_fd);
+        Notice notice;
+        notice.flag = 1;        //成功
+        notice.Context = "Success!\n";
+        send(client_fd,(char*)&notice,sizeof(notice),0);
     }
     else
     {
-        //返回成功
+        Notice notice;
+        notice.flag = 0;        //失败
+        notice.Context = "wrong ID or Password!\n";
+        send(client_fd,(char*)&notice,sizeof(notice),0);
     }
     return true;
 }
@@ -55,7 +66,10 @@ bool Quit(int client_fd)
     struct Login rec;
     memcpy(&rec, buf,len);
     UserService::PutUserOffline(rec.ID);
-    //返回成功
+    Notice notice;
+    notice.flag = 1;        //成功
+    notice.Context = "Success!\n";
+    send(client_fd,(char*)&notice,sizeof(notice),0);
     return true;
 }
 
@@ -83,72 +97,12 @@ bool Apply(int client_fd)
     friendDTO.This_ID = rec.That_ID;
     friendDTO.That_ID = rec.This_ID;
     FriendService::Add(friendDTO);
+    Notice notice;
+    notice.flag = 1;        //成功
+    notice.Context = "Success!\n";
+    send(client_fd,(char*)&notice,sizeof(notice),0);
     return true;
 }
-
-/**************************************************/
-/*名称：bool Reply(int client_fd)
-/*描述：添加好友
-/*作成日期： 2019-8-30
-/*参数：
-    参数1：用户线程号、int、输入
-/*返回值：执行状态、int、1成功
-/*作者：kk
-/***************************************************/
-/***************************************************/
-/*与数据库的对接
-/*wlj
-/*2019-9-2
-/**************************************************/
-// bool Reply(int client_fd)
-// {
-//     char buf[MAX_BUF + 1];
-//     char *argv[10] = {NULL};
-//     int argc = 0;
-//     socklen_t len;
-//     len = recv(client_fd, buf, MAX_BUF, 0);
-//     while ((argv[argc] = strtok((argc == 0 ? buf : NULL), " ")) != NULL)
-//     {
-//         argc++;
-//     }
-//     UserDTO userThis;
-//     UserDTO userThat;
-//     userThis = UserService::SelectedByID(atoi(argv[0]));
-//     userThat = UserService::SelectedByID(atoi(argv[1]));
-//     MessagePrivateDTO msg;
-//     if (argv[2] == 0)
-//     {
-//         msg.Context = "对不起，你是个好人,但我连朋友也不想和你做！";
-//     }
-//     else
-//     {
-//         msg.Context = "我们已经是好友了，一起来聊天吧！";
-//         FriendDTO friendDTO;
-//         friendDTO.This_ID=userThis.ID;
-//         friendDTO.That_ID=userThat.ID;
-//         FriendService::Add(friendDTO);
-//         friendDTO.This_ID = userThat.ID;
-//         friendDTO.That_ID = userThis.ID;
-//         FriendService::Add(friendDTO);
-//     }
-//     //printf("To User : %d %d\n", ret.Recver_ID, userThat.IP_Addr);
-//     string rbuf = "";
-//     string str1 = "reply";
-//     string str2 = argv[0];
-//     rbuf = str1 + str2 + argv[2];
-//     if (userThat.Online_State == 1)
-//     {
-//         send(userThat.IP_Addr, rbuf.c_str(), 2 * sizeof(rbuf.c_str()), 0);
-//     }
-//     else
-//     {
-//         msg.Context = rbuf;
-//         msg.Time = "";
-//         msg.Sender_ID = userThis.ID;
-//         msg.Recver_ID = userThat.ID;
-//         MessagePrivateService::Add(msg);
-//     }
-// }
 
 /**************************************************/
 /*名称：bool Register(int client_fd)
@@ -178,6 +132,10 @@ bool Register(int client_fd)
     }
     else
     {
+        Notice notice;
+        notice.flag = 1;        //成功
+        notice.Context = "Success!\n";
+        send(client_fd,(char*)&notice,sizeof(notice),0);
         return true;
     }
 }
