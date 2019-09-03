@@ -164,14 +164,10 @@ bool CreateGroupChat(int client_fd)
 	rec.ID = groupChatDTO.ID;
 	vector<UserDTO> userList;
 	int count = GroupChatService::GetGroupMember(userList, groupChatDTO.ID);
-	for (int i = 0; i < count; i++) {
-		send(userList[i].IP_Addr, (char*)& rec, sizeof(rec), 0);
-	}
  	Notice notice;
-    	notice.flag = count;        //成功
-    	strcpy(notice.Context,"Success!\n");
-    	send(client_fd,(char*)&notice,sizeof(notice),0);
-   
+    notice.flag = count;        //成功
+    strcpy(notice.Context,"Success!\n");
+    send(client_fd,(char*)&notice,sizeof(notice),0);
 	return true;
 }
 
@@ -218,12 +214,12 @@ bool SendGM(int client_fd)
 	memcpy(&rec, buf, len);
 	MessagePublicService::Add(rec);
 
-	vector<UserDTO>& userlist;
-	GroupChatService::GetGroupMember(userlist, buf.Group_ID);
-	
-	for (int i = 0; i < userlist.size(); i++)
+	vector<UserDTO> userList;
+	GroupChatService::GetGroupMember(userlist, rec.Group_ID);
+	int cout=userList.size();
+	for (int i = 0; i < count; i++)
 	{
-		if(userList[i].IP_Addr != rec.Sender_ID)
+		if(userList[i].IP_Addr!= rec.Sender_ID)
 			send(userList[i].IP_Addr, (char*)& rec, sizeof(rec), 0);
 	}
 
@@ -239,14 +235,14 @@ bool Send(int client_fd)
 	len = recv(client_fd, buf, MAX_BUF, 0);
 	puts(buf);
 
-	MessagePublicDTO rec;
+	MessagePrivateDTO rec;
 	memcpy(&rec, buf, len);
 	MessagePrivateService::Add(rec);
 
 	UserDTO user;
-	user = SelectedByID(rec.Recver_ID);
+	user = UserService::SelectedByID(rec.Recver_ID);
 
-	send(user.IP_Addr, (char*)& rec, sizeof(rec), 0);
+	send(user.IP_Addr, (char*)&rec, sizeof(rec), 0);
 
 	return true;
 }
