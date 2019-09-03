@@ -27,9 +27,10 @@ struct pthread_data
     int my_fd;
 };
 
+bool Register(int client_fd);
 bool Login(int client_fd);
-bool Create(int client_fd);
-bool CreateUser(int client_fd);
+bool CreateGroupChat(int client_fd);
+
 bool Quit(int client_fd);
 bool Apply(int client_fd);
 bool List(int client_fd);
