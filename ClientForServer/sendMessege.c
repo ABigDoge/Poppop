@@ -1,7 +1,7 @@
 #include "socket.h"
 #include "StructForSocket.h"
 
-int SendMessege(int this_id, int that_id, const char* msg)
+int SendMessege(MessagePrivate a)
 {
     char buf[MAX_BUF + 1];
 
@@ -11,16 +11,8 @@ int SendMessege(int this_id, int that_id, const char* msg)
 	if(send(fd, buf, strlen(buf) + 1, 0) <= 0)
 		return 0;
     
-    // 获取发送消息
-	struct MessagePrivate a;
-	memset((char*)& test, 0, sizeof(test));
-	a.Sender_ID = this_id; 
-	a.Recver_ID = that_id;
-	memcpy(a.Context, msg, strlen(msg) + 1);
-	a.Time = "";
-    
 	// 发消息
-	if (send(fd, (char*)& a, sizeof(a), 0) <= 0)
+	if (send(fd, (char*)& a, strlen(a) + 1, 0) <= 0)
 		return 0;
     
     return 1;
