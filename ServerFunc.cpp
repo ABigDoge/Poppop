@@ -25,8 +25,9 @@ bool Login(int client_fd)
     {
         printf("Already online\n");
         Notice notice;
-        notice.flag = 1;        //成功
-        notice.Context = "Already online!\n";
+        notice.flag = 1;   
+    //    char arr[200] = "Already online!\n";     //成功
+        strcpy(notice.Context,"Already online!\n");
         send(client_fd,(char*)&notice,sizeof(notice),0);
         //返回成功
     }
@@ -36,14 +37,14 @@ bool Login(int client_fd)
         UserService::PutUserOnline(rec.ID, client_fd);
         Notice notice;
         notice.flag = 1;        //成功
-        notice.Context = "Success!\n";
+        strcpy(notice.Context,"Success!\n");
         send(client_fd,(char*)&notice,sizeof(notice),0);
     }
     else
     {
         Notice notice;
         notice.flag = 0;        //失败
-        notice.Context = "wrong ID or Password!\n";
+        strcpy(notice.Context,"wrong ID or Password!\n");
         send(client_fd,(char*)&notice,sizeof(notice),0);
     }
     return true;
@@ -68,7 +69,7 @@ bool Quit(int client_fd)
     UserService::PutUserOffline(rec.ID);
     Notice notice;
     notice.flag = 1;        //成功
-    notice.Context = "Success!\n";
+    strcpy(notice.Context,"Success!\n");
     send(client_fd,(char*)&notice,sizeof(notice),0);
     return true;
 }
@@ -99,7 +100,7 @@ bool Apply(int client_fd)
     FriendService::Add(friendDTO);
     Notice notice;
     notice.flag = 1;        //成功
-    notice.Context = "Success!\n";
+    strcpy(notice.Context,"Success!\n");
     send(client_fd,(char*)&notice,sizeof(notice),0);
     return true;
 }
@@ -134,7 +135,7 @@ bool Register(int client_fd)
     {
         Notice notice;
         notice.flag = 1;        //成功
-        notice.Context = "Success!\n";
+        strcpy(notice.Context,"Success!\n");
         send(client_fd,(char*)&notice,sizeof(notice),0);
         return true;
     }
