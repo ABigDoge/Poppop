@@ -1,26 +1,19 @@
 #include "socket.h"
-#include "StructForSocket.h"
 
-int ApplyForFriend(int this_id, int that_id, int group_id)
-{
+int ApplyForFriend(const struct Friend data){
+    if (send(fd, "apply", MAX_BUF, 0) <= 0)
+		return 0;
+
+    if (send(fd, (char*)&data, MAX_BUF, 0) <= 0)
+		return 0;
+
 	char buf[MAX_BUF + 1];
+	int len = recv(fd, buf, MAX_BUF, 0);
+	if(len <= 0)
+        return 0;
 	
-	// 发命令
-	bzero(buf, MAX_BUF + 1);
-	memcpy(buf, "apply", 30);
-	if (send(fd, buf, strlen(buf) + 1, 0) <= 0)
-		return 0;
+	struct Notice new_data;
+    memcpy(&new_data, buf, len);
 
-	// 获取发送消息  
-	struct Friend a;
-	memset((char*)& test, 0, sizeof(test));
-	a.This_ID = this_id;
-	a.That_ID = that_id;
-	a.Group_ID = group_id;
-
-	// 发消息
-	if (send(fd, (char*)& a, sizeof(a), 0) <= 0)
-		return 0;
-
-	return 1;
+    return new_data.flag;
 }

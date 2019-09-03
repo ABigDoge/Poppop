@@ -10,6 +10,7 @@
 #include <sys/wait.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include "struct.h"
 
 extern const int SERVER_PORT; // 端口
 extern const char SERVER_IPV4[]; // ip地址
@@ -17,35 +18,39 @@ extern const int MAX_BUF; // 缓冲区大小
 extern int fd; // socked通道
 
 // 建立连接
-void Connect();
+extern void Connect();
 
 // 注册，参数为用户名与密码，返回值为用户id
-int Register(const char* usrname, const char* password);
+extern int Register(const struct User data);
 
 // 登陆,参数为用户id与密码，返回值为0登陆失败，1为登陆成功
-int SignIn(int id, const char* password);
+extern int Login(const struct Login data);
 
 // 发送信息函数，返回值0为失败，1为成功
-int SendMessege(const char* msg);
+extern int SendMessegePrivate(const struct MessagePrivate data);
+
+// 发送信息函数，返回值0为失败，1为成功
+extern int SendMessegePublic(const struct MessagePublic data);
 
 // 发送文件，参数为文件所在目录，返回值0为失败，1为成功
-int SendFile(const char* catalog);
+extern int SendFile(const char* catalog);
 
 // 接收消息，返回所接受消息
-char* const RecvMessege();
+extern char* const RecvMessege(struct MessagePrivate data);
 
 // 接收文件，参数为文件保存目录,格式为"/../../"，返回值0为失败，1为成功
-int RecvFile(const char* catalog);
+extern int RecvFile(const char* catalog);
 
 // 建群，参数为所有用户的数组，返回值为所建群号
-int CreateGroup(int* usr_id);
+extern int CreateGroup(const struct GroupChat data);
 
 // 申请好友，参数为为我的id和被申请好友id,返回值0为失败，1为成功
-int ApplyForFriend(int my_id, int fri_id);
+extern int ApplyForFriend(const struct Friend data);
 
 // 同意好友与否
-// int ReplyFriend();
+// extern int ReplyFriend();
 
 // 关闭连接
 extern void Close();
+
 #endif
