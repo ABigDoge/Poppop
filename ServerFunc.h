@@ -32,7 +32,7 @@ bool Create(int client_fd);
 bool CreateUser(int client_fd);
 bool Quit(int client_fd);
 bool Apply(int client_fd);
-bool Reply(int client_fd);
+bool List(int client_fd);
 bool Send(int client_fd);
 bool SendGM(int client_fd);
 
