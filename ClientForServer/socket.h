@@ -36,7 +36,7 @@ extern int SendMessegePublic(const struct MessagePublic data);
 extern int SendFile(const char* catalog);
 
 // 接收消息，返回所接受消息
-extern char* const RecvMessege(struct MessagePrivate data);
+extern int RecvMessege(struct MessagePrivate data);
 
 // 接收文件，参数为文件保存目录,格式为"/../../"，返回值0为失败，1为成功
 extern int RecvFile(const char* catalog);
