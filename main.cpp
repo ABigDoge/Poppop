@@ -10,7 +10,7 @@ CMD cmdlist[] =
         {"register", Register},
         // {"sendfile", Sendfile}, //发送文件
         // {"getfile", Getfile}, //获取文件
-        // {"list"， List}, //获取好友列表（已排序）
+        {"list",List}, //获取好友列表（已排序）
         // {"show", Show}, //聊天记录
         // {"help", Help}, //获取帮助
         // {"exit", Exit}, //退出页面
@@ -18,7 +18,6 @@ CMD cmdlist[] =
         // {"find", Find}, //列表中查找好友
         // {"search", Search}, //网络中查找好友
         {"apply", Apply}, //申请好友
-        {"reply", Reply}, //验证好友
         // {"clear", Clear}, //清空页面
         // {"remove", Remove}, //撤回消息
         //{"hello", Hello}};

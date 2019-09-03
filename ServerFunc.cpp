@@ -1,5 +1,8 @@
 #include"ServerFunc.h"
 #include"StructForSocket.h"
+#include"string"
+using namespace std;
+
 /**************************************************/
 /*名称：int Login(int client_fd)
  /*描述：用户登录
@@ -23,7 +26,8 @@ bool Login(int client_fd)
         printf("Already online\n");
         //返回成功
     }
-    if (rec.PassWord.compare(get_from_DB.PassWord) == 0)
+    string str=rec.PassWord;
+    if (str.compare(get_from_DB.PassWord) == 0)
     {
         UserService::PutUserOnline(rec.ID, client_fd);
     }
@@ -196,7 +200,7 @@ bool Register(int client_fd)
     userDTO.IP_Addr=client_fd;
     UserService::Add(userDTO);
     rec.ID=userDTO.ID;
-    if(send(fd,(char*)&rec,sizoef(rec),0)<=0){
+    if(send(client_fd,(char*)&rec,sizeof(rec),0)<=0){
         return false;
     }
     else
@@ -205,37 +209,57 @@ bool Register(int client_fd)
     }
 }
 
-
+/**************************************************/
+/*名称：bool CreateGroupChat(int client_fd)
+/描述：创建群聊
+/*2019-9-３
+/wlj
+/**************************************************/
 bool CreateGroupChat(int client_fd)
- {
+{
  	socklen_t len;
-    string str = "";
     char buf[MAX_BUF + 1];
-    char* argv[10] = { NULL };
- 	int argc = 0;
  	len = recv(client_fd, buf, MAX_BUF, 0);
- 	//群聊id list<>
- 	if (strlen(buf) == 0)
- 		return 0;
+    GroupChat rec;
+    memcpy(&rec, buf,len);
+    rec.Member_ID_List;
+    GroupChatDTO groupChatDTO;
+    groupChatDTO.Name=rec.Name;
+    groupChatDTO.Image_Path=rec.Image_Path;
+    groupChatDTO.Member_ID_List=rec.Member_ID_List;
+    GroupChatService::Add(groupChatDTO);
+    rec.ID=groupChatDTO.ID;
+    vector<UserDTO> userList;
+    int count=GroupChatService::GetGroupMember(userList,groupChatDTO.ID);
+    for(int i=0;i<count;i++){
+        send(userList[i].IP_Addr,(char*)&rec,sizeof(rec),0);
+    }
+    return true;
+}
 
-    GroupChatDTO ret;
- 	/*以字符' '对命令进行切割 */
- 	while ((argv[argc] = strtok((argc == 0 ? buf : NULL), " ")) != NULL)
- 	{
-         if(argc != 0)
-         {
-            str += argv[argc];
-            str += ",";
-         }
-         else
-         {
-             ret.Name = argv[argc];
-         }
- 		argc++;
- 	}
-    ret.Member_ID_List = str;
-    ret.Image_Path = "";
-    cout << str;
-    cout << endl;
-    return GroupChatService::Add(ret);
- }
+
+/**************************************************/
+/*名称：bool CreateGroupChat(int client_fd)
+/描述：返回好友列表
+/*2019-9-３
+/wlj
+/**************************************************/
+bool List(int client_fd){
+    socklen_t len;
+    char buf[MAX_BUF + 1];
+ 	len = recv(client_fd, buf, MAX_BUF, 0);
+    struct Login rec;
+    memcpy(&rec, buf,len);
+    vector<UserDTO> userList;
+    int count=FriendService::GetFriendList(userList,rec.ID);
+    for(int i=0;i<count;i++){
+        User user;
+        user.ID=userList[i].ID;
+        strcpy(user.Name, userList[i].Name.c_str());
+        strcpy(user.Department_Name, userList[i].Department_Name.c_str());
+        strcpy(user.Sex, userList[i].Sex.c_str());
+        strcpy(user.Motto, userList[i].Motto.c_str());
+        send(client_fd,(char*)&user,sizeof(user),0);
+    }
+    return true;
+}

@@ -52,9 +52,4 @@ struct GroupChat{
     char Member_ID_List[200];//务必注意：前端在创建群聊时,Member必须是好友列表里的
     char Image_Path[50];
 };
-
-struct Notice{
-    int flag;
-    char Context[200];
-};
 #endif
