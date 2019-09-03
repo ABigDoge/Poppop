@@ -36,6 +36,9 @@ extern int SendMessegePublic(const struct MessagePublic* data);
 // 发送文件，参数为文件所在目录，返回值0为失败，1为成功
 extern int SendFile(const char* catalog);
 
+// 接收群聊消息，返回所接受消息
+extern int RecvPublicMessege(struct MessagePublic* data);
+
 // 接收消息，返回所接受消息
 extern int RecvMessege(struct MessagePrivate* data);
 
