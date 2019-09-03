@@ -1,7 +1,7 @@
 #include "socket.h"
 #include "StructForSocket.h"
 
-int RecvMessege(MessagePrivate* a)
+int RecvPublicMessege(MessagePublic *a)
 {
     char* const buf = (char*)malloc((MAX_BUF + 1) * sizeof(char));
     bzero(buf, MAX_BUF + 1);
