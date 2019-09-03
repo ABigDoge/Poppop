@@ -21,7 +21,7 @@ struct User{
 struct Login{
     int ID;
     char PassWord[30]; 
-}
+};
 //申请添加好友发送的结构体;申请修改好友分组时的结构体
 struct Friend{
     int This_ID;

@@ -18,6 +18,7 @@
 #include <cassert>
 #include "DTO.h"
 #include "Service.h"
+#include "StructForSocket.h"
 #define SERVER_PORT 8088 // 端口
 #define MAX_LISTEN 5 // 最大监听数
 #define MAX_BUF 1024 // 缓冲区大小
