@@ -25,8 +25,6 @@ bool FriendService::Add(FriendDTO friendDTO){//添加好友
         tab.IsDelete=0
     ));
     return true;
-
-
 }
 bool FriendService::Del(FriendDTO friendDTO){	//删除好友
     const auto tab=Friend{};
