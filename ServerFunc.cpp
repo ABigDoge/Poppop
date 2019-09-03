@@ -1,4 +1,5 @@
 #include"ServerFunc.h"
+#include"StructForSocket.h"
 /**************************************************/
 /*名称：int Login(int client_fd)
  /*描述：用户登录
@@ -10,35 +11,25 @@
  /***************************************************/
 bool Login(int client_fd)
 {
-    LoginDTO ret;
     char buf[MAX_BUF + 1];
-    char *argv[10] = {NULL};
-    int argc = 0;
     socklen_t len;
-    len = recv(client_fd, buf, MAX_BUF, 0);
-
-    while ((argv[argc] = strtok((argc == 0 ? buf : NULL), " ")) != NULL)
-    {
-        argc++;
-    }
-    ret.ID = atoi(argv[1]);
-    ret.PassWord = argv[2];
+    len=recv(client_fd, buf, MAX_BUF, 0);
+    struct Login rec;
+    memcpy(&rec, buf,len);
     UserDTO get_from_DB;
-    get_from_DB = UserService::SelectedByID(ret.ID);
+    get_from_DB = UserService::SelectedByID(rec.ID);
     if (get_from_DB.Online_State == 1)
     {
         printf("Already online\n");
+        //返回成功
     }
-    if (ret.PassWord.compare(get_from_DB.PassWord) == 0)
+    if (rec.PassWord.compare(get_from_DB.PassWord) == 0)
     {
-        send(client_fd, "1", 2 * sizeof(char), 0);
-        UserService::PutUserOnline(ret.ID, client_fd);
-        // vector<MessageDTO> vec;
-        // AskForMsgUnseen(client_fd, vec);
+        UserService::PutUserOnline(rec.ID, client_fd);
     }
     else
     {
-        send(client_fd, "0", 2 * sizeof(char), 0);
+        //返回成功
     }
     return true;
 }
@@ -55,15 +46,12 @@ bool Login(int client_fd)
 bool Quit(int client_fd)
 {
     char buf[MAX_BUF + 1];
-    char *argv[10] = {NULL};
-    int argc = 0;
     socklen_t len;
     len = recv(client_fd, buf, MAX_BUF, 0);
-    while ((argv[argc] = strtok((argc == 0 ? buf : NULL), " ")) != NULL)
-    {
-        argc++;
-    }
-    UserService::PutUserOffline(atoi(argv[0]));
+    struct Login rec;
+    memcpy(&rec, buf,len);
+    UserService::PutUserOffline(rec.ID);
+    //返回成功
     return true;
 }
 
@@ -186,46 +174,39 @@ bool Reply(int client_fd)
 }
 
 /**************************************************/
-/*名称：bool CreateUser(int client_fd)
+/*名称：bool Register(int client_fd)
 /描述：用户注册
 /*2019-9-2
 /wlj
 /**************************************************/
-struct User{
-    int ID;
-    char PassWord[20];
-};
-
-bool CreateUser(int client_fd)
+bool Register(int client_fd)
 {
     char buf[MAX_BUF + 1];
-    char *argv[10] = {NULL};
-    int argc = 0;
     socklen_t len;
-    len = recv(client_fd, buf, MAX_BUF, 0);
-    // while ((argv[argc] = strtok((argc == 0 ? buf : NULL), " ")) != NULL)
-    // {
-    //     argc++;
-    // }
-    User b;
-    memcpy(&b, buf, len);
+    len=recv(client_fd, buf, MAX_BUF, 0);
+    User rec;
+    memcpy(&rec, buf, len);
     UserDTO userDTO;
-    userDTO.Name=to_string(b.ID);
-    userDTO.PassWord=b.PassWord;
-    //stderr<<atoi(b.ID)<<endl;
-    //stderr<<b.PassWord<<endl;
-    // userDTO.Name = argv[0];
-    // userDTO.Sex = argv[1];
-    // userDTO.PassWord = argv[2];
-    // userDTO.Msg_to_recv = 0;
-    // userDTO.Department_Name = argv[3];
-    // userDTO.Motto = argv[4];
-    // userDTO.IP_Addr = client_fd;
+    userDTO.Name=rec.Name;
+    userDTO.Department_Name=rec.Department_Name;
+    userDTO.Motto=rec.Motto;
+    userDTO.Sex=rec.Sex;
+    userDTO.Image=rec.ImagePath;
+    userDTO.PassWord=rec.PassWord;
+    userDTO.IP_Addr=client_fd;
     UserService::Add(userDTO);
+    rec.ID=userDTO.ID;
+    if(send(fd,(char*)&rec,sizoef(rec),0)<=0){
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
 
-bool Create(int client_fd)
+bool CreateGroupChat(int client_fd)
  {
  	socklen_t len;
     string str = "";

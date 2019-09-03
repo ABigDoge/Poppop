@@ -6,8 +6,8 @@ CMD cmdlist[] =
     {
         {"login", Login},   //用户登录
         //{"send", Send},     //发送消息
-        {"create", Create}, //创建群聊
-        {"createuser", CreateUser},
+        {"createGroupChat", CreateGroupChat}, //创建群聊
+        {"register", Register},
         // {"sendfile", Sendfile}, //发送文件
         // {"getfile", Getfile}, //获取文件
         // {"list"， List}, //获取好友列表（已排序）
