@@ -32,12 +32,11 @@ bool MessagePublicService::Del(MessagePublicDTO messagePublicDTO)
 }
 		//获取该群组里的消息列表，其中id是group的id，返回结果数
 int MessagePublicService::GetMessagePublicList(vector<MessagePublicDTO>& messageList, 
-				int sender_id, int group_id)
+				int group_id)
 {
     mysql::connection &db=DBContextFactory::Instance();
     const auto tab=PublicMessage{};
-    for (const auto& row:db(select(all_of(tab)).from(tab).where(tab.SenderID==sender_id
-                            and tab.GroupID==group_id and tab.IsDelete==0)))
+    for (const auto& row:db(select(all_of(tab)).from(tab).where(tab.GroupID==group_id and tab.IsDelete==0)))
     {
         MessagePublicDTO messagePublicDTO;
         messagePublicDTO.Context = row.Context;

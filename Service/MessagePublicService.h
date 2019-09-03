@@ -15,6 +15,6 @@ class MessagePublicService{
 		static bool Del(MessagePublicDTO messagePublicDTO);
 		//获取该群组里的消息列表，其中id是group的id，返回结果数
 		static int GetMessagePublicList(vector<MessagePublicDTO>& messageList, 
-				int sender_id, int group_id);
+				int group_id);
 };	
 #endif
