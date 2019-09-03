@@ -1,10 +1,10 @@
 #include "socket.h"
 
 int ApplyForFriend(const struct Friend data){
-    if(send(fd, "apply", MAX_BUF, 0) <= 0)
+    if (send(fd, "apply", MAX_BUF, 0) <= 0)
 		return 0;
 
-    if(send(fd, (char*)&data, MAX_BUF, 0) <= 0)
+    if (send(fd, (char*)&data, MAX_BUF, 0) <= 0)
 		return 0;
 
 	char buf[MAX_BUF + 1];

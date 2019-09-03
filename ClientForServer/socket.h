@@ -11,7 +11,11 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include "struct.h"
-#include "definition.h"
+
+extern const int SERVER_PORT; // 端口
+extern const char SERVER_IPV4[]; // ip地址
+extern const int MAX_BUF; // 缓冲区大小
+extern int fd; // socked通道
 
 // 建立连接
 extern void Connect();
@@ -32,7 +36,7 @@ extern int SendMessegePublic(const struct MessagePublic data);
 extern int SendFile(const char* catalog);
 
 // 接收消息，返回所接受消息
-extern char* const RecvMessege(struct MessagePrivate data);
+extern int RecvMessege(struct MessagePrivate data);
 
 // 接收文件，参数为文件保存目录,格式为"/../../"，返回值0为失败，1为成功
 extern int RecvFile(const char* catalog);
@@ -45,9 +49,6 @@ extern int ApplyForFriend(const struct Friend data);
 
 // 同意好友与否
 // extern int ReplyFriend();
-
-// 请求好友列表信息
-extern int FriendList(const struct Login data, struct User friends[], int *n);
 
 // 关闭连接
 extern void Close();
