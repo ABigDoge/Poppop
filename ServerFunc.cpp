@@ -126,6 +126,7 @@ bool Register(int client_fd)
     userDTO.Image=rec.ImagePath;
     userDTO.PassWord=rec.PassWord;
     userDTO.IP_Addr=client_fd;
+    userDTO.Online_State = rec.Oneline_State;
     UserService::Add(userDTO);
     rec.ID=userDTO.ID;
     if(send(client_fd,(char*)&rec,sizeof(rec),0)<=0){

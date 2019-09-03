@@ -18,6 +18,7 @@ bool UserService::Add(UserDTO &userDTO){
         tab.Sex=userDTO.Sex,
         tab.Motto=userDTO.Motto,
         tab.ImagePath=userDTO.Image,
+        tab.IsOnline = userDTO.Online_State,
         tab.DepartmentName=userDTO.Department_Name,
         tab.IsDelete=0));
     auto result = db(select(max(tab.ID)).from(tab).unconditionally());
