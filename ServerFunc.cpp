@@ -236,10 +236,15 @@ void Send(int client_fd)
 	bzero(buf, MAX_BUF + 1);
 	int len;
 
+	len = recv(client_fd, buf, MAX_BUF, 0);
+	puts(buf);
+
 	MessagePublicDTO rec;
 	memcpy(&rec, buf, len);
 	MessagePrivateService::Add(rec);
 
-	len = recv(client_fd, buf, MAX_BUF, 0);
-	puts(buf);
+	UserDTO user;
+	user = SelectedByID(rec.Recver_ID);
+
+	send(user.IP_Addr, (char*)& rec, sizeof(rec), 0);
 }
