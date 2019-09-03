@@ -5,7 +5,8 @@ int usercount = 0;
 CMD cmdlist[] =
     {
         {"login", Login},   //用户登录
-        //{"send", Send},     //发送消息
+        {"send", Send},     //发送消息
+        {"sendgm", SendGM},     //群聊消息
         {"createGroupChat", CreateGroupChat}, //创建群聊
         {"register", Register},
         // {"sendfile", Sendfile}, //发送文件

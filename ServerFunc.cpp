@@ -1,6 +1,6 @@
 #include"ServerFunc.h"
 #include"StructForSocket.h"
-#include"string"
+#include<string>
 using namespace std;
 
 /**************************************************/
@@ -210,10 +210,18 @@ bool SendGM(int client_fd)
 	len = recv(client_fd, buf, MAX_BUF, 0);
 	puts(buf);
 
-	MessagePublicDTO rec;
+	MessagePublic rec;
 	memcpy(&rec, buf, len);
-	MessagePublicService::Add(rec);
+	MessagePublicDTO messagepublicDTO;
+	string str = rec.Context;
+	messagepublicDTO.Context = str;
+	str = rec.Time;
+	messagepublicDTO.Time = str;
+	messagepublicDTO.Type=1;
+	messagepublicDTO.Sender_ID = rec.Sender_ID;
+	messagepublicDTO.Group_ID = rec.Group_ID;
 
+<<<<<<< HEAD
 	vector<UserDTO> userList;
 	GroupChatService::GetGroupMember(userList, rec.Group_ID);
 	int count=userList.size();
@@ -221,6 +229,17 @@ bool SendGM(int client_fd)
 	{
 		if(userList[i].IP_Addr!= rec.Sender_ID)
 			send(userList[i].IP_Addr, (char*)& rec, sizeof(rec), 0);
+=======
+	MessagePublicService::Add(messagepublicDTO);
+
+	vector<UserDTO> userlist;
+	GroupChatService::GetGroupMember(userlist, rec.Group_ID);
+	
+	for (int i = 0; i < userlist.size(); i++)
+	{
+		if(userlist[i].IP_Addr != rec.Sender_ID)
+			send(userlist[i].IP_Addr, (char*)& rec, sizeof(rec), 0);
+>>>>>>> ab96c520feaaa177dc95eb933d981b9339b3fecb
 	}
 
 	return true;
@@ -235,14 +254,34 @@ bool Send(int client_fd)
 	len = recv(client_fd, buf, MAX_BUF, 0);
 	puts(buf);
 
+<<<<<<< HEAD
 	MessagePrivateDTO rec;
+=======
+	MessagePrivate rec;
+>>>>>>> ab96c520feaaa177dc95eb933d981b9339b3fecb
 	memcpy(&rec, buf, len);
-	MessagePrivateService::Add(rec);
+	MessagePrivateDTO messageprivateDTO;
+	string str = rec.Context;
+	messageprivateDTO.Context = str;
+	str = rec.Time;
+	messageprivateDTO.Time = str;
+	messageprivateDTO.Type=1;
+	messageprivateDTO.Sender_ID = rec.Sender_ID;
+	messageprivateDTO.Recver_ID = rec.Recver_ID;
+
+	MessagePrivateService::Add(messageprivateDTO);
 
 	UserDTO user;
 	user = UserService::SelectedByID(rec.Recver_ID);
 
+<<<<<<< HEAD
 	send(user.IP_Addr, (char*)&rec, sizeof(rec), 0);
+=======
+	send(user.IP_Addr, (char*)& rec, sizeof(rec), 0);
+<<<<<<< HEAD
+=======
+>>>>>>> ab96c520feaaa177dc95eb933d981b9339b3fecb
 
+>>>>>>> 55caf2bb893c3bc0811b5280586ccaca8e15fa07
 	return true;
 }
