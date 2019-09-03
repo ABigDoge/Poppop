@@ -1,11 +1,5 @@
 #include "socket.h"
-
-//登录时发送的结构体
-struct Login 
-{
-	int ID;
-	char PassWord[30];
-}
+#include "StructForSocket.h"
 
 int Login(int id, const char* password)
 {

@@ -1,15 +1,8 @@
 #include "socket.h"
+#include "StructForSocket.h"
 
-struct MessagePrivate 
+int SendMessege(int this_id, int that_id, const char* msg)
 {
-	int Sender_ID;   //消息发送者
-	int Recver_ID;   //消息发送者
-	char Context[200];
-	//以下为服务端发送消息给客户端时填写的数据
-	char Time[20];
-};
-
-int SendMessege(int this_id, int that_id, const char* msg){
     char buf[MAX_BUF + 1];
 
     // 发命令
