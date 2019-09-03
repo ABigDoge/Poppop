@@ -206,7 +206,7 @@ bool List(int client_fd) {
 	return true;
 }
 
-void SendGM(int client_fd) 
+bool SendGM(int client_fd) 
 {
 	char buf[MAX_BUF + 1];
 	bzero(buf, MAX_BUF + 1);
@@ -227,10 +227,10 @@ void SendGM(int client_fd)
 			send(userList[i].IP_Addr, (char*)& rec, sizeof(rec), 0);
 	}
 
-	
+	return true;
 }
 
-void Send(int client_fd)
+bool Send(int client_fd)
 {
 	char buf[MAX_BUF + 1];
 	bzero(buf, MAX_BUF + 1);
@@ -247,4 +247,5 @@ void Send(int client_fd)
 	user = SelectedByID(rec.Recver_ID);
 
 	send(user.IP_Addr, (char*)& rec, sizeof(rec), 0);
+	return true;
 }
