@@ -17,11 +17,11 @@ struct User{
     unsigned int IP_Addr;
     int Oneline_State;
 };
-//登录时发送的结构体
+//登录退出时发送的结构体
 struct Login{
     int ID;
-    char PassWord[30]; 
-}
+    char PassWord[30];
+};
 //申请添加好友发送的结构体;申请修改好友分组时的结构体
 struct Friend{
     int This_ID;
@@ -51,5 +51,10 @@ struct GroupChat{
     char Name[40];
     char Member_ID_List[200];//务必注意：前端在创建群聊时,Member必须是好友列表里的
     char Image_Path[50];
+};
+
+struct Notice{
+    int flag;
+    char Context[200];
 };
 #endif
