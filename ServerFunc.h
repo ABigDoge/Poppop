@@ -18,11 +18,9 @@
 #include <cassert>
 #include "DTO.h"
 #include "Service.h"
-#include "StructForSocket.h"
 #define SERVER_PORT 8088 // 端口
 #define MAX_LISTEN 5 // 最大监听数
 #define MAX_BUF 1024 // 缓冲区大小
-using namespace std;
 struct pthread_data
 {
     struct sockaddr_in client_addr;
@@ -30,11 +28,14 @@ struct pthread_data
 };
 
 bool Login(int client_fd);
-bool CreateGroupChat(int client_fd);
-bool Register(int client_fd);
+bool Create(int client_fd);
+bool CreateUser(int client_fd);
 bool Quit(int client_fd);
 bool Apply(int client_fd);
-bool List(int client_fd);
+bool Reply(int client_fd);
+bool Send(int client_fd);
+bool SendGM(int client_fd);
+
 class CMD
 {
 public:
