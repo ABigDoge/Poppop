@@ -164,6 +164,10 @@ bool CreateGroupChat(int client_fd)
     rec.ID=groupChatDTO.ID;
     vector<UserDTO> userList;
     int count=GroupChatService::GetGroupMember(userList,groupChatDTO.ID);
+    Notice notice;
+    notice.flag = count;        //成功
+    strcpy(notice.Context,"Success!\n");
+    send(client_fd,(char*)&notice,sizeof(notice),0);
     for(int i=0;i<count;i++){
         send(userList[i].IP_Addr,(char*)&rec,sizeof(rec),0);
     }
@@ -194,5 +198,9 @@ bool List(int client_fd){
         strcpy(user.Motto, userList[i].Motto.c_str());
         send(client_fd,(char*)&user,sizeof(user),0);
     }
+    Notice notice;
+    notice.flag = count;        //成功
+    strcpy(notice.Context,"Success!\n");
+    send(client_fd,(char*)&notice,sizeof(notice),0);
     return true;
 }

@@ -66,6 +66,11 @@ GroupChatDTO GroupChatService::SelectedByID(int id)
     return groupchatDTO;
 }
 
+int GetGroupChatList(vector<GroupChatDTO>& groupChatList, GroupChatSearchDTO dto)
+{
+    
+}
+
 int GroupChatService::GetGroupMember(vector<UserDTO>& userlist, int id)
 {
     mysql::connection &db=DBContextFactory::Instance();

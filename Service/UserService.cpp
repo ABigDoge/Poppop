@@ -73,6 +73,7 @@ int UserService::GetUserList(vector<UserDTO>& userList, UserSearchDTO dto){
             userDTO.PassWord=row.PassWord;
             userDTO.Sex=row.Sex;
             userDTO.Image=row.ImagePath;
+            userDTO.Online_State = row.IsOnline;
             userDTO.Department_Name=row.DepartmentName;
             userDTO.Motto=row.Motto;
             userList.push_back(userDTO);
