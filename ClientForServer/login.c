@@ -2,7 +2,7 @@
 
 extern int Login(const struct Login data){
 
-    if (send(fd, "login", MAX_BUF, 0) <= 0)
+    if(send(fd, "login", MAX_BUF, 0) <= 0)
 		return 0;
 
     // 发数据
