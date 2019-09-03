@@ -1,36 +1,34 @@
 #include "socket.h"
 
-struct User{
-    int ID;
-    char PassWord[20];
-};
+//登录时发送的结构体
+struct Login 
+{
+	int ID;
+	char PassWord[30];
+}
 
-int Login(int id, const char* password){
+int Login(int id, const char* password)
+{
     char buf[MAX_BUF + 1];
     char s_id[MAX_BUF + 1];
     
   	// 发命令
 	bzero(buf, MAX_BUF + 1);
-	memcpy(buf, "login",30);
-	if (send(fd, buf, strlen(buf)+1, 0) <= 0)
+	memcpy(buf, "login", 30);
+	if (send(fd, buf, strlen(buf) + 1, 0) <= 0)
 		return 0;
 
-    // 获取发送消息
-    sprintf(s_id, "%d" , id);
-    bzero(buf, MAX_BUF + 1);
-    // strcpy(buf, s_id);
-    // strcat(buf, " ");
-    // strcat(buf, password);
-    
+    // 获取发送消息  
     struct User a;
-    a.ID=id;
-    memcpy(a.PassWord,password,strlen(password)+1);
+	memset((char*)& test, 0, sizeof(test));
+    a.ID = id;
+    memcpy(a.PassWord, password, strlen(password)+1);
 
 	// 发消息
-	// if (send(fd, buf, strlen(buf), 0) <= 0)
-    if(send(fd,(char*)&a,sizeof(a),0)<=0)
+    if(send(fd, (char*)&a, sizeof(a), 0) <= 0)
 		return 0;
-    else{
+    else
+	{
         // stderr<<"ok"<<endl;
     }
     
@@ -43,6 +41,7 @@ int Login(int id, const char* password){
     return 0;
 }
 
-void Close(){
+void Close()
+{
     close(fd);
 }
