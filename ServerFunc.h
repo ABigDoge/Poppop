@@ -33,7 +33,7 @@ bool CreateGroupChat(int client_fd);
 bool Register(int client_fd);
 bool Quit(int client_fd);
 bool Apply(int client_fd);
-bool Reply(int client_fd);
+//bool Reply(int client_fd);
 class CMD
 {
 public:

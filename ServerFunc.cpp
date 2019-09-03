@@ -66,47 +66,20 @@ bool Quit(int client_fd)
 /***************************************************/
 bool Apply(int client_fd)
 {
-    MessagePrivateDTO ret;
     char buf[MAX_BUF + 1];
-    char *argv[10] = {NULL};
-    int argc = 0;
     socklen_t len;
     len = recv(client_fd, buf, MAX_BUF, 0);
-    while ((argv[argc] = strtok((argc == 0 ? buf : NULL), " ")) != NULL)
-    {
-        argc++;
-    }
-    UserDTO userThis;
-    UserDTO userThat;
-    userThis = UserService::SelectedByID(atoi(argv[0]));
-    userThat = UserService::SelectedByID(atoi(argv[1]));
-    if(FriendService::IsFriend(userThis.ID,userThat.ID)){
-        // string str="fail";
-        // send(userThat.IP_Addr, str, sizeof(str) * sizeof(char), 0);
-        return true;
-    }
-    string rbuf = "";
-    string str1 = "apply";
-    string str2 = argv[0];
-    rbuf = str1 + " " + str2 + " " + argv[2];
-    //
-    char *str = const_cast<char *>(rbuf.c_str());
-    if (userThat.Online_State == 1)
-    {
-        printf("online\n");
-        send(userThat.IP_Addr, str, sizeof(str) * sizeof(char), 0);
-    }
-    else
-    {
-        MessagePrivateDTO msg;
-        msg.Context = rbuf;
-        msg.Time = "";
-        msg.Sender_ID = userThis.ID;
-        msg.Recver_ID = userThat.ID;
-        MessagePrivateService::Add(msg);
-        printf("offline\n");
-        send(userThat.IP_Addr, str, sizeof(str) * sizeof(char), 0);
-    }
+    struct Friend rec;
+    memcpy(&rec, buf, len);
+    FriendDTO friendDTO;
+    friendDTO.This_ID = rec.This_ID;
+    friendDTO.That_ID = rec.That_ID;
+    friendDTO.Group_ID = rec.Group_ID;
+    FriendService::Add(friendDTO);
+    friendDTO.This_ID = rec.That_ID;
+    friendDTO.That_ID = rec.This_ID;
+    FriendService::Add(friendDTO);
+    return true;
 }
 
 /**************************************************/
@@ -123,55 +96,55 @@ bool Apply(int client_fd)
 /*wlj
 /*2019-9-2
 /**************************************************/
-bool Reply(int client_fd)
-{
-    char buf[MAX_BUF + 1];
-    char *argv[10] = {NULL};
-    int argc = 0;
-    socklen_t len;
-    len = recv(client_fd, buf, MAX_BUF, 0);
-    while ((argv[argc] = strtok((argc == 0 ? buf : NULL), " ")) != NULL)
-    {
-        argc++;
-    }
-    UserDTO userThis;
-    UserDTO userThat;
-    userThis = UserService::SelectedByID(atoi(argv[0]));
-    userThat = UserService::SelectedByID(atoi(argv[1]));
-    MessagePrivateDTO msg;
-    if (argv[2] == 0)
-    {
-        msg.Context = "对不起，你是个好人,但我连朋友也不想和你做！";
-    }
-    else
-    {
-        msg.Context = "我们已经是好友了，一起来聊天吧！";
-        FriendDTO friendDTO;
-        friendDTO.This_ID=userThis.ID;
-        friendDTO.That_ID=userThat.ID;
-        FriendService::Add(friendDTO);
-        friendDTO.This_ID = userThat.ID;
-        friendDTO.That_ID = userThis.ID;
-        FriendService::Add(friendDTO);
-    }
-    //printf("To User : %d %d\n", ret.Recver_ID, userThat.IP_Addr);
-    string rbuf = "";
-    string str1 = "reply";
-    string str2 = argv[0];
-    rbuf = str1 + str2 + argv[2];
-    if (userThat.Online_State == 1)
-    {
-        send(userThat.IP_Addr, rbuf.c_str(), 2 * sizeof(rbuf.c_str()), 0);
-    }
-    else
-    {
-        msg.Context = rbuf;
-        msg.Time = "";
-        msg.Sender_ID = userThis.ID;
-        msg.Recver_ID = userThat.ID;
-        MessagePrivateService::Add(msg);
-    }
-}
+// bool Reply(int client_fd)
+// {
+//     char buf[MAX_BUF + 1];
+//     char *argv[10] = {NULL};
+//     int argc = 0;
+//     socklen_t len;
+//     len = recv(client_fd, buf, MAX_BUF, 0);
+//     while ((argv[argc] = strtok((argc == 0 ? buf : NULL), " ")) != NULL)
+//     {
+//         argc++;
+//     }
+//     UserDTO userThis;
+//     UserDTO userThat;
+//     userThis = UserService::SelectedByID(atoi(argv[0]));
+//     userThat = UserService::SelectedByID(atoi(argv[1]));
+//     MessagePrivateDTO msg;
+//     if (argv[2] == 0)
+//     {
+//         msg.Context = "对不起，你是个好人,但我连朋友也不想和你做！";
+//     }
+//     else
+//     {
+//         msg.Context = "我们已经是好友了，一起来聊天吧！";
+//         FriendDTO friendDTO;
+//         friendDTO.This_ID=userThis.ID;
+//         friendDTO.That_ID=userThat.ID;
+//         FriendService::Add(friendDTO);
+//         friendDTO.This_ID = userThat.ID;
+//         friendDTO.That_ID = userThis.ID;
+//         FriendService::Add(friendDTO);
+//     }
+//     //printf("To User : %d %d\n", ret.Recver_ID, userThat.IP_Addr);
+//     string rbuf = "";
+//     string str1 = "reply";
+//     string str2 = argv[0];
+//     rbuf = str1 + str2 + argv[2];
+//     if (userThat.Online_State == 1)
+//     {
+//         send(userThat.IP_Addr, rbuf.c_str(), 2 * sizeof(rbuf.c_str()), 0);
+//     }
+//     else
+//     {
+//         msg.Context = rbuf;
+//         msg.Time = "";
+//         msg.Sender_ID = userThis.ID;
+//         msg.Recver_ID = userThat.ID;
+//         MessagePrivateService::Add(msg);
+//     }
+// }
 
 /**************************************************/
 /*名称：bool Register(int client_fd)

@@ -20,11 +20,7 @@ struct User{
 //登录退出时发送的结构体
 struct Login{
     int ID;
-<<<<<<< HEAD
-    char PassWord[30]; 
-=======
     char PassWord[30];
->>>>>>> 7df3fe0d68d4f680f7b786c99b6e12c66d432ab9
 };
 //申请添加好友发送的结构体;申请修改好友分组时的结构体
 struct Friend{
