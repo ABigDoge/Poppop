@@ -8,7 +8,7 @@ int ApplyForFriend(const struct Friend data){
 	char buf[MAX_BUF + 1];
 	int len = recv(fd, buf, MAX_BUF, 0);
 	if(len <= 0)
-        return 0;
+      return 0;
 	struct Notice new_data;
   memcpy(&new_data, buf, len);
   return new_data.flag;

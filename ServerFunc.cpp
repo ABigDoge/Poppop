@@ -34,6 +34,7 @@ bool Login(int client_fd)
 	string str = rec.PassWord;
 	if (str.compare(get_from_DB.PassWord) == 0)
 	{
+		printf("match\n");
 		UserService::PutUserOnline(rec.ID, client_fd);
 		Notice notice;
 		notice.flag = 1;        //成功
@@ -41,7 +42,8 @@ bool Login(int client_fd)
 		send(client_fd, (char*)& notice, sizeof(notice), 0);
 	}
 	else
-	{
+	{	printf("not match\n");
+		cout<<get_from_DB.PassWord<<endl;
 		Notice notice;
 		notice.flag = 0;        //失败
 		strcpy(notice.Context, "wrong ID or Password!\n");
@@ -74,6 +76,18 @@ bool Quit(int client_fd)
 	return true;
 }
 
+User UserStructSelectedbyID(int id){
+	User user;
+	UserDTO userDTO=UserService::SelectedByID(id);
+	user.ID=userDTO.ID;
+	user.Name=userDTO.Name;
+	user.Department_Name=userDTO.Department_Name;
+	user.Sex=userDTO.Sex;
+	user.IP_Addr=userDTO.IP_Addr;
+	return user;
+}
+
+
 /**************************************************/
 /*名称：bool Apply(int client_fd)
 /*描述：添加好友
@@ -102,6 +116,17 @@ bool Apply(int client_fd)
 	notice.flag = 1;        //成功
 	strcpy(notice.Context, "Success!\n");
 	send(client_fd, (char*)& notice, sizeof(notice), 0);
+
+	Notice notice;
+	notice.flag=1;
+	User user=UserStructSelectedbyID(friendDTO.This_ID);
+	send(user.IP_Addr,(char*)& notice,sizeof(notice),0);
+	send(user.IP_Addr,(char*)&user,sizeof(user),0);
+
+	user=UserStructSelectedbyID(friendDTO.That_ID);
+	send(user.IP_Addr,(char*)& notice,sizeof(notice),0);
+	send(user.IP_Addr,(char*)&user,sizeof(user),0);
+
 	return true;
 }
 
@@ -164,14 +189,19 @@ bool CreateGroupChat(int client_fd)
 	rec.ID = groupChatDTO.ID;
 	vector<UserDTO> userList;
 	int count = GroupChatService::GetGroupMember(userList, groupChatDTO.ID);
+	// send(client_fd,(char*)&rec,sizeof(rec),0);
+	Notice notice;
+	notice.flag=2;
 	for (int i = 0; i < count; i++) {
-		send(userList[i].IP_Addr, (char*)& rec, sizeof(rec), 0);
+		if(userList[i].IP_Addr!=client_fd){
+			send(userList[i].IP_Addr,(char*)&notice,sizeof(notice),0);
+			send(userList[i].IP_Addr, (char*)& rec, sizeof(rec), 0);
+		}
 	}
  	Notice notice;
-    	notice.flag = count;        //成功
-    	strcpy(notice.Context,"Success!\n");
-    	send(client_fd,(char*)&notice,sizeof(notice),0);
-   
+    notice.flag = count;        //成功
+    strcpy(notice.Context,"Success!\n");
+    send(client_fd,(char*)&notice,sizeof(notice),0);
 	return true;
 }
 
@@ -190,6 +220,10 @@ bool List(int client_fd) {
 	memcpy(&rec, buf, len);
 	vector<UserDTO> userList;
 	int count = FriendService::GetFriendList(userList, rec.ID);
+	Notice notice;
+    notice.flag = count;        //成功
+    strcpy(notice.Context,"Success!\n");
+    send(client_fd,(char*)&notice,sizeof(notice),0);
 	for (int i = 0; i < count; i++) {
 		User user;
 		user.ID = userList[i].ID;
@@ -199,10 +233,6 @@ bool List(int client_fd) {
 		strcpy(user.Motto, userList[i].Motto.c_str());
 		send(client_fd, (char*)& user, sizeof(user), 0);
 	}
-	Notice notice;
-    	notice.flag = count;        //成功
-    	strcpy(notice.Context,"Success!\n");
-    	send(client_fd,(char*)&notice,sizeof(notice),0);
 	return true;
 }
 
@@ -232,7 +262,7 @@ bool SendGM(int client_fd)
 	
 	for (int i = 0; i < userlist.size(); i++)
 	{
-		if(userlist[i].IP_Addr != rec.Sender_ID)
+		if(userlist[i].ID != rec.Sender_ID)
 			send(userlist[i].IP_Addr, (char*)& rec, sizeof(rec), 0);
 	}
 
