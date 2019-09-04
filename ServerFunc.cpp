@@ -76,6 +76,18 @@ bool Quit(int client_fd)
 	return true;
 }
 
+User UserStructSelectedbyID(int id){
+	User user;
+	UserDTO userDTO=UserService::SelectedByID(id);
+	user.ID=userDTO.ID;
+	user.Name=userDTO.Name;
+	user.Department_Name=userDTO.Department_Name;
+	user.Sex=userDTO.Sex;
+	user.IP_Addr=userDTO.IP_Addr;
+	return user;
+}
+
+
 /**************************************************/
 /*名称：bool Apply(int client_fd)
 /*描述：添加好友
@@ -104,6 +116,17 @@ bool Apply(int client_fd)
 	notice.flag = 1;        //成功
 	strcpy(notice.Context, "Success!\n");
 	send(client_fd, (char*)& notice, sizeof(notice), 0);
+
+	Notice notice;
+	notice.flag=1;
+	User user=UserStructSelectedbyID(friendDTO.This_ID);
+	send(user.IP_Addr,(char*)& notice,sizeof(notice),0);
+	send(user.IP_Addr,(char*)&user,sizeof(user),0);
+
+	user=UserStructSelectedbyID(friendDTO.That_ID);
+	send(user.IP_Addr,(char*)& notice,sizeof(notice),0);
+	send(user.IP_Addr,(char*)&user,sizeof(user),0);
+
 	return true;
 }
 
@@ -166,11 +189,14 @@ bool CreateGroupChat(int client_fd)
 	rec.ID = groupChatDTO.ID;
 	vector<UserDTO> userList;
 	int count = GroupChatService::GetGroupMember(userList, groupChatDTO.ID);
+	// send(client_fd,(char*)&rec,sizeof(rec),0);
+	Notice notice;
+	notice.flag=2;
 	for (int i = 0; i < count; i++) {
-		Notice notice;
-		notice.flag=2;
-		send(userList[i].IP_Addr,(char*)&notice,sizeof(notice),0);
-		send(userList[i].IP_Addr, (char*)& rec, sizeof(rec), 0);
+		if(userList[i].IP_Addr!=client_fd){
+			send(userList[i].IP_Addr,(char*)&notice,sizeof(notice),0);
+			send(userList[i].IP_Addr, (char*)& rec, sizeof(rec), 0);
+		}
 	}
  	Notice notice;
     notice.flag = count;        //成功

@@ -45,7 +45,7 @@ extern int RecvMessege(struct MessagePrivate* data);
 // 接收文件，参数为文件保存目录,格式为"/../../"，返回值0为失败，1为成功
 extern int RecvFile(const char* catalog);
 
-// 建群，参数为所有用户的数组，返回值为所建群号
+// 建群，参数为所有用户的数组，返回值是否创建成功
 extern int CreateGroup(const struct GroupChat data);
 
 // 申请好友，参数为为我的id和被申请好友id,返回值0为失败，1为成功

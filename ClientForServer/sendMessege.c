@@ -1,10 +1,6 @@
 #include "socket.h"
 
-<<<<<<< HEAD
 int SendMessege(struct MessagePrivate* a)
-=======
-int SendMessegePrivate(struct MessagePrivate a)
->>>>>>> b2045496e3e159bcc2806c1bbac4ca530612cdfa
 {
     char buf[MAX_BUF + 1];
 
@@ -15,7 +11,7 @@ int SendMessegePrivate(struct MessagePrivate a)
 		return 0;
     
 	// 发消息
-	if (send(fd, (char*)& a, sizeof(a), 0) <= 0)
+	if (send(fd, (char*)& a, sizejanof(a), 0) <= 0)
 		return 0;
     
     return 1;
