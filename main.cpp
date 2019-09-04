@@ -43,7 +43,7 @@ int ExecCmd(int client_fd, char *cmd)
     //     printf("argv[%d] = %s\n", argc, argv[argc]);
     //     argc++;
     // }
-    printf(msg);
+    cout<<msg<<endl;
     /* 查找命令 */
     for (i = 0; i < sizeof(cmdlist) / sizeof(cmdlist[0]); i++)
     {
@@ -51,7 +51,10 @@ int ExecCmd(int client_fd, char *cmd)
         {
             /* 执行命令*/
             cmdlist[i].fun(client_fd);
-            return 1;
+            if(strcmp(msg,"quit")==0)
+                return 2;
+            else
+                return 1;
         }
     }
     printf("cmd not find\n");
@@ -67,6 +70,7 @@ void ErrorHandling(char *message)
 
 void *ServerForClient(void *arg)
 {
+    printf("this is a new thread\n");
     struct pthread_data *pdata = (struct pthread_data *)arg;
     int client_fd = pdata->my_fd;
     socklen_t len;
@@ -75,14 +79,19 @@ void *ServerForClient(void *arg)
     {
         bzero(buf, MAX_BUF + 1);
         len = recv(client_fd, buf, MAX_BUF, 0);
+        //cout<<buf<<endl;
         if (len > 0)
         {
-            if (ExecCmd(client_fd, buf) == -1)
+            int flag=ExecCmd(client_fd, buf);
+            if (flag == -1)
                 break;
-            else if (ExecCmd(client_fd, buf) == 0)
+            else if (flag == 0)
                 printf("ERROR\n");
-            else
+            else if(flag==1)
                 printf("OK1\n");
+            else{
+                break;
+            }
         }
     }
 }

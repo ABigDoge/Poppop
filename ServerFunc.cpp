@@ -21,6 +21,7 @@ bool Login(int client_fd)
 	memcpy(&rec, buf, len);
 	UserDTO get_from_DB;
 	get_from_DB = UserService::SelectedByID(rec.ID);
+	if(get_from_DB)
 	if (get_from_DB.Online_State == 1)
 	{
 		printf("Already online\n");
@@ -31,23 +32,25 @@ bool Login(int client_fd)
 		send(client_fd, (char*)& notice, sizeof(notice), 0);
 		//返回成功
 	}
-	string str = rec.PassWord;
-	if (str.compare(get_from_DB.PassWord) == 0)
-	{
-		printf("match\n");
-		UserService::PutUserOnline(rec.ID, client_fd);
-		Notice notice;
-		notice.flag = 1;        //成功
-		strcpy(notice.Context, "Success!\n");
-		send(client_fd, (char*)& notice, sizeof(notice), 0);
-	}
-	else
-	{	printf("not match\n");
-		cout<<get_from_DB.PassWord<<endl;
-		Notice notice;
-		notice.flag = 0;        //失败
-		strcpy(notice.Context, "wrong ID or Password!\n");
-		send(client_fd, (char*)& notice, sizeof(notice), 0);
+	else{
+		string str = rec.PassWord;
+		if (str.compare(get_from_DB.PassWord) == 0)
+		{
+			printf("match\n");
+			UserService::PutUserOnline(rec.ID, client_fd);
+			Notice notice;
+			notice.flag = 1;        //成功
+			strcpy(notice.Context, "Success!\n");
+			send(client_fd, (char*)& notice, sizeof(notice), 0);
+		}
+		else
+		{	printf("not match\n");
+			cout<<get_from_DB.PassWord<<endl;
+			Notice notice;
+			notice.flag = 0;        //失败
+			strcpy(notice.Context, "wrong ID or Password!\n");
+			send(client_fd, (char*)& notice, sizeof(notice), 0);
+		}
 	}
 	return true;
 }
@@ -150,18 +153,14 @@ bool Register(int client_fd)
 	userDTO.Image = rec.ImagePath;
 	userDTO.PassWord = rec.PassWord;
 	userDTO.IP_Addr = client_fd;
-	userDTO.Online_State = rec.Oneline_State;
+	userDTO.Online_State = 0;
 	UserService::Add(userDTO);
-	rec.ID = userDTO.ID;
-	if (send(client_fd, (char*)& rec, sizeof(rec), 0) <= 0) {
+	Notice notice;
+	notice.flag=userDTO.ID;
+	if (send(client_fd, (char*)& notice, sizeof(notice), 0) <= 0) {
 		return false;
 	}
-	else
-	{
-		Notice notice;
-		notice.flag = 1;        //成功
-		strcpy(notice.Context, "Success!\n");
-		send(client_fd, (char*)& notice, sizeof(notice), 0);
+	else{
 		return true;
 	}
 }
@@ -236,12 +235,16 @@ bool SendGM(int client_fd)
 {
 	char buf[MAX_BUF + 1];
 	bzero(buf, MAX_BUF + 1);
-	int len;
+	size_t len;
 	len = recv(client_fd, buf, MAX_BUF, 0);
-	puts(buf);
-
 	MessagePublic rec;
 	memcpy(&rec, buf, len);
+	
+	
+	cout<<rec.Context<<endl;
+
+
+
 	MessagePublicDTO messagepublicDTO;
 	string str = rec.Context;
 	messagepublicDTO.Context = str;
@@ -274,12 +277,13 @@ bool Send(int client_fd)
 	char buf[MAX_BUF + 1];
 	bzero(buf, MAX_BUF + 1);
 	int len;
-
 	len = recv(client_fd, buf, MAX_BUF, 0);
-	puts(buf);
 
 	MessagePrivate rec;
 	memcpy(&rec, buf, len);
+
+	cout<<rec.Context<<endl;
+
 	MessagePrivateDTO messageprivateDTO;
 	string str = rec.Context;
 	messageprivateDTO.Context = str;

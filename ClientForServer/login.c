@@ -2,11 +2,11 @@
 
 extern int Login(const struct Login data){
 
-    if (send(fd, "login", MAX_BUF, 0) <= 0)
+  if (send(fd, "login", MAX_BUF, 0) <= 0)
 		return 0;
 
     // 发数据
-    if(send(fd, (char*)&data, MAX_BUF, 0) <= 0)
+  if(send(fd, (char*)&data, MAX_BUF, 0) <= 0)
 		return 0;
 
 	char buf[MAX_BUF + 1];
@@ -15,7 +15,7 @@ extern int Login(const struct Login data){
         return 0;
 	
 	struct Notice new_data;
-    memcpy(&new_data, buf, len);
+  memcpy(&new_data, buf, len);
 
-    return new_data.flag;
+  return new_data.flag;
 }

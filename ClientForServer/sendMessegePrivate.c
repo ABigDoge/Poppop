@@ -8,5 +8,8 @@ int SendMessegePrivate(struct MessagePrivate *data){
     // 发数据
     if (send(fd, (char*)&data,sizeof(data), 0) <= 0)
 		  return 0;
+    else{
+        return 1;
+    }
 
 }

@@ -15,8 +15,8 @@ int Register(const struct User data){
 	if(len <= 0)
         return 0;
 	
-	struct User new_data;
-    memcpy(&new_data, buf, len);
+	struct Notice notice;
+    memcpy(&notice, buf, len);
 
-    return new_data.ID;
+    return notice.flag;
 }
