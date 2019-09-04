@@ -8,5 +8,6 @@
 #include"MessagePrivateService.h"
 #include"MessagePublicService.h"
 #include"UserService.h"
+#include"md5_encode.h"
 
 #endif
