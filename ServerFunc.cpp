@@ -34,6 +34,7 @@ bool Login(int client_fd)
 	string str = rec.PassWord;
 	if (str.compare(get_from_DB.PassWord) == 0)
 	{
+		printf("match\n");
 		UserService::PutUserOnline(rec.ID, client_fd);
 		Notice notice;
 		notice.flag = 1;        //成功
@@ -41,7 +42,8 @@ bool Login(int client_fd)
 		send(client_fd, (char*)& notice, sizeof(notice), 0);
 	}
 	else
-	{
+	{	printf("not match\n");
+		cout<<get_from_DB.PassWord<<endl;
 		Notice notice;
 		notice.flag = 0;        //失败
 		strcpy(notice.Context, "wrong ID or Password!\n");
@@ -164,6 +166,12 @@ bool CreateGroupChat(int client_fd)
 	rec.ID = groupChatDTO.ID;
 	vector<UserDTO> userList;
 	int count = GroupChatService::GetGroupMember(userList, groupChatDTO.ID);
+	for (int i = 0; i < count; i++) {
+		Notice notice;
+		notice.flag=2;
+		send(userList[i].IP_Addr,(char*)&notice,sizeof(notice),0);
+		send(userList[i].IP_Addr, (char*)& rec, sizeof(rec), 0);
+	}
  	Notice notice;
     notice.flag = count;        //成功
     strcpy(notice.Context,"Success!\n");
@@ -186,6 +194,10 @@ bool List(int client_fd) {
 	memcpy(&rec, buf, len);
 	vector<UserDTO> userList;
 	int count = FriendService::GetFriendList(userList, rec.ID);
+	Notice notice;
+    notice.flag = count;        //成功
+    strcpy(notice.Context,"Success!\n");
+    send(client_fd,(char*)&notice,sizeof(notice),0);
 	for (int i = 0; i < count; i++) {
 		User user;
 		user.ID = userList[i].ID;
@@ -195,10 +207,6 @@ bool List(int client_fd) {
 		strcpy(user.Motto, userList[i].Motto.c_str());
 		send(client_fd, (char*)& user, sizeof(user), 0);
 	}
-	Notice notice;
-    	notice.flag = count;        //成功
-    	strcpy(notice.Context,"Success!\n");
-    	send(client_fd,(char*)&notice,sizeof(notice),0);
 	return true;
 }
 
@@ -221,15 +229,6 @@ bool SendGM(int client_fd)
 	messagepublicDTO.Sender_ID = rec.Sender_ID;
 	messagepublicDTO.Group_ID = rec.Group_ID;
 
-<<<<<<< HEAD
-	vector<UserDTO> userList;
-	GroupChatService::GetGroupMember(userList, rec.Group_ID);
-	int count=userList.size();
-	for (int i = 0; i < count; i++)
-	{
-		if(userList[i].IP_Addr!= rec.Sender_ID)
-			send(userList[i].IP_Addr, (char*)& rec, sizeof(rec), 0);
-=======
 	MessagePublicService::Add(messagepublicDTO);
 
 	vector<UserDTO> userlist;
@@ -237,9 +236,8 @@ bool SendGM(int client_fd)
 	
 	for (int i = 0; i < userlist.size(); i++)
 	{
-		if(userlist[i].IP_Addr != rec.Sender_ID)
+		if(userlist[i].ID != rec.Sender_ID)
 			send(userlist[i].IP_Addr, (char*)& rec, sizeof(rec), 0);
->>>>>>> ab96c520feaaa177dc95eb933d981b9339b3fecb
 	}
 
 	return true;
@@ -254,11 +252,7 @@ bool Send(int client_fd)
 	len = recv(client_fd, buf, MAX_BUF, 0);
 	puts(buf);
 
-<<<<<<< HEAD
-	MessagePrivateDTO rec;
-=======
 	MessagePrivate rec;
->>>>>>> ab96c520feaaa177dc95eb933d981b9339b3fecb
 	memcpy(&rec, buf, len);
 	MessagePrivateDTO messageprivateDTO;
 	string str = rec.Context;
@@ -274,14 +268,6 @@ bool Send(int client_fd)
 	UserDTO user;
 	user = UserService::SelectedByID(rec.Recver_ID);
 
-<<<<<<< HEAD
-	send(user.IP_Addr, (char*)&rec, sizeof(rec), 0);
-=======
 	send(user.IP_Addr, (char*)& rec, sizeof(rec), 0);
-<<<<<<< HEAD
-=======
->>>>>>> ab96c520feaaa177dc95eb933d981b9339b3fecb
-
->>>>>>> 55caf2bb893c3bc0811b5280586ccaca8e15fa07
 	return true;
 }

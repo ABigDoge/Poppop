@@ -1,6 +1,6 @@
 #include "socket.h"
 
-int SendMessegePrivate(const struct MessagePrivate data){
+int SendMessegePrivate(const struct MessagePrivate* data){
 
     if (send(fd, "send", MAX_BUF, 0) <= 0)
 		return 0;
