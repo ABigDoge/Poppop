@@ -265,9 +265,5 @@ bool Send(int client_fd)
 	user = UserService::SelectedByID(rec.Recver_ID);
 
 	send(user.IP_Addr, (char*)& rec, sizeof(rec), 0);
-<<<<<<< HEAD
-=======
-
->>>>>>> 55caf2bb893c3bc0811b5280586ccaca8e15fa07
 	return true;
 }
