@@ -49,7 +49,7 @@ extern int RecvFile(const char* catalog);
 extern int CreateGroup(const struct GroupChat data);
 
 // 申请好友，参数为为我的id和被申请好友id,返回值0为失败，1为成功
-extern int ApplyForFriend(const struct Friend data);
+extern int ApplyForFriend(const sjantruct Friend data);
 
 // 同意好友与否
 // extern int ReplyFriend();

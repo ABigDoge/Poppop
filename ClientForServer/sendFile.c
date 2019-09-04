@@ -19,7 +19,11 @@ int SendFile(const char* s){
         filename--;
     bzero(buf, MAX_BUF + 1);
     strcpy(buf, filename);
-
+    //发送指令
+    char bufcmd[MAX_BUF + 1];
+	bzero(bufcmd, MAX_BUF + 1);
+	memcpy(bufcmd, "sendfile", 30);
+    
     // 发送文件名
     send(fd, buf, MAX_BUF, 0);
 

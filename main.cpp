@@ -9,8 +9,8 @@ CMD cmdlist[] =
         {"sendgm", SendGM},     //群聊消息
         {"createGroupChat", CreateGroupChat}, //创建群聊
         {"register", Register},
-        // {"sendfile", Sendfile}, //发送文件
-        // {"getfile", Getfile}, //获取文件
+        //{"sendfile", Sendfile}, //发送文件
+        //{"getfile", Getfile}, //获取文件
         {"list",List}, //获取好友列表（已排序）
         // {"show", Show}, //聊天记录
         // {"help", Help}, //获取帮助
