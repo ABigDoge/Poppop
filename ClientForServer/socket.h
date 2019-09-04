@@ -63,6 +63,9 @@ extern struct User ReplyFriend();
 // 接收命令
 extern int RecvNotice();
 
+// 接收被拉群聊的信息
+extern struct GroupChat RecvGroup();
+
 // 关闭连接
 extern void Close();
 
