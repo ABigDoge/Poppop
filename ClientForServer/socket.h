@@ -67,6 +67,6 @@ extern int RecvNotice();
 extern struct GroupChat RecvGroup();
 
 // 关闭连接
-extern void Close();
+extern int Close();
 
 #endif
