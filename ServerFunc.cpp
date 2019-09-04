@@ -260,10 +260,14 @@ bool SendGM(int client_fd)
 	vector<UserDTO> userlist;
 	GroupChatService::GetGroupMember(userlist, rec.Group_ID);
 	
+	Notice notice;
+	notice.flag=4;
 	for (int i = 0; i < userlist.size(); i++)
 	{
-		if(userlist[i].ID != rec.Sender_ID)
+		if(userlist[i].IP_Addr!=client_fd){
+			send(userlist[i].IP_Addr,(char*)&notice,sizeof(notice),0);
 			send(userlist[i].IP_Addr, (char*)& rec, sizeof(rec), 0);
+		}
 	}
 
 	return true;
@@ -294,6 +298,9 @@ bool Send(int client_fd)
 	UserDTO user;
 	user = UserService::SelectedByID(rec.Recver_ID);
 
+	Notice notice;
+	notice.flag=3;
+	send(user.IP_Addr,(char*)&notice,sizeof(notice),0);
 	send(user.IP_Addr, (char*)& rec, sizeof(rec), 0);
 	return true;
 }
