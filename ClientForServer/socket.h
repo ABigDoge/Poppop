@@ -57,7 +57,16 @@ extern int ApplyForFriend(const struct Friend data);
 // 请求好友列表信息
 extern int FriendList(const struct Login data, struct User friends[], int *n);
 
+// 被加好友
+extern struct User ReplyFriend();
+
+// 接收命令
+extern int RecvNotice();
+
+// 接收被拉群聊的信息
+extern struct GroupChat RecvGroup();
+
 // 关闭连接
-extern void Close();
+extern int Close();
 
 #endif

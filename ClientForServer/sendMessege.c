@@ -1,6 +1,10 @@
 #include "socket.h"
 
+<<<<<<< HEAD
 int SendMessege(struct MessagePrivate* a)
+=======
+int SendMessegePrivate(struct MessagePrivate a)
+>>>>>>> b2045496e3e159bcc2806c1bbac4ca530612cdfa
 {
     char buf[MAX_BUF + 1];
 
